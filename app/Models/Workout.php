@@ -22,7 +22,7 @@ class Workout extends Model
 
     public function exercises()
     {
-        return $this->belongsToMany('App\Models\Exercise','workout_exercise', 'workout_id', 'exercise_id')->withPivot('rounds','repetition');
+        return $this->belongsToMany('App\Models\Exercise','workout_exercise', 'workout_id', 'exercise_id')->withPivot('set','repetition');
     }
 
 }
