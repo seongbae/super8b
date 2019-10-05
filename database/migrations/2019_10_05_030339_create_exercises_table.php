@@ -8,11 +8,13 @@ class CreateExercisesTable extends Migration {
 	public function up()
 	{
 		Schema::create('exercises', function(Blueprint $table) {
-			$table->increments('id');
-			$table->softDeletes();
-			$table->string('name', 255);
+			$table->integer('id');
+			$table->string('name');
+			$table->string('focus_area')->nullable();
 			$table->text('alternate_names')->nullable();
 			$table->text('description')->nullable();
+			$table->softDeletes();
+			
 		});
 	}
 

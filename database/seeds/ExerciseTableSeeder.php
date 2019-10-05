@@ -1,9 +1,18 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use Flynsarmy\CsvSeeder\CsvSeeder;
 
-class ExerciseTableSeeder extends Seeder
+class ExerciseTableSeeder extends CsvSeeder
 {
+
+    public function __construct()
+    {
+        $this->table = 'exercises';
+        $this->filename = base_path().'/database/seeds/csvs/exercises.csv';
+    }
+
+
     /**
      * Run the database seeds.
      *
@@ -11,11 +20,11 @@ class ExerciseTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('exercises')->insert([
-            ['id'=>1, 'name' => 'Dumbbell Bench Press'],
-            ['id'=>2, 'name' => 'Flat Chest Press Machine'],
-            ['id'=>3, 'name' => 'Incline Chest Press Machine'],
-            ['id'=>4, 'name' => 'Decline Chest Press Machine']
-        ]);
+        DB::disableQueryLog();
+
+        // Uncomment the below to wipe the table clean before populating
+        DB::table($this->table)->truncate();
+
+        parent::run();
     }
 }

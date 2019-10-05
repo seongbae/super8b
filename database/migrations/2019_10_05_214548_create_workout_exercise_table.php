@@ -16,8 +16,8 @@ class CreateWorkoutExerciseTable extends Migration
         Schema::create('workout_exercise', function (Blueprint $table) {
             $table->integer('workout_id');
             $table->integer('exercise_id');
-            $table->integer('repetition')->nullable();
-            $table->integer('rounds')->nullable();
+            $table->string('repetition')->nullable();
+            $table->integer('set')->nullable();
         });
     }
 
