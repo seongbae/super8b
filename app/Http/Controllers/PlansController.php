@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Workout;
+use App\Models\Plan;
 
-class WorkoutController extends Controller 
+class PlansController extends Controller 
 {
 
   /**
@@ -15,9 +15,9 @@ class WorkoutController extends Controller
    */
   public function index()
   {
-    $workouts = Workout::paginate(15);
+    $plans = Plan::paginate(15);
 
-    return view('workouts.index')->with('workouts', $workouts);
+    return view('plans.index')->with('plans', $plans);
   }
 
   /**
@@ -27,7 +27,7 @@ class WorkoutController extends Controller
    */
   public function create()
   {
-     return view('workouts.create');
+     return view('plans.create');
   }
 
   /**
@@ -37,13 +37,7 @@ class WorkoutController extends Controller
    */
   public function store(Request $request)
   {
-      $workout = new Workout;
-      $workout->name = $request->name;
-
-      if ($request->plan_id)
-        $workout->plan_id = $request->plan_id;
-
-      $workout->save();
+      Workout::save($request);
 
       return redirect('/home');
   }
@@ -56,9 +50,9 @@ class WorkoutController extends Controller
    */
   public function show($id)
   {
-    $workout = Workout::find($id);
+    $plan = Plan::with('workouts')->find($id);
 
-    return view('workouts.show')->with('workout', $workout);
+    return view('plans.show')->with('plan', $plan);
   }
 
   /**
@@ -69,9 +63,9 @@ class WorkoutController extends Controller
    */
   public function edit($id)
   {
-    $workout = Workout::find($id);
+    $plan = Plan::with('workouts')->find($id);
 
-    return view('workouts.edit')->with('workout', $workout);
+    return view('plans.edit')->with('plan', $plan);
   }
 
   /**

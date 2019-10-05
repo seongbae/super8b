@@ -9,9 +9,13 @@ class CreateWorkoutsTable extends Migration {
 	{
 		Schema::create('workouts', function(Blueprint $table) {
 			$table->increments('id');
+			$table->string('name');
+			$table->integer('user_id');
+			$table->integer('plan_id')->nullable();
+			$table->integer('duration')->nullable();
+			$table->integer('intensity')->nullable();
 			$table->timestamps();
 			$table->softDeletes();
-			$table->integer('workout')->unsigned();
 		});
 	}
 

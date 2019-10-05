@@ -5,12 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">Today's Workout
-                    <div class="float-right">
-                        <button type="submit" class="btn btn-primary btn-sm pull-right">
-                            Mark as Complete
-                        </button>
-                    </div>
+                <div class="card-header">Workout Plans
             </div>
             <div class="card-body">
                     @if (session('status'))
@@ -18,6 +13,17 @@
                             {{ session('status') }}
                         </div>
                     @endif
+
+                    <table class="table table-sm">
+                     <tbody>
+                        @foreach($plans as $plan)
+                        <tr>
+                           <td><a href="/plans/{{$plan->id}}">{{ $plan->name }}</a></td>
+                        </tr>
+                        @endforeach
+                     </tbody>
+                  </table>
+                  {{ $plans->links() }}
                 </div>
             </div>
         </div>

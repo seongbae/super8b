@@ -4,7 +4,7 @@
         <label for="name" class="col-md-4 col-form-label text-md-right">Name</label>
 
         <div class="col-md-6">
-            <input id="name" type="text" class="form-control" name="name" placeholder="Billy's Workout" required  autofocus>
+            <input id="name" type="text" class="form-control" name="name" v-model="workoutData.name" placeholder="Billy's Workout" required  autofocus>
         </div>
     </div>
     <div class="form-group row">
@@ -28,8 +28,14 @@
         <label for="exercise" class="col-md-4 col-form-label text-md-right">Exercise</label>
 
         <div class="col-md-6">
-            <input id="exercise" type="text" class="form-control" name="exercise" v-model="exercise" required>
-
+            <input id="exercise" type="text" class="form-control" v-model="query" v-on:keyup="autoComplete" name="exercise" required>
+            <div class="panel-footer" v-if="results.length">
+               <ul class="list-group">
+                <li class="list-group-item" v-for="(result, index) in results" @click="suggestionClick(index)">
+                 <a href="#">{{ result.name }}</a>
+                </li>
+               </ul>
+              </div>
         </div>
     </div>
 
@@ -60,26 +66,43 @@
     </div>
     <hr>
     <ul class="list-group">
-        <li class="list-group-item" v-for="exercise in exercises">{{ exercise }}</li>
+        <li class="list-group-item" v-for="exercise in exerciseList">{{ exercise.name }}</li>
     </ul>
 </form>
 </template>
 
 <script>
     export default {
+        props: ['workoutData'],
         mounted() {
-            console.log('Component mounted.')
+            console.log('Component mounted.');
+            this.fetchExerciseList();
         },
         data() {
             return {
-                exercises: [],
+                exerciseList: [],
                 exercise: "",
+                query: '',
+                results: [],
+                open: false
             };
         },
+        computed: {
+            openSuggestion() {
+                return this.selection !== "" &&
+                       this.matches.length != 0 &&
+                       this.open === true;
+            }
+        },
         methods: {
+            fetchExerciseList() {
+                axios.get('/api/exercises/1').then((res) => {
+                    this.exerciseList = res.data;
+                });
+            },
             addExercise() {
-                this.exercises.push(this.exercise);
-                this.exercise = "";
+                this.exerciseList.push(this.selection);
+                this.result = "";
 
                 // axios.post('/tweet/save', {body: this.body}).then(res => {
                 //     console.log(res.data);
@@ -95,7 +118,22 @@
                     console.log(e);
                 });
                 
-            }
+            },
+            autoComplete(){
+                this.results = [];
+                if(this.query.length > 2){
+                 axios.get('/api/searchexercise',{params: {query: this.query}}).then(response => {
+                  this.results = response.data;
+                 });
+                }
+            },
+            suggestionClick(index) {
+                this.selection = this.results[index];
+                this.query = this.selection.name;
+                this.open = false;
+                this.results = [];
+                console.log(this.selection);
+            },
         }
     }
 </script>

@@ -19,8 +19,13 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::resource('workout', 'WorkoutController');
+Route::resource('workouts', 'WorkoutController');
+Route::resource('plans', 'PlansController');
 Route::resource('exercise', 'ExerciseController');
 Route::resource('focus', 'FocusController');
 
 Route::get('/create', 'WorkoutController@create');
+
+// Route::get('plans', 'PlansController@index');
+// Route::get('plans/{id}', 'PlansController@show');
+// Route::get('plans/{id}', 'PlansController@show');
