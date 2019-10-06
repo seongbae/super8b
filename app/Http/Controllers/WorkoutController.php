@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Workout;
+use App\Models\Plan;
+use Auth;
+
 
 class WorkoutController extends Controller 
 {
@@ -37,15 +40,20 @@ class WorkoutController extends Controller
    */
   public function store(Request $request)
   {
-      $workout = new Workout;
-      $workout->name = $request->name;
+      // $workout = new Workout;
+      // $workout->name = $request->get('name');
 
-      if ($request->plan_id)
-        $workout->plan_id = $request->plan_id;
+      // if ($request->get('plan_id'))
+      //   $workout->plan_id = $request->get('plan_id');
+      $workout = Workout::find($request->get('workout_id'));
+      $plan = Plan::find($request->get('plan_id'));
 
+      $plan->workouts()->attach($workout->id);
+
+      $workout->user_id = Auth::id();
       $workout->save();
 
-      return redirect('/home');
+      //return redirect('/home');
   }
 
   /**

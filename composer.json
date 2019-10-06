@@ -12,6 +12,7 @@
         "fideloper/proxy": "^4.0",
         "flynsarmy/csv-seeder": "1.*",
         "laravel/framework": "^6.0",
+        "laravel/telescope": "^2.1",
         "laravel/tinker": "^1.0",
         "laravel/ui": "^1.0"
     },
