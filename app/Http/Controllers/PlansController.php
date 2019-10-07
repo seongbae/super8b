@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Plan;
+use Auth;
 
 class PlansController extends Controller 
 {
@@ -51,8 +52,9 @@ class PlansController extends Controller
   public function show($id)
   {
     $plan = Plan::with('workouts')->find($id);
+    $user = Auth::user();
 
-    return view('plans.show')->with('plan', $plan);
+    return view('plans.show')->with('plan', $plan)->with('user', $user);
   }
 
   /**

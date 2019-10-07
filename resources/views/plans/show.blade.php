@@ -12,9 +12,7 @@
                             Edit
                         </a>
                         @endif
-                        <button type="submit" class="btn btn-primary btn-sm">
-                            Subscribe
-                        </button>
+                        <subscribe-component :user="{{$user}}" :plan="{{$plan}}" :subscribed="{{$user->subscribed($plan)}}"></subscribe-component>
                     </div>
                 </div>
                 <div class="card-body">

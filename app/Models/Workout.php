@@ -25,4 +25,13 @@ class Workout extends Model
         return $this->belongsToMany('App\Models\Exercise','workout_exercise', 'workout_id', 'exercise_id')->withPivot('set','repetition');
     }
 
+    public function plan()
+    {
+        return $this->belongsTo('App\Models\Plan', 'plan_id');
+    }
+
+    public function finishers()
+    {
+        
+    }
 }

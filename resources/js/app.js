@@ -24,6 +24,8 @@ import Datepicker from 'vuejs-datepicker';
 Vue.component('plan-component', require('./components/PlanComponent.vue').default);
 Vue.component('workout-component', require('./components/WorkoutComponent.vue').default);
 Vue.component('workoutexercise-component', require('./components/WorkoutExerciseComponent.vue').default);
+Vue.component('subscribe-component', require('./components/SubscribeComponent.vue').default);
+Vue.component('mark-complete-component', require('./components/MarkCompleteComponent.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -32,9 +34,6 @@ Vue.component('workoutexercise-component', require('./components/WorkoutExercise
  */
 
 const app = new Vue({
-    el: '#app',
-    components: {
-	    Datepicker
-	  }
+    el: '#app'
 });
 

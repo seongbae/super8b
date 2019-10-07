@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Auth;
 
 class HomeController extends Controller
 {
@@ -23,6 +24,19 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $user = Auth::user();
+
+        $todaysWorkout = collect();
+
+        foreach ($user->subscribedPlans as $plan)
+        {
+            foreach ($plan->workouts as $workout)
+            {
+                if (true)
+                    $todaysWorkout->add($workout);
+            }
+        }
+
+        return view('home')->with('user', $user)->with('todaysWorkout', $todaysWorkout);
     }
 }

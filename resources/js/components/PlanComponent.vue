@@ -59,15 +59,20 @@
         </div>
     </div>
     <div class="form-group row">
+        <label for="date" class="col-md-4 col-form-label text-md-right">Date: </label>
+
+        <div class="col-md-6">
+            <datepicker v-model="start_on" input-class="input"></datepicker>
+        </div>
+    </div>
+      
+    <div class="form-group row">
         <div class="col-md-6 offset-md-4">
             <input type="button" name="addworkout" value="Add Workout" v-on:click="addWorkout" class="btn btn-primary">
         </div>
     </div>
-   <div class="navbar-item" id="date_picker">
-        
-    </div>
-    <ul class="list-group">
-        <li class="list-group-item" v-for="workout in workoutList">{{ workout.name }} <datepicker v-model="date" @selected="saveDate(workout.id)" input-class="input"></datepicker> <a href="#" @click="removeWorkout(workout.id)">X</a></li>
+   <ul class="list-group">
+        <li class="list-group-item" v-for="workout in workoutList">{{ workout.name }} {{workout.pivot.start_on}} <a href="#" @click="removeWorkout(workout.pivot.id)" class="float-right"><i class="fas fa-minus-circle"></i></a></li>
     </ul>
 </form>
 </template>
@@ -81,16 +86,16 @@
             this.plan_name = this.planData.name;
             this.fetchWorkoutList();
             //console.log('mounted:'+this.plan_name);
-            //console.log(this.planData);
+            console.log(this.planData);
         },
         data() {
             return {
-                date: new Date(),
+                start_on: "",
                 workoutList: [],
                 exercises: [],
                 exercise: "",
                 workout: "",
-                query: '',
+                query: "",
                 results: [],
                 workout_id: "",
                 plan_name: this.planData.name,
@@ -114,6 +119,7 @@
             fetchWorkoutList() {
                 axios.get('/api/workouts/'+this.planData.id).then((res) => {
                     this.workoutList = res.data;
+                    console.log(res.data);
                 });
             },
             savePlan() {
@@ -137,7 +143,7 @@
             },
             addWorkout() {
                 if (this.workout_id > 0) {
-                    axios.post('/workouts', {name: this.query, workout_id: this.workout_id, plan_id: this.planData.id}).then(res => {
+                    axios.post('/api/plans/workout', {workout_id: this.workout_id, plan_id: this.planData.id, start_on: this.start_on}).then(res => {
                         this.fetchWorkoutList();
                         this.query = "";
                         this.workout = "";
