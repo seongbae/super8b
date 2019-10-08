@@ -65,7 +65,7 @@ class PlansController extends Controller
    */
   public function edit($id)
   {
-    $plan = Plan::with('workouts')->find($id);
+    $plan = Plan::with('user')->with('workouts')->find($id);
 
     return view('plans.edit')->with('plan', $plan);
   }

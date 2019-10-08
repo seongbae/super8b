@@ -16,7 +16,7 @@ class CreatePlanWorkoutUserTable extends Migration
         Schema::create('plan_workout_user', function (Blueprint $table) {
             $table->integer('plan_workout_id');
             $table->integer('user_id');
-            $table->timestamps();
+            $table->timestamp('completed_on')->useCurrent();
         });
     }
 

@@ -17,19 +17,19 @@
         </div>
     </div>
     <div class="form-group row">
-        <label for="exercise" class="col-md-4 col-form-label text-md-right">Author</label>
+        <label for="user" class="col-md-4 col-form-label text-md-right">Author</label>
 
         <div class="col-md-6">
-            <input id="exercise" type="text" class="form-control" name="exercise" v-model="exercise" required>
+            <input id="user" type="text" class="form-control" name="user" v-model="planData.user.name" readonly>
 
         </div>
     </div>
 
     <div class="form-group row">
-        <label for="repetition" class="col-md-4 col-form-label text-md-right">Goal(s):</label>
+        <label for="goals" class="col-md-4 col-form-label text-md-right">Goal(s):</label>
 
         <div class="col-md-6">
-            <input id="repetition" type="text" class="form-control" name="repetition">
+            <input id="goals" type="text" class="form-control" name="goals">
 
         </div>
     </div>

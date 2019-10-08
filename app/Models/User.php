@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Log;
 
 class User extends Authenticatable
 {
@@ -49,8 +50,13 @@ class User extends Authenticatable
 
     public function subscribed($plan)
     {
-        foreach($this->plans as $subscribedPlan)
+        // Log::info($this);
+        // Log::info($plan);
+
+        foreach($this->subscribedPlans as $subscribedPlan)
         {
+            Log::info('subscribedPlan->id: '. $subscribedPlan->id . ' plan->id: '.$plan->id);
+
             if ($subscribedPlan->id == $plan->id)
                 return 'true';
         }
@@ -67,6 +73,11 @@ class User extends Authenticatable
                 return 'true';
 
         return 'false';
+    }
+
+    public function completedWorkouts()
+    {
+        return $this->belongsToMany('App\Models\PlanWorkout','plan_workout_user', 'user_id', 'plan_workout_id')->withPivot('completed_on');
     }
 
 }

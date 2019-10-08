@@ -6,6 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Plan extends Model
 {
+	public function user()
+	{
+		return $this->belongsTo('App\Models\User');
+	}
+	
    	public function subscribers()
     {
         return $this->belongsToMany('App\Models\User','plan_subscriber', 'plan_id', 'user_id')->withPivot('subscribed_on');

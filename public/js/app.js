@@ -37806,7 +37806,7 @@ var render = function() {
           "label",
           {
             staticClass: "col-md-4 col-form-label text-md-right",
-            attrs: { for: "exercise" }
+            attrs: { for: "user" }
           },
           [_vm._v("Author")]
         ),
@@ -37817,24 +37817,19 @@ var render = function() {
               {
                 name: "model",
                 rawName: "v-model",
-                value: _vm.exercise,
-                expression: "exercise"
+                value: _vm.planData.user.name,
+                expression: "planData.user.name"
               }
             ],
             staticClass: "form-control",
-            attrs: {
-              id: "exercise",
-              type: "text",
-              name: "exercise",
-              required: ""
-            },
-            domProps: { value: _vm.exercise },
+            attrs: { id: "user", type: "text", name: "user", readonly: "" },
+            domProps: { value: _vm.planData.user.name },
             on: {
               input: function($event) {
                 if ($event.target.composing) {
                   return
                 }
-                _vm.exercise = $event.target.value
+                _vm.$set(_vm.planData.user, "name", $event.target.value)
               }
             }
           })
@@ -38010,7 +38005,7 @@ var staticRenderFns = [
         "label",
         {
           staticClass: "col-md-4 col-form-label text-md-right",
-          attrs: { for: "repetition" }
+          attrs: { for: "goals" }
         },
         [_vm._v("Goal(s):")]
       ),
@@ -38018,7 +38013,7 @@ var staticRenderFns = [
       _c("div", { staticClass: "col-md-6" }, [
         _c("input", {
           staticClass: "form-control",
-          attrs: { id: "repetition", type: "text", name: "repetition" }
+          attrs: { id: "goals", type: "text", name: "goals" }
         })
       ])
     ])
