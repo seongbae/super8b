@@ -2239,53 +2239,106 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['workoutData'],
+  props: ['userData', 'workoutData'],
   mounted: function mounted() {
     console.log('Component mounted.');
-    this.fetchExerciseList();
+    console.log(this.workoutData);
+    console.log(this.userData);
+
+    if (this.workoutData) {
+      this.workout = this.workoutData;
+      this.fetchExerciseList();
+    }
   },
   data: function data() {
     return {
       exerciseList: [],
       exercise: "",
-      query: '',
+      query: "",
       results: [],
-      open: false
+      open: false,
+      workoutNameData: "",
+      workout: "",
+      showExerciseAddData: false
     };
   },
   computed: {
     openSuggestion: function openSuggestion() {
       return this.selection !== "" && this.matches.length != 0 && this.open === true;
+    },
+    workoutName: {
+      get: function get() {
+        return this.workoutNameData;
+      },
+      set: function set(name) {
+        this.workoutNameData = name;
+      }
+    },
+    showExerciseAdd: {
+      get: function get() {
+        return this.showExerciseAddData;
+      },
+      set: function set(val) {
+        this.showExerciseAddData = val;
+      }
     }
   },
   methods: {
     fetchExerciseList: function fetchExerciseList() {
       var _this = this;
 
-      axios.get('/api/exercises/1').then(function (res) {
+      axios.get('/api/exercises/' + this.workoutData.id).then(function (res) {
         _this.exerciseList = res.data;
       });
     },
     addExercise: function addExercise() {
       this.exerciseList.push(this.selection);
-      this.result = ""; // axios.post('/tweet/save', {body: this.body}).then(res => {
+      this.result = ""; //this.fetchExerciseList();
+      // axios.post('/tweet/save', {body: this.body}).then(res => {
       //     console.log(res.data);
       // }).catch(e => {
       //     console.log(e);
       // });
     },
-    saveWorkout: function saveWorkout() {
-      axios.post('/workout', {
-        body: this.body
+    removeExercise: function removeExercise(exerciseid) {
+      var _this2 = this;
+
+      axios.post('/api/plans/workout/' + this.planData.id + '/' + workoutid, {
+        _method: 'delete'
       }).then(function (res) {
+        _this2.fetchExerciseList();
+
         console.log(res.data);
       })["catch"](function (e) {
         console.log(e);
       });
     },
+    saveWorkout: function saveWorkout() {
+      var _this3 = this;
+
+      axios.post('/api/workout', {
+        name: this.workoutName,
+        user_id: this.userData.id
+      }).then(function (res) {
+        console.log(res.data);
+        _this3.workout = res.data;
+        _this3.showExerciseAdd = true;
+      })["catch"](function (e) {
+        console.log(e);
+      });
+    },
     autoComplete: function autoComplete() {
-      var _this2 = this;
+      var _this4 = this;
 
       this.results = [];
 
@@ -2295,7 +2348,7 @@ __webpack_require__.r(__webpack_exports__);
             query: this.query
           }
         }).then(function (response) {
-          _this2.results = response.data;
+          _this4.results = response.data;
         });
       }
     },
@@ -38110,7 +38163,7 @@ var render = function() {
       on: {
         submit: function($event) {
           $event.preventDefault()
-          return _vm.addExercise($event)
+          return _vm.saveWorkout($event)
         }
       }
     },
@@ -38131,8 +38184,8 @@ var render = function() {
               {
                 name: "model",
                 rawName: "v-model",
-                value: _vm.workoutData.name,
-                expression: "workoutData.name"
+                value: _vm.workoutName,
+                expression: "workoutName"
               }
             ],
             staticClass: "form-control",
@@ -38144,13 +38197,13 @@ var render = function() {
               required: "",
               autofocus: ""
             },
-            domProps: { value: _vm.workoutData.name },
+            domProps: { value: _vm.workoutName },
             on: {
               input: function($event) {
                 if ($event.target.composing) {
                   return
                 }
-                _vm.$set(_vm.workoutData, "name", $event.target.value)
+                _vm.workoutName = $event.target.value
               }
             }
           })
@@ -38161,95 +38214,128 @@ var render = function() {
       _vm._v(" "),
       _vm._m(1),
       _vm._v(" "),
-      _c("hr"),
-      _vm._v(" "),
-      _c("div", { staticClass: "form-group row" }, [
-        _c(
-          "label",
-          {
-            staticClass: "col-md-4 col-form-label text-md-right",
-            attrs: { for: "exercise" }
-          },
-          [_vm._v("Exercise")]
-        ),
-        _vm._v(" "),
-        _c("div", { staticClass: "col-md-6" }, [
-          _c("input", {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.query,
-                expression: "query"
-              }
-            ],
-            staticClass: "form-control",
-            attrs: {
-              id: "exercise",
-              type: "text",
-              name: "exercise",
-              required: ""
-            },
-            domProps: { value: _vm.query },
-            on: {
-              keyup: _vm.autoComplete,
-              input: function($event) {
-                if ($event.target.composing) {
-                  return
-                }
-                _vm.query = $event.target.value
-              }
-            }
-          }),
-          _vm._v(" "),
-          _vm.results.length
-            ? _c("div", { staticClass: "panel-footer" }, [
-                _c(
-                  "ul",
-                  { staticClass: "list-group" },
-                  _vm._l(_vm.results, function(result, index) {
-                    return _c(
-                      "li",
-                      {
-                        staticClass: "list-group-item",
-                        on: {
-                          click: function($event) {
-                            return _vm.suggestionClick(index)
-                          }
-                        }
-                      },
-                      [
-                        _c("a", { attrs: { href: "#" } }, [
-                          _vm._v(_vm._s(result.name))
-                        ])
-                      ]
-                    )
-                  }),
-                  0
-                )
-              ])
-            : _vm._e()
-        ])
-      ]),
-      _vm._v(" "),
       _vm._m(2),
       _vm._v(" "),
-      _vm._m(3),
+      _c("hr"),
       _vm._v(" "),
-      _vm._m(4),
+      _vm.showExerciseAdd
+        ? _c("div", [
+            _c("div", { staticClass: "form-group row" }, [
+              _c(
+                "label",
+                {
+                  staticClass: "col-md-4 col-form-label text-md-right",
+                  attrs: { for: "exercise" }
+                },
+                [_vm._v("Exercise")]
+              ),
+              _vm._v(" "),
+              _c("div", { staticClass: "col-md-6" }, [
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.query,
+                      expression: "query"
+                    }
+                  ],
+                  staticClass: "form-control",
+                  attrs: {
+                    id: "exercise",
+                    type: "text",
+                    name: "exercise",
+                    required: ""
+                  },
+                  domProps: { value: _vm.query },
+                  on: {
+                    keyup: _vm.autoComplete,
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.query = $event.target.value
+                    }
+                  }
+                }),
+                _vm._v(" "),
+                _vm.results.length
+                  ? _c("div", { staticClass: "panel-footer" }, [
+                      _c(
+                        "ul",
+                        { staticClass: "list-group" },
+                        _vm._l(_vm.results, function(result, index) {
+                          return _c(
+                            "li",
+                            {
+                              staticClass: "list-group-item",
+                              on: {
+                                click: function($event) {
+                                  return _vm.suggestionClick(index)
+                                }
+                              }
+                            },
+                            [
+                              _c("a", { attrs: { href: "#" } }, [
+                                _vm._v(_vm._s(result.name))
+                              ])
+                            ]
+                          )
+                        }),
+                        0
+                      )
+                    ])
+                  : _vm._e()
+              ])
+            ]),
+            _vm._v(" "),
+            _vm._m(3),
+            _vm._v(" "),
+            _vm._m(4),
+            _vm._v(" "),
+            _c("div", { staticClass: "form-group row mb-0" }, [
+              _c("div", { staticClass: "col-md-6 offset-md-4" }, [
+                _c("input", {
+                  staticClass: "btn btn-primary",
+                  attrs: {
+                    type: "button",
+                    name: "addExercise",
+                    value: "Add Exercise"
+                  },
+                  on: { click: _vm.addExercise }
+                })
+              ])
+            ])
+          ])
+        : _vm._e(),
       _vm._v(" "),
       _c("hr"),
       _vm._v(" "),
-      _c(
-        "ul",
-        { staticClass: "list-group" },
-        _vm._l(_vm.exerciseList, function(exercise) {
-          return _c("li", { staticClass: "list-group-item" }, [
-            _vm._v(_vm._s(exercise.name))
-          ])
-        }),
-        0
-      )
+      _vm.exerciseList.length > 0
+        ? _c(
+            "ul",
+            { staticClass: "list-group" },
+            _vm._l(_vm.exerciseList, function(exercise) {
+              return _c("li", { staticClass: "list-group-item" }, [
+                _vm._v(_vm._s(exercise.name) + " "),
+                _c(
+                  "a",
+                  {
+                    staticClass: "float-right",
+                    attrs: { href: "#" },
+                    on: {
+                      click: function($event) {
+                        return _vm.removeExercise(exercise.pivot.id)
+                      }
+                    }
+                  },
+                  [_c("i", { staticClass: "fas fa-minus-circle" })]
+                )
+              ])
+            }),
+            0
+          )
+        : _vm._e()
     ]
   )
 }
@@ -38308,6 +38394,25 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "form-group row" }, [
+      _c("label", {
+        staticClass: "col-md-4 col-form-label text-md-right",
+        attrs: { for: "notes" }
+      }),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-md-6" }, [
+        _c(
+          "button",
+          { staticClass: "btn btn-primary btn-sm", attrs: { type: "submit" } },
+          [_vm._v("\r\n                Save\r\n            ")]
+        )
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "form-group row" }, [
       _c(
         "label",
         {
@@ -38344,20 +38449,6 @@ var staticRenderFns = [
           staticClass: "form-control",
           attrs: { id: "rounds", type: "text", name: "rounds" }
         })
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "form-group row mb-0" }, [
-      _c("div", { staticClass: "col-md-6 offset-md-4" }, [
-        _c(
-          "button",
-          { staticClass: "btn btn-primary", attrs: { type: "submit" } },
-          [_vm._v("\r\n                Add\r\n            ")]
-        )
       ])
     ])
   }

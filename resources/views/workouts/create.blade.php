@@ -6,14 +6,11 @@
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header">
-                	Create Workout
-                	<button type="submit" class="btn btn-primary btn-sm">
-                Save
-            </button>
+                	Create/Edit Workout {{$user->name}}
                 </div>
 
                 <div class="card-body">
-                    <workout-component></workout-component>
+                    <workout-component :user-data="{{$user}}"></workout-component>
 	            </div>
                 </div>
             </div>

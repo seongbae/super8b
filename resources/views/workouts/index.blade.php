@@ -3,34 +3,56 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">Workout 
-            </div>
-            <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
-
-                    <table class="table table-sm table-striped">
+        <div class="col-md-12">
+            @if (session('status'))
+                <div class="alert alert-success" role="alert">
+                    {{ session('status') }}
+                </div>
+            @endif
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+              <li class="nav-item">
+                <a class="nav-link active" id="home-tab" data-toggle="tab" href="#myworkouts" role="tab" aria-controls="home" aria-selected="true">My Workouts</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" id="history-tab" data-toggle="tab" href="#allworkouts" role="tab" aria-controls="contact" aria-selected="false">All Workouts</a>
+              </li>
+            </ul>
+            <div class="tab-content pt-4 pl-1" id="myTabContent">
+              <div class="tab-pane fade show active" id="myworkouts" role="tabpanel" aria-labelledby="home-tab">
+                <table class="table table-sm">
                      <thead>
                      <tr>
                         <th>Name</th>
                      </tr>
                      </thead>
                      <tbody>
-                        @foreach($workouts as $workout)
+                        @foreach($myworkouts as $workout)
                         <tr>
                            <td><a href="/workouts/{{$workout->id}}">{{ $workout->name }}</a></td>
                         </tr>
                         @endforeach
                      </tbody>
                   </table>
-                  {{ $workouts->links() }}
-                </div>
-            </div>
+                  {{ $myworkouts->links() }}
+              </div>
+              <div class="tab-pane fade" id="allworkouts" role="tabpanel" aria-labelledby="history-tab">
+                  <table class="table table-sm">
+                     <thead>
+                     <tr>
+                        <th>Name</th>
+                     </tr>
+                     </thead>
+                     <tbody>
+                        @foreach($allworkouts as $workout)
+                        <tr>
+                           <td><a href="/workouts/{{$workout->id}}">{{ $workout->name }}</a></td>
+                        </tr>
+                        @endforeach
+                     </tbody>
+                  </table>
+                  {{ $allworkouts->links() }}
+              </div>
+          </div>
         </div>
     </div>
 </div>

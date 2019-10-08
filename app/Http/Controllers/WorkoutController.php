@@ -18,9 +18,10 @@ class WorkoutController extends Controller
    */
   public function index()
   {
-    $workouts = Workout::paginate(15);
+    $myWorkouts = Workout::where('user_id', Auth::id())->paginate(15);
+    $allWorkouts = Workout::paginate(15);
 
-    return view('workouts.index')->with('workouts', $workouts);
+    return view('workouts.index')->with('myworkouts', $myWorkouts)->with('allworkouts', $allWorkouts);
   }
 
   /**
@@ -30,7 +31,9 @@ class WorkoutController extends Controller
    */
   public function create()
   {
-     return view('workouts.create');
+    $user = Auth::user();
+
+    return view('workouts.create')->with('user', $user);
   }
 
   /**

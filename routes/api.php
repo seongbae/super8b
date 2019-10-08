@@ -52,13 +52,28 @@ Route::post('/plans/update_subscription', function (Request $request) {
 // Workout routes
 Route::get('/workouts/{planid}', function ($id) {
 	$plan = App\Models\Plan::find($id);
-
     return $plan->workouts; //()->withPivot('id','start_on','order');
+});
+
+Route::post('/workout', function (Request $request) {
+	$plan = App\Models\Plan::find($request->get('plan_id'));
+
+	$workout = new App\Models\Workout;
+	$workout->name = $request->get('name');
+	$workout->user_id = $request->get('user_id');
+	$workout->save();
+	
+	return $workout;
 });
 
 Route::get('/exercises/{workoutid}', function ($id) {
 	$workout = App\Models\Workout::with('exercises')->find($id);
     return $workout->exercises;
+});
+
+Route::delete('/workouts/{workoutid}/{exerciseid}', function ($workoutid, $exerciseid) {
+	$workout = App\Models\Workout::find($workoutid);
+	$workout->exercises()->wherePivot('exercise_id', $exerciseid)->detach();
 });
 
 // Search routes
