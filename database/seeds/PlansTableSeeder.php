@@ -17,6 +17,6 @@ class PlansTableSeeder extends Seeder
             'user_id' => 1
         ]);
 
-        factory(App\Models\Plan::class, 50)->create();
+        //factory(App\Models\Plan::class, 50)->create();
     }
 }

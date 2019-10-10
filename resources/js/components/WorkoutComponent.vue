@@ -47,6 +47,7 @@
                     </li>
                    </ul>
                   </div>
+                  <input id="exercise_id" type="hidden" class="form-control" v-model="exercise_id" name="exercise_id">
             </div>
         </div>
         <div class="form-group row">
@@ -91,6 +92,9 @@
             if (this.workoutData)
             {
                 this.workout = this.workoutData;
+                this.workout_id = this.workout.id;
+                this.workoutName = this.workout.name;
+                this.showExerciseAdd = true;
                 this.fetchExerciseList();
             }
         },
@@ -101,9 +105,10 @@
                 query: "",
                 results: [],
                 open: false,
-                workoutNameData: "",
+                workoutName: "",
                 workout: "",
-                showExerciseAddData: false
+                showExerciseAdd: false,
+                exercise_id: ""
             };
         },
         computed: {
@@ -111,34 +116,30 @@
                 return this.selection !== "" &&
                        this.matches.length != 0 &&
                        this.open === true;
-            },
-            workoutName: {
-                get: function() {
-                    return this.workoutNameData;
-                },
-                set: function (name) {
-                  this.workoutNameData = name;
-                }
-            },
-            showExerciseAdd: {
-                get: function() {
-                    return this.showExerciseAddData;
-                },
-                set: function (val) {
-                  this.showExerciseAddData = val;
-                }
             }
         },
         methods: {
             fetchExerciseList() {
-
-                axios.get('/api/exercises/'+this.workoutData.id).then((res) => {
+                axios.get('/api/exercises/'+this.workout.id).then((res) => {
                     this.exerciseList = res.data;
                 });
             },
             addExercise() {
-                this.exerciseList.push(this.selection);
-                this.result = "";
+                if (this.exercise_id > 0) {
+                    axios.post('/api/plans/workout', {workout_id: this.workout.id, exercise_id: this.exercise_id}).then(res => {
+                        this.fetchExerciseList();
+                        this.query = "";
+                        this.workout = "";
+                        this.workout_id = "";
+                        this.start_on = "";
+                        console.log(res.data);
+                    }).catch(e => {
+                        console.log(e);
+                    });
+                }
+                // }
+                // this.exerciseList.push(this.selection);
+                // this.result = "";
                 //this.fetchExerciseList();
 
                 // axios.post('/tweet/save', {body: this.body}).then(res => {
@@ -149,7 +150,8 @@
                 
             },
             removeExercise(exerciseid) {
-                axios.post('/api/plans/workout/'+this.planData.id+'/'+workoutid, {_method: 'delete'}).then(res => {
+                console.log(this.workout);
+                axios.post('/api/workouts/'+exerciseid, {_method: 'delete'}).then(res => {
                     this.fetchExerciseList();
                     console.log(res.data);
                 }).catch(e => {
@@ -176,6 +178,7 @@
             },
             suggestionClick(index) {
                 this.selection = this.results[index];
+                this.exercise_id = this.selection.id;
                 this.query = this.selection.name;
                 this.open = false;
                 this.results = [];

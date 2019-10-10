@@ -12,14 +12,24 @@ class WorkoutController extends Controller
 {
 
   /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+  /**
    * Display a listing of the resource.
    *
    * @return Response
    */
   public function index()
   {
-    $myWorkouts = Workout::where('user_id', Auth::id())->paginate(15);
-    $allWorkouts = Workout::paginate(15);
+    $myWorkouts = Workout::where('user_id', Auth::id())->orderBy('name')->paginate(15);
+    $allWorkouts = Workout::orderBy('name')->paginate(15);
 
     return view('workouts.index')->with('myworkouts', $myWorkouts)->with('allworkouts', $allWorkouts);
   }
@@ -75,8 +85,9 @@ class WorkoutController extends Controller
   public function edit($id)
   {
     $workout = Workout::find($id);
+    $user = Auth::user();
 
-    return view('workouts.edit')->with('workout', $workout);
+    return view('workouts.edit')->with('workout', $workout)->with('user', $user);
   }
 
   /**

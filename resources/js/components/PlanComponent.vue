@@ -4,32 +4,21 @@
         <label for="name" class="col-md-4 col-form-label text-md-right">Name</label>
 
         <div class="col-md-6">
-            <input id="name" type="text" class="form-control" v-model="planData.name" name="name" placeholder="Billy's Workout" required  autofocus>
-
+            <input id="name" type="text" class="form-control" v-model="planName" name="name" placeholder="My Workout Plan" required  autofocus>
         </div>
     </div>
     <div class="form-group row">
         <label for="notes" class="col-md-4 col-form-label text-md-right">Description</label>
 
         <div class="col-md-6">
-            <input id="notes" type="text" class="form-control"  v-model="planData.description"  name="notes">
-
+            <input id="notes" type="text" class="form-control"  v-model="planDescription"  name="notes">
         </div>
     </div>
-    <div class="form-group row">
-        <label for="user" class="col-md-4 col-form-label text-md-right">Author</label>
-
-        <div class="col-md-6">
-            <input id="user" type="text" class="form-control" name="user" v-model="planData.user.name" readonly>
-
-        </div>
-    </div>
-
     <div class="form-group row">
         <label for="goals" class="col-md-4 col-form-label text-md-right">Goal(s):</label>
 
         <div class="col-md-6">
-            <input id="goals" type="text" class="form-control" name="goals">
+            <input id="goals" type="text" class="form-control" name="goals" placeholder="pass ACFT, lose weight, etc">
 
         </div>
     </div>
@@ -41,50 +30,59 @@
         </div>
     </div>
     
-    <hr>
-    <div class="form-group row">
-        <label for="workout" class="col-md-4 col-form-label text-md-right">Workout: </label>
+    <div v-if="showWorkoutAdd">
+        <hr>
+        <div class="form-group row">
+            <label for="workout" class="col-md-4 col-form-label text-md-right">Workout: </label>
 
-        <div class="col-md-6">
-            <input id="workout" type="text" class="form-control" v-model="query" v-on:keyup="autoComplete" name="workout">
-            <div class="panel-footer" v-if="results.length">
-               <ul class="list-group">
-                <li class="list-group-item" v-for="(result, index) in results" @click="suggestionClick(index)">
-                 <a href="#">{{ result.name }}</a>
-                </li>
-               </ul>
-              </div>
-              <input id="workout_id" type="hidden" class="form-control" v-model="workout_id" name="workout_id">
-            
+            <div class="col-md-6">
+                <input id="workout" type="text" class="form-control" v-model="query" v-on:keyup="autoComplete" name="workout">
+                <div class="panel-footer" v-if="results.length">
+                   <ul class="list-group">
+                    <li class="list-group-item" v-for="(result, index) in results" @click="suggestionClick(index)">
+                     <a href="#">{{ result.name }}</a>
+                    </li>
+                   </ul>
+                  </div>
+                  <input id="workout_id" type="hidden" class="form-control" v-model="workout_id" name="workout_id">
+                
+            </div>
         </div>
-    </div>
-    <div class="form-group row">
-        <label for="date" class="col-md-4 col-form-label text-md-right">Date: </label>
+        <div class="form-group row">
+            <label for="date" class="col-md-4 col-form-label text-md-right">Date: </label>
 
-        <div class="col-md-6">
-            <datepicker v-model="start_on" input-class="input"></datepicker>
+            <div class="col-md-6">
+                <datepicker v-model="start_on" format="yyyy-MM-dd" input-class="input"></datepicker>
+            </div>
         </div>
-    </div>
-      
-    <div class="form-group row">
-        <div class="col-md-6 offset-md-4">
-            <input type="button" name="addworkout" value="Add Workout" v-on:click="addWorkout" class="btn btn-primary">
+          
+        <div class="form-group row">
+            <div class="col-md-6 offset-md-4">
+                <input type="button" name="addworkout" value="Add Workout" v-on:click="addWorkout" class="btn btn-primary">
+            </div>
         </div>
+       <ul class="list-group">
+            <li class="list-group-item" v-for="workout in workoutList">{{workout.pivot.start_on | formatDate }} {{ workout.name }} <a href="#" @click="removeWorkout(workout.pivot.id)" class="float-right"><i class="fas fa-minus-circle"></i></a></li>
+        </ul>
     </div>
-   <ul class="list-group">
-        <li class="list-group-item" v-for="workout in workoutList">{{ workout.name }} {{workout.pivot.start_on}} <a href="#" @click="removeWorkout(workout.pivot.id)" class="float-right"><i class="fas fa-minus-circle"></i></a></li>
-    </ul>
 </form>
 </template>
 
 <script>
     import Datepicker from 'vuejs-datepicker';
+    import moment from 'moment';
 
     export default {
-        props: ['planData'],
+        props: ['userData','planData'],
         mounted() {
-            this.plan_name = this.planData.name;
-            this.fetchWorkoutList();
+            //this.plan_name = this.planData.name;
+            if (this.planData)
+            {
+                this.plan = this.planData;
+                this.planName = this.plan.name;
+                this.showWorkoutAdd = true;
+                this.fetchWorkoutList();
+            }
             //console.log('mounted:'+this.plan_name);
             console.log(this.planData);
         },
@@ -98,12 +96,25 @@
                 query: "",
                 results: [],
                 workout_id: "",
-                plan_name: this.planData.name,
-                setdate_workout_id: ""
+                //plan_name: this.planData.name,
+                setdate_workout_id: "",
+                planName: "",
+                planDescription: "",
+                plan: "",
+                showWorkoutAdd: false
             };
         },
         components: {
             Datepicker: Datepicker
+        },
+        filters: {
+            formatDate: function(value) {
+                  if (value) {
+                    return moment(String(value)).format('dddd YYYY-MM-DD');
+                  }
+                  else
+                    return '';
+            }
         },
         watch: {
           date: function(val) {
@@ -115,39 +126,41 @@
           },
          
         },
+        computed: {
+           // planName : {
+           //      get: function() {
+           //          return this.planNameData;
+           //      },
+           //      set: function (name) {
+           //        this.planNameData = name;
+           //      }
+           //  },
+        },
         methods: {
             fetchWorkoutList() {
-                axios.get('/api/workouts/'+this.planData.id).then((res) => {
+                axios.get('/api/workouts/'+this.plan.id).then((res) => {
                     this.workoutList = res.data;
                     console.log(res.data);
                 });
             },
             savePlan() {
-                axios.post('/plan', {body: this.body}).then(res => {
+                axios.post('/api/plans', {name: this.planName,user_id:this.userData.id}).then(res => {
                     console.log(res.data);
+                    this.plan = res.data;
+                    this.showWorkoutAdd = true;
                 }).catch(e => {
                     console.log(e);
                 });
                 
             },
-            addExercise() {
-                this.exercises.push(this.exercise);
-                this.exercise = "";
-
-                // axios.post('/tweet/save', {body: this.body}).then(res => {
-                //     console.log(res.data);
-                // }).catch(e => {
-                //     console.log(e);
-                // });
-                
-            },
             addWorkout() {
                 if (this.workout_id > 0) {
-                    axios.post('/api/plans/workout', {workout_id: this.workout_id, plan_id: this.planData.id, start_on: this.start_on}).then(res => {
+                    axios.post('/api/plans/workout', {workout_id: this.workout_id, plan_id: this.plan.id, start_on: moment(String(this.start_on)).format('YYYY-MM-DD HH:mm:ss')}).then(res => {
                         this.fetchWorkoutList();
                         this.query = "";
                         this.workout = "";
                         this.workout_id = "";
+                        this.start_on = "";
                         console.log(res.data);
                     }).catch(e => {
                         console.log(e);

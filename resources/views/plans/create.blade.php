@@ -5,12 +5,8 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">Create a Workout Plan
-                    <div class="float-right">
-                        <button type="submit" class="btn btn-primary btn-sm pull-right">
-                            Save
-                        </button>
-                    </div>
+                <div class="card-header">Create Workout Plan
+                    
                 </div>
             <div class="card-body">
                     @if (session('status'))
@@ -19,7 +15,7 @@
                         </div>
                     @endif
 
-                    <plan-component></plan-component>
+                    <plan-component :user-data="{{$user}}"></plan-component>
                 </div>
             </div>
         </div>

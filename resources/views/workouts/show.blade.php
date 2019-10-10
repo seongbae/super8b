@@ -25,9 +25,16 @@
                     
                     <table class="table table-sm table-striped">
                          <tbody>
-                            @foreach($workout->exercises as $exercises)
+                            @foreach($workout->exercises as $exercise)
                             <tr>
-                               <td>{{ $exercises->name }}</td>
+                               <td>{{ $exercise->name }} 
+                                    @if ($exercise->pivot->set)
+                                        {{$exercise->pivot->set}} set(s) of 
+                                    @endif
+                                    @if ($exercise->pivot->repetition)
+                                        {{$exercise->pivot->repetition}} repetition
+                                    @endif
+                               </td>
                             </tr>
                             @endforeach
                          </tbody>

@@ -20,7 +20,6 @@ window.Vue = require('vue');
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 import Datepicker from 'vuejs-datepicker';
 
-
 Vue.component('plan-component', require('./components/PlanComponent.vue').default);
 Vue.component('workout-component', require('./components/WorkoutComponent.vue').default);
 Vue.component('workoutexercise-component', require('./components/WorkoutExerciseComponent.vue').default);

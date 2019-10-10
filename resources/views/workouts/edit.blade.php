@@ -17,7 +17,7 @@
                         </div>
                     @endif
 
-                    <workout-component :workout-data="{{ $workout}}"></workout-component>
+                    <workout-component :user-data="{{$user}}" :workout-data="{{ $workout}}"></workout-component>
                 </div>
             </div>
         </div>

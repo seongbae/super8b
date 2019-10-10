@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Auth;
+use App\Helpers;
 
 class HomeController extends Controller
 {
@@ -27,16 +28,29 @@ class HomeController extends Controller
         $user = Auth::user();
 
         $todaysWorkout = collect();
+        $nextWorkout = collect();
 
         foreach ($user->subscribedPlans as $plan)
         {
             foreach ($plan->workouts as $workout)
             {
-                if (true)
+                if ($todaysWorkout->count() > 0)
+                {
+                    $nextWorkout->add($workout);
+                }
+
+                if (Helpers::fallsOnToday($workout->pivot->start_on))
+                {
                     $todaysWorkout->add($workout);
+                }
+
+
             }
         }
 
-        return view('home')->with('user', $user)->with('todaysWorkout', $todaysWorkout);
+        return view('home')
+            ->with('user', $user)
+            ->with('todaysWorkout', $todaysWorkout)
+            ->with('nextWorkout', $nextWorkout);
     }
 }

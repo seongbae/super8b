@@ -14,6 +14,7 @@ class CreateWorkoutExerciseTable extends Migration
     public function up()
     {
         Schema::create('workout_exercise', function (Blueprint $table) {
+            $table->bigIncrements('id');
             $table->integer('workout_id');
             $table->integer('exercise_id');
             $table->string('repetition')->nullable();

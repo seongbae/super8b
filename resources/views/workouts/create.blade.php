@@ -6,7 +6,7 @@
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header">
-                	Create/Edit Workout {{$user->name}}
+                	Create/Edit Workout
                 </div>
 
                 <div class="card-body">

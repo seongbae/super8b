@@ -1,49 +1,110 @@
-id,name
-1,Barbell Row
-2,Barbell Wrist Curl
-3,Cable Crunch
-4,Cable Tricep Extensions
-5,Dumbbell Bench Press
-6,Dumbbell Curl
-7,Dumbbell Floor Press
-8,Dumbbell Lateral Raise
-9,Dumbbell Lunge
-10,Dumbbell Reverse Fly
-11,DumbbellÊShrug
-12,Dumbbell Side Bends
-13,DumbbellÊSquat
-14,Dumbbell Step Up
-15,Dumbbell Stiff Leg Deadlift
-16,EZ Bar Preacher Curl
-17,Incline Bench Press
-18,Lat Pull Down
-19,Leg Curl
-20,Leg Extension
-21,Leg Press
-22,Leg Press Calf Raise
-23,Lying DumbbellÊExtension
-24,Lying Floor Leg Raise
-25,Machine Shoulder Press
-26,Military Press
-27,One Arm Dumbbell Row
-28,Plank
-29,Pull Ups
-30,Russian Twist
-31,Seated Barbell Press
-32,Seated Calf Raise
-33,Seated Dumbbell Press
-34,Sit Up
-35,Skullcrushers
-36,Squat
-37,Squats
-38,Standing Calf Raise
-39,Standing Dumbbell Curl
-40,Standing Hammer Curl
-41,Standing One Leg Dumbbell Calf Raise
-42,Standing Wrist Curl
-43,StiffÊLeg Deadlift
-44,Twisting Hanging Knee Raise
-45,Two Arm Seated DumbbellÊExtension
-46,Upright Row
-47,Walking Dumbbell Lunge
-48,Wide Grip Pull Up
+id,name,alternate_names
+1,Ab-Wheel Rollout,
+2,Arnold Press,
+3,Back Squat ,
+4,Barbell Bench Press,
+5,Barbell Deadlift,Deadlift
+6,Barbell Row,
+7,Barbell Wrist Curl,
+8,Behind-The-Neck Press,
+9,Bent-Over Barbell Row,
+10,Bicycle,
+11,Bicycle Crunches,
+12,Body Rows,
+13,Bridges,
+14,Cable Crunch,
+15,Cable Fly,
+16,Cable Tricep Extensions,
+17,Captain�s Chair Leg Raise,
+18,Chest Dips,
+19,Chest Squeeze,
+20,Chin Ups,
+21,Clapping Push Ups,
+22,Climbers,
+23,Close-Grip Pulldown,
+24,Close-Grip Push Up,
+25,Decline Bench Press,
+26,Donkey Kicks,
+27,Dumbbell Bench Press,
+28,Dumbbell Curl,
+29,Dumbbell Floor Press,
+30,Dumbbell Lateral Raise,
+31,Dumbbell Lunge,
+32,Dumbbell Reverse Fly,
+33,Dumbbell Shrug,
+34,Dumbbell Side Bends,
+35,Dumbbell Side Raises,
+36,Dumbbell Squat,
+37,Dumbbell Step Up,
+38,Dumbbell Stiff Leg Deadlift,
+39,Dumbbell Twist,
+40,EZ Bar Preacher Curl,
+41,Flag,
+42,Flutter Kicks,
+43,Goblet Squat,
+44,Hand Release Push Up,
+45,Hanging Dumbbell Knee Raise,
+46,High Knees,
+47,Incline Barbell Bench Press,
+48,Incline Bench Press,
+49,Incline Dumbbell Bench Press,
+50,Jog,
+51,Jumping Jack,
+52,Jump Knee Tucks,
+53,Kettle Bell Swing,
+54,Landmine,
+55,Lat Pull Down,
+56,Leg Curl,
+57,Leg Extension,
+58,Leg Press,
+59,Leg Press Calf Raise,
+60,Leg Tuck,
+61,Lunges,
+62,Lying Dumbbell Extension,
+63,Lying Floor Leg Raise,
+64,Machine Shoulder Press,
+65,Military Press,
+66,One Arm Dumbbell Row,
+67,Plank,
+68,Plan Rotations,
+69,Plyometric Push-Ups,
+70,Pull Ups,
+71,Push Press,
+72,Push Ups,
+73,Reverse Crunches,
+74,Row,
+75,Russian Twist,
+76,Seated Cable Row,
+77,Seated Barbell Press,
+78,Seated Calf Raise,
+79,Seated Dumbbell Press,
+80,Side-To-Front Raise,
+81,Side Plank With Arm Raise,
+82,Sit Up,
+83,Skullcrushers,
+84,Squats,
+85,Squeeze Press,
+86,Spiderman Push-Up,
+87,Sprint,
+88,Sprint Drag Carry,
+89,Standing Calf Raise,
+90,Standing Dumbbell Curl,
+91,Standing Hammer Curl,
+92,Standing One Leg Dumbbell Calf Raise,
+93,Standing Power Throw,
+94,Standing T-Bar Row,
+95,Standing Wrist Curl,
+96,Stiff Leg Deadlift,
+97,Superman,
+98,Tricep Dips,
+99,Tricep Extensions,
+100,Twisting Hanging Knee Raise,
+101,Two Mile Run,2-mile run
+102,Two Arm Seated Dumbbell Extension,
+103,Upright Row,
+104,Walking Dumbbell Lunge,
+105,Weighted Decline Sit-up,
+106,Weighted Dips for Chest,
+107,Weighted Pull-ups,
+108,Wide-Grip Pulldown,
+109,Wide Grip Pull Up,

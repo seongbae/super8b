@@ -18,12 +18,31 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 // Plan routes
+Route::post('/plans', function (Request $request) {
+	$planId = $request->get('plan_id');
+	$plan = App\Models\Plan::find($planId);
+
+	if ($plan)
+	{
+		$plan->name = $request->get('name');
+		$plan->user_id = $request->get('user_id');
+		$plan->save();
+	}
+	else
+	{
+		$plan = new App\Models\Plan;
+		$plan->name = $request->get('name');
+		$plan->user_id = $request->get('user_id');
+		$plan->save();
+	}
+
+	return $plan;
+});
+
 Route::post('/plans/workout', function (Request $request) {
 	$workout = App\Models\Workout::find($request->get('workout_id'));
-	$plan = App\Models\Plan::find($request->get('plan_id'));
-	$start_on = $request->get('start_on');
-
-	$plan->workouts()->attach($workout->id, ['start_on'=>$start_on]);
+	$exercise = App\Models\Exercise::find($request->get('exercise_id'));
+	$workout->exercises()->attach($exercise);
 });
 
 
@@ -71,9 +90,9 @@ Route::get('/exercises/{workoutid}', function ($id) {
     return $workout->exercises;
 });
 
-Route::delete('/workouts/{workoutid}/{exerciseid}', function ($workoutid, $exerciseid) {
+Route::delete('/workouts/{workoutid}/{exerciseid}', function ($workoutid, $workoutExerciseId) {
 	$workout = App\Models\Workout::find($workoutid);
-	$workout->exercises()->wherePivot('exercise_id', $exerciseid)->detach();
+	$workout->exercises()->wherePivot('id', $workoutExerciseId)->detach();
 });
 
 // Search routes

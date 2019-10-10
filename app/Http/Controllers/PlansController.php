@@ -10,6 +10,16 @@ class PlansController extends Controller
 {
 
   /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+  /**
    * Display a listing of the resource.
    *
    * @return Response
@@ -28,7 +38,8 @@ class PlansController extends Controller
    */
   public function create()
   {
-     return view('plans.create');
+    $user = Auth::user();
+     return view('plans.create')->with('user', $user);
   }
 
   /**
@@ -65,9 +76,10 @@ class PlansController extends Controller
    */
   public function edit($id)
   {
+    $user = Auth::user();
     $plan = Plan::with('user')->with('workouts')->find($id);
 
-    return view('plans.edit')->with('plan', $plan);
+    return view('plans.edit')->with('plan', $plan)->with('user', $user);
   }
 
   /**

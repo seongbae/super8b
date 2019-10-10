@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">Create a Workout Plan
+                <div class="card-header">Edit Workout Plan
                     <div class="float-right">
                         
                     </div>
@@ -17,7 +17,7 @@
                         </div>
                     @endif
 
-                    <plan-component :plan-data="{{ $plan}}"></plan-component>
+                    <plan-component :user-data="{{$user}}" :plan-data="{{ $plan}}"></plan-component>
                 </div>
             </div>
         </div>

@@ -17,7 +17,7 @@ class CreatePlanWorkoutTable extends Migration
             $table->bigIncrements('id');
             $table->integer('plan_id');
             $table->integer('workout_id');
-            $table->string('start_on')->nullable();
+            $table->timestamp('start_on')->nullable();
             $table->integer('order')->default(1);
         });
     }
