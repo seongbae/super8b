@@ -15,6 +15,11 @@ class Workout extends Model
 
     protected $dates = ['deleted_at'];
 
+    public function author() 
+    {
+        return $this->belongsTo('App\Models\User', 'user_id');
+    }
+
     public function focuses()
     {
         return $this->hasMany('Focus', 'focus_id');

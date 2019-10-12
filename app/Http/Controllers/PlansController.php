@@ -26,7 +26,7 @@ class PlansController extends Controller
    */
   public function index()
   {
-    $plans = Plan::paginate(15);
+    $plans = Plan::with('author')->paginate(15);
 
     return view('plans.index')->with('plans', $plans);
   }
@@ -77,7 +77,7 @@ class PlansController extends Controller
   public function edit($id)
   {
     $user = Auth::user();
-    $plan = Plan::with('user')->with('workouts')->find($id);
+    $plan = Plan::with('author')->with('workouts')->find($id);
 
     return view('plans.edit')->with('plan', $plan)->with('user', $user);
   }

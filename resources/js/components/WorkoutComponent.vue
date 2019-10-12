@@ -11,7 +11,27 @@
         <label for="focus" class="col-md-4 col-form-label text-md-right">Focus</label>
 
         <div class="col-md-6">
-            <input id="focus" type="text" class="form-control" name="focus" placeholder="Upper body, lower body, endurance...">
+            <input id="focus" type="text" class="form-control" name="focus" v-model="workoutFocus" placeholder="Upper body, lower body, endurance...">
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="notes" class="col-md-4 col-form-label text-md-right">Intensity</label>
+
+        <div class="col-md-6">
+            <select name="intensity" id="intensity" class="form-control" v-model="workoutIntensity">
+                <option value="low">Low</option>
+                <option value="medium">Medium</option>
+                <option value="high">High</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label for="notes" class="col-md-4 col-form-label text-md-right">Duration</label>
+
+        <div class="col-md-6">
+            <input id="notes" type="text" class="form-control" name="notes"  v-model="workoutDuration" placeholder="30m, 1hr, etc">
+
         </div>
     </div>
 
@@ -19,7 +39,7 @@
         <label for="notes" class="col-md-4 col-form-label text-md-right">Notes</label>
 
         <div class="col-md-6">
-            <input id="notes" type="text" class="form-control" name="notes">
+            <input id="notes" type="text" class="form-control" name="notes" v-model="workoutNotes">
 
         </div>
     </div>
@@ -27,7 +47,7 @@
         <label for="notes" class="col-md-4 col-form-label text-md-right"></label>
 
         <div class="col-md-6">
-            <button type="submit" class="btn btn-primary btn-sm">
+            <button type="submit" class="btn btn-primary">
                 Save
             </button>
         </div>
@@ -39,7 +59,7 @@
             <label for="exercise" class="col-md-4 col-form-label text-md-right">Exercise</label>
 
             <div class="col-md-6">
-                <input id="exercise" type="text" class="form-control" v-model="query" v-on:keyup="autoComplete" name="exercise" required>
+                <input id="exercise" type="text" class="form-control" v-model="query" v-on:keyup="autoComplete" name="exercise" placeholder="Bench press">
                 <div class="panel-footer" v-if="results.length">
                    <ul class="list-group">
                     <li class="list-group-item" v-for="(result, index) in results" @click="suggestionClick(index)">
@@ -54,16 +74,15 @@
             <label for="repetition" class="col-md-4 col-form-label text-md-right">Repetition</label>
 
             <div class="col-md-6">
-                <input id="repetition" type="text" class="form-control" name="repetition">
-
+                <input id="repetition" type="text" class="form-control" name="repetition" v-model="repetition">
             </div>
         </div>
 
         <div class="form-group row">
-            <label for="password" class="col-md-4 col-form-label text-md-right">Rounds</label>
+            <label for="sets" class="col-md-4 col-form-label text-md-right">Set</label>
 
             <div class="col-md-6">
-                <input id="rounds" type="text" class="form-control" name="rounds">
+                <input id="set" type="text" class="form-control" name="set" v-model="set">
 
             </div>
         </div>
@@ -76,7 +95,7 @@
     </div>
     <hr>
     <ul class="list-group" v-if="exerciseList.length>0">
-        <li class="list-group-item" v-for="exercise in exerciseList">{{ exercise.name }} <a href="#" @click="removeExercise(exercise.pivot.id)" class="float-right"><i class="fas fa-minus-circle"></i></a></li>
+        <li class="list-group-item" v-for="exercise in exerciseList">{{ exercise.name }} {{ exercise.pivot.repetition }} {{ exercise.pivot.set }} <a href="#" @click="removeExercise(exercise.pivot.id)" class="float-right"><i class="fas fa-minus-circle"></i></a></li>
     </ul>
 </form>
 </template>
@@ -94,6 +113,10 @@
                 this.workout = this.workoutData;
                 this.workout_id = this.workout.id;
                 this.workoutName = this.workout.name;
+                this.workoutFocus = this.workout.focus;
+                this.workoutDuration = this.workout.duration;
+                this.workoutIntensity = this.workout.intensity;
+                this.workoutNotes = this.workout.notes;
                 this.showExerciseAdd = true;
                 this.fetchExerciseList();
             }
@@ -106,9 +129,16 @@
                 results: [],
                 open: false,
                 workoutName: "",
+                workoutFocus: "ff",
+                workoutDuration: "",
+                workoutIntensity: "",
+                workoutNotes: "",
                 workout: "",
                 showExerciseAdd: false,
-                exercise_id: ""
+                workout_id: "",
+                exercise_id: "",
+                repetition: "",
+                set: ""
             };
         },
         computed: {
@@ -116,42 +146,47 @@
                 return this.selection !== "" &&
                        this.matches.length != 0 &&
                        this.open === true;
+            },
+            workoutId : {
+                get: function() {
+                    if (this.workout)
+                        return this.workout.id;
+                    else
+                        return null;
+                },
+                set: function (val) {
+                  //this.planNameData = name;
+                }
             }
         },
         methods: {
             fetchExerciseList() {
-                axios.get('/api/exercises/'+this.workout.id).then((res) => {
+                axios.get('/api/workout/'+this.workoutId+'/exercises').then((res) => {
                     this.exerciseList = res.data;
                 });
             },
             addExercise() {
                 if (this.exercise_id > 0) {
-                    axios.post('/api/plans/workout', {workout_id: this.workout.id, exercise_id: this.exercise_id}).then(res => {
+                    axios.post('/api/workout/exercise', {
+                            workout_id: this.workoutId, 
+                            exercise_id: this.exercise_id,
+                            repetition: this.repetition,
+                            set: this.set,
+                        }).then(res => {
                         this.fetchExerciseList();
                         this.query = "";
-                        this.workout = "";
-                        this.workout_id = "";
-                        this.start_on = "";
+                        this.repetition = "";
+                        this.set = "";
+                        this.exercise_id = "";
                         console.log(res.data);
                     }).catch(e => {
                         console.log(e);
                     });
                 }
-                // }
-                // this.exerciseList.push(this.selection);
-                // this.result = "";
-                //this.fetchExerciseList();
-
-                // axios.post('/tweet/save', {body: this.body}).then(res => {
-                //     console.log(res.data);
-                // }).catch(e => {
-                //     console.log(e);
-                // });
-                
             },
-            removeExercise(exerciseid) {
+            removeExercise(id) {
                 console.log(this.workout);
-                axios.post('/api/workouts/'+exerciseid, {_method: 'delete'}).then(res => {
+                axios.post('/api/workout/'+this.workoutId+'/'+id, {_method: 'delete'}).then(res => {
                     this.fetchExerciseList();
                     console.log(res.data);
                 }).catch(e => {
@@ -159,7 +194,15 @@
                 });
             },
             saveWorkout() {
-                axios.post('/api/workout', {name: this.workoutName, user_id: this.userData.id}).then(res => {
+                axios.post('/api/workout', {
+                        workout_id: this.workoutId, 
+                        name: this.workoutName, 
+                        focus: this.workoutFocus,
+                        intensity: this.workoutIntensity,
+                        duration: this.workoutDuration,
+                        notes: this.workoutNotes,
+                        user_id: this.userData.id
+                    }).then(res => {
                     console.log(res.data);
                     this.workout = res.data;
                     this.showExerciseAdd = true;
@@ -171,7 +214,7 @@
             autoComplete(){
                 this.results = [];
                 if(this.query.length > 2){
-                 axios.get('/api/searchexercise',{params: {query: this.query}}).then(response => {
+                 axios.get('/api/search/exercise',{params: {query: this.query}}).then(response => {
                   this.results = response.data;
                  });
                 }

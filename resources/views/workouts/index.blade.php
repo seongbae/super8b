@@ -11,10 +11,10 @@
             @endif
             <ul class="nav nav-tabs" id="myTab" role="tablist">
               <li class="nav-item">
-                <a class="nav-link active" id="home-tab" data-toggle="tab" href="#myworkouts" role="tab" aria-controls="home" aria-selected="true">My Workouts</a>
+                <a class="nav-link active" id="home-tab" data-toggle="tab" href="#myworkouts" role="tab" aria-controls="home" aria-selected="true">My Workouts ({{ count($myworkouts)}})</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" id="history-tab" data-toggle="tab" href="#allworkouts" role="tab" aria-controls="contact" aria-selected="false">All Workouts</a>
+                <a class="nav-link" id="history-tab" data-toggle="tab" href="#allworkouts" role="tab" aria-controls="contact" aria-selected="false">All Workouts ({{ count($allworkouts)}})</a>
               </li>
             </ul>
             <div class="tab-content pt-4 pl-1" id="myTabContent">
@@ -22,13 +22,21 @@
                 <table class="table table-sm">
                      <thead>
                      <tr>
-                        <th>Name</th>
+                        <th>Workout</th>
+                        <th>Intensity</th>
+                        <th>Duration</th>
+                        <th>Author</th>
+                        <th>Created</th>
                      </tr>
                      </thead>
                      <tbody>
                         @foreach($myworkouts as $workout)
                         <tr>
                            <td><a href="/workouts/{{$workout->id}}">{{ $workout->name }}</a></td>
+                           <td>{{ $workout->intensity }}</td>
+                           <td>{{ $workout->duration }}</td>
+                           <td>{{ $workout->author->name }}</td>
+                           <td>{{ $workout->created }}</td>
                         </tr>
                         @endforeach
                      </tbody>
@@ -39,13 +47,21 @@
                   <table class="table table-sm">
                      <thead>
                      <tr>
-                        <th>Name</th>
+                        <th>Workout</th>
+                        <th>Intensity</th>
+                        <th>Duration</th>
+                        <th>Author</th>
+                        <th>Created</th>
                      </tr>
                      </thead>
                      <tbody>
                         @foreach($allworkouts as $workout)
                         <tr>
                            <td><a href="/workouts/{{$workout->id}}">{{ $workout->name }}</a></td>
+                           <td>{{ $workout->intensity }}</td>
+                           <td>{{ $workout->duration }}</td>
+                           <td>{{ $workout->author->name }}</td>
+                           <td>{{ $workout->created }}</td>
                         </tr>
                         @endforeach
                      </tbody>

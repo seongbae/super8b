@@ -6,9 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Plan extends Model
 {
-	public function user()
+	public function author()
 	{
-		return $this->belongsTo('App\Models\User');
+		return $this->belongsTo('App\Models\User', 'user_id');
 	}
 	
    	public function subscribers()

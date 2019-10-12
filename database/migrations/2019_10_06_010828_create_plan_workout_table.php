@@ -18,6 +18,7 @@ class CreatePlanWorkoutTable extends Migration
             $table->integer('plan_id');
             $table->integer('workout_id');
             $table->timestamp('start_on')->nullable();
+            $table->string('location')->nullable();
             $table->integer('order')->default(1);
         });
     }

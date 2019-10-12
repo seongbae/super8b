@@ -18,7 +18,7 @@
         <label for="goals" class="col-md-4 col-form-label text-md-right">Goal(s):</label>
 
         <div class="col-md-6">
-            <input id="goals" type="text" class="form-control" name="goals" placeholder="pass ACFT, lose weight, etc">
+            <input id="goals" type="text" class="form-control" name="goals" v-model="planGoals" placeholder="pass ACFT, lose weight, etc">
 
         </div>
     </div>
@@ -80,6 +80,8 @@
             {
                 this.plan = this.planData;
                 this.planName = this.plan.name;
+                this.planDescription = this.plan.description;
+                this.planGoals = this.plan.goals;
                 this.showWorkoutAdd = true;
                 this.fetchWorkoutList();
             }
@@ -100,6 +102,7 @@
                 setdate_workout_id: "",
                 planName: "",
                 planDescription: "",
+                planGoals: "",
                 plan: "",
                 showWorkoutAdd: false
             };
@@ -110,7 +113,7 @@
         filters: {
             formatDate: function(value) {
                   if (value) {
-                    return moment(String(value)).format('dddd YYYY-MM-DD');
+                    return moment(String(value)).format('YYYY-MM-DD');
                   }
                   else
                     return '';
@@ -118,7 +121,7 @@
         },
         watch: {
           date: function(val) {
-            axios.post('/api/plans/workout/setdate', {plan_id: this.planData.id, workout_id: this.setdate_workout_id, start_on: val}).then(res => {
+            axios.post('/api/plan/workout/setdate', {plan_id: this.planData.id, workout_id: this.setdate_workout_id, start_on: val}).then(res => {
                 console.log(res.data);
             }).catch(e => {
                 console.log(e);
@@ -127,6 +130,17 @@
          
         },
         computed: {
+            planId : {
+                get: function() {
+                    if (this.planData)
+                        return this.planData.id;
+                    else
+                        return null;
+                },
+                set: function (val) {
+                  //this.planNameData = name;
+                }
+            }
            // planName : {
            //      get: function() {
            //          return this.planNameData;
@@ -138,13 +152,19 @@
         },
         methods: {
             fetchWorkoutList() {
-                axios.get('/api/workouts/'+this.plan.id).then((res) => {
+                axios.get('/api/workout/'+this.plan.id).then((res) => {
                     this.workoutList = res.data;
                     console.log(res.data);
                 });
             },
             savePlan() {
-                axios.post('/api/plans', {name: this.planName,user_id:this.userData.id}).then(res => {
+                axios.post('/api/plan', {
+                    plan_id: this.planId,
+                    name: this.planName,
+                    description: this.planDescription,
+                    goals: this.planGoals,
+                    user_id:this.userData.id
+                }).then(res => {
                     console.log(res.data);
                     this.plan = res.data;
                     this.showWorkoutAdd = true;
@@ -155,7 +175,11 @@
             },
             addWorkout() {
                 if (this.workout_id > 0) {
-                    axios.post('/api/plans/workout', {workout_id: this.workout_id, plan_id: this.plan.id, start_on: moment(String(this.start_on)).format('YYYY-MM-DD HH:mm:ss')}).then(res => {
+                    axios.post('/api/plan/workout', {
+                        workout_id: this.workout_id, 
+                        plan_id: this.plan.id, 
+                        start_on: moment(String(this.start_on)).format('YYYY-MM-DD 00:00:00')
+                    }).then(res => {
                         this.fetchWorkoutList();
                         this.query = "";
                         this.workout = "";
@@ -170,7 +194,7 @@
                 
             },
             removeWorkout(workoutid) {
-                axios.post('/api/plans/workout/'+this.planData.id+'/'+workoutid, {_method: 'delete'}).then(res => {
+                axios.post('/api/plan/workout/'+this.planData.id+'/'+workoutid, {_method: 'delete'}).then(res => {
                     this.fetchWorkoutList();
                     console.log(res.data);
                 }).catch(e => {
@@ -180,7 +204,7 @@
             autoComplete(){
                 this.results = [];
                 if(this.query.length > 2){
-                 axios.get('/api/searchworkout',{params: {query: this.query}}).then(response => {
+                 axios.get('/api/search/workout',{params: {query: this.query}}).then(response => {
                   this.results = response.data;
                  });
                 }

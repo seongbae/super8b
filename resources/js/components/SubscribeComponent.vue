@@ -27,7 +27,7 @@
         methods: {
             update_subscription: function (event) {
                 this.user_subscribed = !this.user_subscribed;
-                axios.post('/api/plans/update_subscription', {plan_id: this.plan.id, user_id: this.user.id, subscribe: this.user_subscribed }).then(res => {
+                axios.post('/api/plan/update_subscription', {plan_id: this.plan.id, user_id: this.user.id, subscribe: this.user_subscribed }).then(res => {
                             console.log(res.data);
                         }).catch(e => {
                             console.log(e);

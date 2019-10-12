@@ -21,9 +21,30 @@
                         </div>
                     @endif
 
-                    {{$workout->description}}
+                    <div class="workout-details mb-4">
+                        <strong>Author:</strong> {{$workout->author->name}}<br>
+                        
+                        @if ($workout->focus)
+                            <strong>Focus:</strong> {{$workout->focus}}<br>
+                        @endif
+
+                        @if ($workout->duration)
+                            <strong>Duration:</strong> {{$workout->duration}}<br>
+                        @endif
+
+                        @if ($workout->intensity)
+                            <strong>Intensity:</strong> {{$workout->intensity}}<br>
+                        @endif
+
+                        @if ($workout->note)
+                            <strong>Note:</strong> {{$workout->note}}<br>
+                        @endif
+                    </div>
                     
-                    <table class="table table-sm table-striped">
+                    <div class="workout-exercises">
+                    Exercises in this workout
+
+                    <table class="table table-sm table-striped mt-2">
                          <tbody>
                             @foreach($workout->exercises as $exercise)
                             <tr>
@@ -39,6 +60,7 @@
                             @endforeach
                          </tbody>
                       </table>
+                    </div>
                 </div>
             </div>
         </div>

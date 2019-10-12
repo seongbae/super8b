@@ -12,9 +12,11 @@ class PlansTableSeeder extends Seeder
     public function run()
     {
         DB::table('plans')->insert([
-            'name' => 'CGSC Class of 2020 SG8B Workout Plan',
+            'name' => 'CGSC Class of 2020 8B Workout Plan',
             'description' => 'This workout plan is created by CPT(P) Billy Folinuiz at CGSC Student Group 8B Class of 2020.  The goal is to help you pass ACFT.',
-            'user_id' => 1
+            'user_id' => 1,
+            'duration' => '10 months',
+            'goals'=>'Pass ACFT'
         ]);
 
         //factory(App\Models\Plan::class, 50)->create();

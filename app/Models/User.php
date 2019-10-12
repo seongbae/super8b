@@ -43,6 +43,11 @@ class User extends Authenticatable
         return $this->hasMany('App\Models\Plan','user_id');
     }
 
+    public function workouts()
+    {
+        return $this->hasMany('App\Models\Workout','user_id');
+    }
+
     public function subscribedPlans()
     {
         return $this->belongsToMany('App\Models\Plan','plan_subscriber', 'plan_id', 'user_id')->withPivot('subscribed_on');

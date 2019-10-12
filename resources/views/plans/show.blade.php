@@ -24,15 +24,30 @@
 
                     {{$plan->description}}
                     
+                    <hr>
+                    <div class="mt-3">
+                    <h3>Workouts in this plan</h3>
                     <table class="table table-sm table-striped">
+                        <thead>
+                          <tr>
+                            <th>Date</th>
+                            <th>Workout</th>
+                            <th>Intensity</th>
+                            <th>Duration</th>
+                          </tr>
+                        </thead>
                          <tbody>
                             @foreach($plan->workouts as $workout)
                             <tr>
+                               <td>{{ \Carbon\Carbon::parse($workout->pivot->start_on)->format('m/d/Y')}}</td>
                                <td>{{ $workout->name }}</td>
+                               <td>{{ $workout->intensity }}</td>
+                               <td>{{ $workout->duration }}</td>
                             </tr>
                             @endforeach
                          </tbody>
                       </table>
+                    </div>
                 </div>
             </div>
         </div>

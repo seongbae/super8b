@@ -19,6 +19,7 @@ class CreateWorkoutExerciseTable extends Migration
             $table->integer('exercise_id');
             $table->string('repetition')->nullable();
             $table->integer('set')->nullable();
+            $table->text('notes')->nullable();
         });
     }
 

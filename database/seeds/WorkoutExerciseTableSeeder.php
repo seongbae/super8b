@@ -18,31 +18,46 @@ class WorkoutExerciseTableSeeder extends Seeder
         DB::table('workout_exercise')->insert(
         [
             [
-                'workout_id' => 1,
-                'exercise_id' => 84,
-                'repetition' => '10',
-                'set' => 1
+                'id' => 1,
+                'workout_id' => 5,
+                'exercise_id' => 3,
+                'repetition' => '30',
+                'set' => 1,
+                'notes'=>'bodyweight'
             ],
             [
-                'workout_id' => 1,
-                'exercise_id' => 84,
-                'repetition' => '5',
-                'set' => 5
-            ],
-            [
-                'workout_id' => 1,
+                'id' => 2,
+                'workout_id' => 5,
                 'exercise_id' => 74,
                 'repetition' => '1500m',
-                'set'=>null
+                'set' => 1,
+                'notes'=>null
+            ],
+            [
+                'id' => 3,
+                'workout_id' => 6,
+                'exercise_id' => 71,
+                'repetition' => '5',
+                'set'=>null,
+                'notes'=>'Odd minutes. (135/95)'
+            ],
+            [
+                'id' => 4,
+                'workout_id' => 6,
+                'exercise_id' => 5,
+                'repetition' => '5',
+                'set'=>1,
+                'notes'=>'Even minutes. (205/135)'
+            ],
+            [
+                'id' => 5,
+                'workout_id' => 6,
+                'exercise_id' => 110,
+                'repetition' => '12',
+                'set'=>3,
+                'notes'=>null
             ]
         ]
         );
-  //   	$exercises = App\Models\Exercise::all();
-
-  //       App\Models\Workout::all()->each(function ($workout) use ($exercises) { 
-		//     $workout->exercises()->attach(
-		//         $exercises->random(rand(1, 4))->pluck('id')->toArray()
-		//     ); 
-		// });
     }
 }

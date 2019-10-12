@@ -1973,6 +1973,8 @@ __webpack_require__.r(__webpack_exports__);
     if (this.planData) {
       this.plan = this.planData;
       this.planName = this.plan.name;
+      this.planDescription = this.plan.description;
+      this.planGoals = this.plan.goals;
       this.showWorkoutAdd = true;
       this.fetchWorkoutList();
     } //console.log('mounted:'+this.plan_name);
@@ -1994,6 +1996,7 @@ __webpack_require__.r(__webpack_exports__);
       setdate_workout_id: "",
       planName: "",
       planDescription: "",
+      planGoals: "",
       plan: "",
       showWorkoutAdd: false
     };
@@ -2004,13 +2007,13 @@ __webpack_require__.r(__webpack_exports__);
   filters: {
     formatDate: function formatDate(value) {
       if (value) {
-        return moment__WEBPACK_IMPORTED_MODULE_1___default()(String(value)).format('dddd YYYY-MM-DD');
+        return moment__WEBPACK_IMPORTED_MODULE_1___default()(String(value)).format('YYYY-MM-DD');
       } else return '';
     }
   },
   watch: {
     date: function date(val) {
-      axios.post('/api/plans/workout/setdate', {
+      axios.post('/api/plan/workout/setdate', {
         plan_id: this.planData.id,
         workout_id: this.setdate_workout_id,
         start_on: val
@@ -2021,7 +2024,14 @@ __webpack_require__.r(__webpack_exports__);
       });
     }
   },
-  computed: {// planName : {
+  computed: {
+    planId: {
+      get: function get() {
+        if (this.planData) return this.planData.id;else return null;
+      },
+      set: function set(val) {//this.planNameData = name;
+      }
+    } // planName : {
     //      get: function() {
     //          return this.planNameData;
     //      },
@@ -2029,12 +2039,13 @@ __webpack_require__.r(__webpack_exports__);
     //        this.planNameData = name;
     //      }
     //  },
+
   },
   methods: {
     fetchWorkoutList: function fetchWorkoutList() {
       var _this = this;
 
-      axios.get('/api/workouts/' + this.plan.id).then(function (res) {
+      axios.get('/api/workout/' + this.plan.id).then(function (res) {
         _this.workoutList = res.data;
         console.log(res.data);
       });
@@ -2042,8 +2053,11 @@ __webpack_require__.r(__webpack_exports__);
     savePlan: function savePlan() {
       var _this2 = this;
 
-      axios.post('/api/plans', {
+      axios.post('/api/plan', {
+        plan_id: this.planId,
         name: this.planName,
+        description: this.planDescription,
+        goals: this.planGoals,
         user_id: this.userData.id
       }).then(function (res) {
         console.log(res.data);
@@ -2057,10 +2071,10 @@ __webpack_require__.r(__webpack_exports__);
       var _this3 = this;
 
       if (this.workout_id > 0) {
-        axios.post('/api/plans/workout', {
+        axios.post('/api/plan/workout', {
           workout_id: this.workout_id,
           plan_id: this.plan.id,
-          start_on: moment__WEBPACK_IMPORTED_MODULE_1___default()(String(this.start_on)).format('YYYY-MM-DD HH:mm:ss')
+          start_on: moment__WEBPACK_IMPORTED_MODULE_1___default()(String(this.start_on)).format('YYYY-MM-DD 00:00:00')
         }).then(function (res) {
           _this3.fetchWorkoutList();
 
@@ -2077,7 +2091,7 @@ __webpack_require__.r(__webpack_exports__);
     removeWorkout: function removeWorkout(workoutid) {
       var _this4 = this;
 
-      axios.post('/api/plans/workout/' + this.planData.id + '/' + workoutid, {
+      axios.post('/api/plan/workout/' + this.planData.id + '/' + workoutid, {
         _method: 'delete'
       }).then(function (res) {
         _this4.fetchWorkoutList();
@@ -2093,7 +2107,7 @@ __webpack_require__.r(__webpack_exports__);
       this.results = [];
 
       if (this.query.length > 2) {
-        axios.get('/api/searchworkout', {
+        axios.get('/api/search/workout', {
           params: {
             query: this.query
           }
@@ -2160,7 +2174,7 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     update_subscription: function update_subscription(event) {
       this.user_subscribed = !this.user_subscribed;
-      axios.post('/api/plans/update_subscription', {
+      axios.post('/api/plan/update_subscription', {
         plan_id: this.plan.id,
         user_id: this.user.id,
         subscribe: this.user_subscribed
@@ -2267,6 +2281,25 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['userData', 'workoutData'],
   mounted: function mounted() {
@@ -2278,6 +2311,10 @@ __webpack_require__.r(__webpack_exports__);
       this.workout = this.workoutData;
       this.workout_id = this.workout.id;
       this.workoutName = this.workout.name;
+      this.workoutFocus = this.workout.focus;
+      this.workoutDuration = this.workout.duration;
+      this.workoutIntensity = this.workout.intensity;
+      this.workoutNotes = this.workout.notes;
       this.showExerciseAdd = true;
       this.fetchExerciseList();
     }
@@ -2290,21 +2327,35 @@ __webpack_require__.r(__webpack_exports__);
       results: [],
       open: false,
       workoutName: "",
+      workoutFocus: "ff",
+      workoutDuration: "",
+      workoutIntensity: "",
+      workoutNotes: "",
       workout: "",
       showExerciseAdd: false,
-      exercise_id: ""
+      workout_id: "",
+      exercise_id: "",
+      repetition: "",
+      set: ""
     };
   },
   computed: {
     openSuggestion: function openSuggestion() {
       return this.selection !== "" && this.matches.length != 0 && this.open === true;
+    },
+    workoutId: {
+      get: function get() {
+        if (this.workout) return this.workout.id;else return null;
+      },
+      set: function set(val) {//this.planNameData = name;
+      }
     }
   },
   methods: {
     fetchExerciseList: function fetchExerciseList() {
       var _this = this;
 
-      axios.get('/api/exercises/' + this.workout.id).then(function (res) {
+      axios.get('/api/workout/' + this.workoutId + '/exercises').then(function (res) {
         _this.exerciseList = res.data;
       });
     },
@@ -2312,36 +2363,29 @@ __webpack_require__.r(__webpack_exports__);
       var _this2 = this;
 
       if (this.exercise_id > 0) {
-        axios.post('/api/plans/workout', {
-          workout_id: this.workout.id,
-          exercise_id: this.exercise_id
+        axios.post('/api/workout/exercise', {
+          workout_id: this.workoutId,
+          exercise_id: this.exercise_id,
+          repetition: this.repetition,
+          set: this.set
         }).then(function (res) {
           _this2.fetchExerciseList();
 
           _this2.query = "";
-          _this2.workout = "";
-          _this2.workout_id = "";
-          _this2.start_on = "";
+          _this2.repetition = "";
+          _this2.set = "";
+          _this2.exercise_id = "";
           console.log(res.data);
         })["catch"](function (e) {
           console.log(e);
         });
-      } // }
-      // this.exerciseList.push(this.selection);
-      // this.result = "";
-      //this.fetchExerciseList();
-      // axios.post('/tweet/save', {body: this.body}).then(res => {
-      //     console.log(res.data);
-      // }).catch(e => {
-      //     console.log(e);
-      // });
-
+      }
     },
-    removeExercise: function removeExercise(exerciseid) {
+    removeExercise: function removeExercise(id) {
       var _this3 = this;
 
       console.log(this.workout);
-      axios.post('/api/workouts/' + this.workout.id + '/' + exerciseid, {
+      axios.post('/api/workout/' + this.workoutId + '/' + id, {
         _method: 'delete'
       }).then(function (res) {
         _this3.fetchExerciseList();
@@ -2355,7 +2399,12 @@ __webpack_require__.r(__webpack_exports__);
       var _this4 = this;
 
       axios.post('/api/workout', {
+        workout_id: this.workoutId,
         name: this.workoutName,
+        focus: this.workoutFocus,
+        intensity: this.workoutIntensity,
+        duration: this.workoutDuration,
+        notes: this.workoutNotes,
         user_id: this.userData.id
       }).then(function (res) {
         console.log(res.data);
@@ -2371,7 +2420,7 @@ __webpack_require__.r(__webpack_exports__);
       this.results = [];
 
       if (this.query.length > 2) {
-        axios.get('/api/searchexercise', {
+        axios.get('/api/search/exercise', {
           params: {
             query: this.query
           }
@@ -55488,9 +55537,47 @@ var render = function() {
         ])
       ]),
       _vm._v(" "),
-      _vm._m(0),
+      _c("div", { staticClass: "form-group row" }, [
+        _c(
+          "label",
+          {
+            staticClass: "col-md-4 col-form-label text-md-right",
+            attrs: { for: "goals" }
+          },
+          [_vm._v("Goal(s):")]
+        ),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-md-6" }, [
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.planGoals,
+                expression: "planGoals"
+              }
+            ],
+            staticClass: "form-control",
+            attrs: {
+              id: "goals",
+              type: "text",
+              name: "goals",
+              placeholder: "pass ACFT, lose weight, etc"
+            },
+            domProps: { value: _vm.planGoals },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.planGoals = $event.target.value
+              }
+            }
+          })
+        ])
+      ]),
       _vm._v(" "),
-      _vm._m(1),
+      _vm._m(0),
       _vm._v(" "),
       _vm.showWorkoutAdd
         ? _c("div", [
@@ -55668,33 +55755,6 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "form-group row" }, [
-      _c(
-        "label",
-        {
-          staticClass: "col-md-4 col-form-label text-md-right",
-          attrs: { for: "goals" }
-        },
-        [_vm._v("Goal(s):")]
-      ),
-      _vm._v(" "),
-      _c("div", { staticClass: "col-md-6" }, [
-        _c("input", {
-          staticClass: "form-control",
-          attrs: {
-            id: "goals",
-            type: "text",
-            name: "goals",
-            placeholder: "pass ACFT, lose weight, etc"
-          }
-        })
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "form-group row" }, [
       _c("div", { staticClass: " offset-md-4 col-md-6" }, [
         _c(
           "button",
@@ -55829,11 +55889,173 @@ var render = function() {
         ])
       ]),
       _vm._v(" "),
+      _c("div", { staticClass: "form-group row" }, [
+        _c(
+          "label",
+          {
+            staticClass: "col-md-4 col-form-label text-md-right",
+            attrs: { for: "focus" }
+          },
+          [_vm._v("Focus")]
+        ),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-md-6" }, [
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.workoutFocus,
+                expression: "workoutFocus"
+              }
+            ],
+            staticClass: "form-control",
+            attrs: {
+              id: "focus",
+              type: "text",
+              name: "focus",
+              placeholder: "Upper body, lower body, endurance..."
+            },
+            domProps: { value: _vm.workoutFocus },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.workoutFocus = $event.target.value
+              }
+            }
+          })
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "form-group row" }, [
+        _c(
+          "label",
+          {
+            staticClass: "col-md-4 col-form-label text-md-right",
+            attrs: { for: "notes" }
+          },
+          [_vm._v("Intensity")]
+        ),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-md-6" }, [
+          _c(
+            "select",
+            {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.workoutIntensity,
+                  expression: "workoutIntensity"
+                }
+              ],
+              staticClass: "form-control",
+              attrs: { name: "intensity", id: "intensity" },
+              on: {
+                change: function($event) {
+                  var $$selectedVal = Array.prototype.filter
+                    .call($event.target.options, function(o) {
+                      return o.selected
+                    })
+                    .map(function(o) {
+                      var val = "_value" in o ? o._value : o.value
+                      return val
+                    })
+                  _vm.workoutIntensity = $event.target.multiple
+                    ? $$selectedVal
+                    : $$selectedVal[0]
+                }
+              }
+            },
+            [
+              _c("option", { attrs: { value: "low" } }, [_vm._v("Low")]),
+              _vm._v(" "),
+              _c("option", { attrs: { value: "medium" } }, [_vm._v("Medium")]),
+              _vm._v(" "),
+              _c("option", { attrs: { value: "high" } }, [_vm._v("High")])
+            ]
+          )
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "form-group row" }, [
+        _c(
+          "label",
+          {
+            staticClass: "col-md-4 col-form-label text-md-right",
+            attrs: { for: "notes" }
+          },
+          [_vm._v("Duration")]
+        ),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-md-6" }, [
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.workoutDuration,
+                expression: "workoutDuration"
+              }
+            ],
+            staticClass: "form-control",
+            attrs: {
+              id: "notes",
+              type: "text",
+              name: "notes",
+              placeholder: "30m, 1hr, etc"
+            },
+            domProps: { value: _vm.workoutDuration },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.workoutDuration = $event.target.value
+              }
+            }
+          })
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "form-group row" }, [
+        _c(
+          "label",
+          {
+            staticClass: "col-md-4 col-form-label text-md-right",
+            attrs: { for: "notes" }
+          },
+          [_vm._v("Notes")]
+        ),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-md-6" }, [
+          _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.workoutNotes,
+                expression: "workoutNotes"
+              }
+            ],
+            staticClass: "form-control",
+            attrs: { id: "notes", type: "text", name: "notes" },
+            domProps: { value: _vm.workoutNotes },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.workoutNotes = $event.target.value
+              }
+            }
+          })
+        ])
+      ]),
+      _vm._v(" "),
       _vm._m(0),
-      _vm._v(" "),
-      _vm._m(1),
-      _vm._v(" "),
-      _vm._m(2),
       _vm._v(" "),
       _c("hr"),
       _vm._v(" "),
@@ -55864,7 +56086,7 @@ var render = function() {
                     id: "exercise",
                     type: "text",
                     name: "exercise",
-                    required: ""
+                    placeholder: "Bench press"
                   },
                   domProps: { value: _vm.query },
                   on: {
@@ -55934,9 +56156,75 @@ var render = function() {
               ])
             ]),
             _vm._v(" "),
-            _vm._m(3),
+            _c("div", { staticClass: "form-group row" }, [
+              _c(
+                "label",
+                {
+                  staticClass: "col-md-4 col-form-label text-md-right",
+                  attrs: { for: "repetition" }
+                },
+                [_vm._v("Repetition")]
+              ),
+              _vm._v(" "),
+              _c("div", { staticClass: "col-md-6" }, [
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.repetition,
+                      expression: "repetition"
+                    }
+                  ],
+                  staticClass: "form-control",
+                  attrs: { id: "repetition", type: "text", name: "repetition" },
+                  domProps: { value: _vm.repetition },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.repetition = $event.target.value
+                    }
+                  }
+                })
+              ])
+            ]),
             _vm._v(" "),
-            _vm._m(4),
+            _c("div", { staticClass: "form-group row" }, [
+              _c(
+                "label",
+                {
+                  staticClass: "col-md-4 col-form-label text-md-right",
+                  attrs: { for: "sets" }
+                },
+                [_vm._v("Set")]
+              ),
+              _vm._v(" "),
+              _c("div", { staticClass: "col-md-6" }, [
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.set,
+                      expression: "set"
+                    }
+                  ],
+                  staticClass: "form-control",
+                  attrs: { id: "set", type: "text", name: "set" },
+                  domProps: { value: _vm.set },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.set = $event.target.value
+                    }
+                  }
+                })
+              ])
+            ]),
             _vm._v(" "),
             _c("div", { staticClass: "form-group row mb-0" }, [
               _c("div", { staticClass: "col-md-6 offset-md-4" }, [
@@ -55962,7 +56250,14 @@ var render = function() {
             { staticClass: "list-group" },
             _vm._l(_vm.exerciseList, function(exercise) {
               return _c("li", { staticClass: "list-group-item" }, [
-                _vm._v(_vm._s(exercise.name) + " "),
+                _vm._v(
+                  _vm._s(exercise.name) +
+                    " " +
+                    _vm._s(exercise.pivot.repetition) +
+                    " " +
+                    _vm._s(exercise.pivot.set) +
+                    " "
+                ),
                 _c(
                   "a",
                   {
@@ -55990,55 +56285,6 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "form-group row" }, [
-      _c(
-        "label",
-        {
-          staticClass: "col-md-4 col-form-label text-md-right",
-          attrs: { for: "focus" }
-        },
-        [_vm._v("Focus")]
-      ),
-      _vm._v(" "),
-      _c("div", { staticClass: "col-md-6" }, [
-        _c("input", {
-          staticClass: "form-control",
-          attrs: {
-            id: "focus",
-            type: "text",
-            name: "focus",
-            placeholder: "Upper body, lower body, endurance..."
-          }
-        })
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "form-group row" }, [
-      _c(
-        "label",
-        {
-          staticClass: "col-md-4 col-form-label text-md-right",
-          attrs: { for: "notes" }
-        },
-        [_vm._v("Notes")]
-      ),
-      _vm._v(" "),
-      _c("div", { staticClass: "col-md-6" }, [
-        _c("input", {
-          staticClass: "form-control",
-          attrs: { id: "notes", type: "text", name: "notes" }
-        })
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "form-group row" }, [
       _c("label", {
         staticClass: "col-md-4 col-form-label text-md-right",
         attrs: { for: "notes" }
@@ -56047,53 +56293,9 @@ var staticRenderFns = [
       _c("div", { staticClass: "col-md-6" }, [
         _c(
           "button",
-          { staticClass: "btn btn-primary btn-sm", attrs: { type: "submit" } },
+          { staticClass: "btn btn-primary", attrs: { type: "submit" } },
           [_vm._v("\r\n                Save\r\n            ")]
         )
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "form-group row" }, [
-      _c(
-        "label",
-        {
-          staticClass: "col-md-4 col-form-label text-md-right",
-          attrs: { for: "repetition" }
-        },
-        [_vm._v("Repetition")]
-      ),
-      _vm._v(" "),
-      _c("div", { staticClass: "col-md-6" }, [
-        _c("input", {
-          staticClass: "form-control",
-          attrs: { id: "repetition", type: "text", name: "repetition" }
-        })
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "form-group row" }, [
-      _c(
-        "label",
-        {
-          staticClass: "col-md-4 col-form-label text-md-right",
-          attrs: { for: "password" }
-        },
-        [_vm._v("Rounds")]
-      ),
-      _vm._v(" "),
-      _c("div", { staticClass: "col-md-6" }, [
-        _c("input", {
-          staticClass: "form-control",
-          attrs: { id: "rounds", type: "text", name: "rounds" }
-        })
       ])
     ])
   }

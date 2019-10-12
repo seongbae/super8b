@@ -10,10 +10,11 @@ class CreateWorkoutsTable extends Migration {
 		Schema::create('workouts', function(Blueprint $table) {
 			$table->increments('id');
 			$table->string('name');
+			$table->text('focus')->nullable();
+			$table->text('notes')->nullable();
 			$table->integer('user_id');
-			$table->integer('plan_id')->nullable();
-			$table->integer('duration')->nullable();
-			$table->integer('intensity')->nullable();
+			$table->string('duration')->nullable();
+			$table->string('intensity')->nullable();
 			$table->timestamps();
 			$table->softDeletes();
 		});

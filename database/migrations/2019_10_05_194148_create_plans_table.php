@@ -17,6 +17,8 @@ class CreatePlansTable extends Migration
             $table->bigIncrements('id');
             $table->string('name');
             $table->text('description')->nullable();
+            $table->string('duration')->nullable();
+            $table->text('goals')->nullable();
             $table->integer('user_id');
             $table->timestamps();
         });

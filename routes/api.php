@@ -18,13 +18,17 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 // Plan routes
-Route::post('/plans', function (Request $request) {
+
+// Create or update plans
+Route::post('/plan', function (Request $request) {
 	$planId = $request->get('plan_id');
 	$plan = App\Models\Plan::find($planId);
 
 	if ($plan)
 	{
 		$plan->name = $request->get('name');
+		$plan->description = $request->get('description');
+		$plan->goals = $request->get('goals');
 		$plan->user_id = $request->get('user_id');
 		$plan->save();
 	}
@@ -32,6 +36,8 @@ Route::post('/plans', function (Request $request) {
 	{
 		$plan = new App\Models\Plan;
 		$plan->name = $request->get('name');
+		$plan->description = $request->get('description');
+		$plan->goals = $request->get('goals');
 		$plan->user_id = $request->get('user_id');
 		$plan->save();
 	}
@@ -39,26 +45,29 @@ Route::post('/plans', function (Request $request) {
 	return $plan;
 });
 
-Route::post('/plans/workout', function (Request $request) {
+// Add workout to a plan
+Route::post('/plan/workout', function (Request $request) {
+	$plan = App\Models\Plan::find($request->get('plan_id'));
 	$workout = App\Models\Workout::find($request->get('workout_id'));
-	$exercise = App\Models\Exercise::find($request->get('exercise_id'));
-	$workout->exercises()->attach($exercise);
+	$plan->workouts()->attach($workout, ['start_on'=>$request->get('start_on')]);
 });
 
-
-Route::delete('/plans/workout/{planid}/{planWorkoutId}', function ($planId, $planWorkoutId) {
+// Remove workout from a plan
+Route::delete('/plan/workout/{planid}/{planWorkoutId}', function ($planId, $planWorkoutId) {
 	$plan = App\Models\Plan::find($planId);
 	$plan->workouts()->wherePivot('id', $planWorkoutId)->detach();
 });
 
-Route::post('/plans/workout/setdate', function (Request $request) {
+// Set a date for workout when adding to a plan
+Route::post('/plan/workout/setdate', function (Request $request) {
 	$plan = App\Models\Plan::find($request->get('plan_id'));
 	$workout = App\Models\Workout::find($request->get('workout_id'));
 	$parsed_date = Carbon\Carbon::parse($request->get('start_on'))->toDateTimeString();
 	$plan->workouts()->updateExistingPivot($workout, array('start_on'=>$parsed_date));
 });
 
-Route::post('/plans/update_subscription', function (Request $request) {
+// Subscribe/unsubscribe to a plan
+Route::post('/plan/update_subscription', function (Request $request) {
 	$plan = App\Models\Plan::find($request->get('plan_id'));
 	$subscriber = App\Models\User::find($request->get('user_id'));
 
@@ -69,46 +78,84 @@ Route::post('/plans/update_subscription', function (Request $request) {
 });
 
 // Workout routes
-Route::get('/workouts/{planid}', function ($id) {
+
+// Retrieve workouts in a plan
+Route::get('/workout/{planid}', function ($id) {
 	$plan = App\Models\Plan::find($id);
     return $plan->workouts; //()->withPivot('id','start_on','order');
 });
 
-Route::post('/workout', function (Request $request) {
-	$plan = App\Models\Plan::find($request->get('plan_id'));
+// Add exercise to a workout
+Route::post('/workout/exercise', function (Request $request) {
+	$workout = App\Models\Workout::find($request->get('workout_id'));
+	$exercise = App\Models\Exercise::find($request->get('exercise_id'));
+	$workout->exercises()->attach($exercise, [
+		'repetition'=>$request->get('repetition'), 
+		'set'=>$request->get('set'), 
+		'notes'=>$request->get('notes')
+	]);
+});
 
-	$workout = new App\Models\Workout;
-	$workout->name = $request->get('name');
-	$workout->user_id = $request->get('user_id');
-	$workout->save();
-	
+// Create or update existing workout
+Route::post('/workout', function (Request $request) {
+	$workout = App\Models\Workout::find($request->get('workout_id'));
+
+	if ($workout)
+	{
+		$workout->name = $request->get('name');
+		$workout->focus = $request->get('focus');
+		$workout->intensity = $request->get('intensity');
+		$workout->duration = $request->get('duration');
+		$workout->notes = $request->get('notes');
+		$workout->user_id = $request->get('user_id');
+		$workout->save();
+	}
+	else
+	{
+		$workout = new App\Models\Workout;
+		$workout->name = $request->get('name');
+		$workout->focus = $request->get('focus');
+		$workout->intensity = $request->get('intensity');
+		$workout->duration = $request->get('duration');
+		$workout->notes = $request->get('notes');
+		$workout->user_id = $request->get('user_id');
+		$workout->save();
+	}
+
 	return $workout;
 });
 
-Route::get('/exercises/{workoutid}', function ($id) {
+// Retrieve exercises in a workout
+Route::get('/workout/{workoutid}/exercises', function ($id) {
 	$workout = App\Models\Workout::with('exercises')->find($id);
     return $workout->exercises;
 });
 
-Route::delete('/workouts/{workoutid}/{exerciseid}', function ($workoutid, $workoutExerciseId) {
+// Remove exercise from a workout
+Route::delete('/workout/{workoutid}/{exerciseid}', function ($workoutid, $workoutExerciseId) {
 	$workout = App\Models\Workout::find($workoutid);
 	$workout->exercises()->wherePivot('id', $workoutExerciseId)->detach();
 });
 
 // Search routes
-Route::get('/searchexercise',function(Request $request){
+
+// Search exercises
+Route::get('/search/exercise',function(Request $request){
 	$query = $request->get('query');
 	$users = App\Models\Exercise::where('name','like','%'.$query.'%')->get();
 	return response()->json($users);
 });
 
-Route::get('/searchworkout',function(Request $request){
+// Search workouts
+Route::get('/search/workout',function(Request $request){
 	$query = $request->get('query');
 	$users = App\Models\Workout::where('name','like','%'.$query.'%')->get();
 	return response()->json($users);
 });
 
 // User routes
+
+// Mark workout complete
 Route::post('/user/workout/update_status', function (Request $request) {
 	$planWorkout = App\Models\PlanWorkout::find($request->get('id'));
 	$user = App\Models\User::find($request->get('user_id'));

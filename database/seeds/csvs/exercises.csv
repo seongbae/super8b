@@ -1,9 +1,9 @@
-id,name,alternate_names
+id,name
 1,Ab-Wheel Rollout,
 2,Arnold Press,
-3,Back Squat ,
+3,Back Squat,
 4,Barbell Bench Press,
-5,Barbell Deadlift,Deadlift
+5,Deadlift,
 6,Barbell Row,
 7,Barbell Wrist Curl,
 8,Behind-The-Neck Press,
@@ -15,7 +15,7 @@ id,name,alternate_names
 14,Cable Crunch,
 15,Cable Fly,
 16,Cable Tricep Extensions,
-17,Captain’s Chair Leg Raise,
+17,Captain's Chair Leg Raise,
 18,Chest Dips,
 19,Chest Squeeze,
 20,Chin Ups,
@@ -108,3 +108,4 @@ id,name,alternate_names
 107,Weighted Pull-ups,
 108,Wide-Grip Pulldown,
 109,Wide Grip Pull Up,
+110,Glut-Ham-Developer (GHD) Sit ups,

@@ -34,17 +34,15 @@ class HomeController extends Controller
         {
             foreach ($plan->workouts as $workout)
             {
-                if ($todaysWorkout->count() > 0)
-                {
-                    $nextWorkout->add($workout);
-                }
-
                 if (Helpers::fallsOnToday($workout->pivot->start_on))
                 {
                     $todaysWorkout->add($workout);
                 }
 
-
+                if (Helpers::inFuture($workout->pivot->start_on))
+                {
+                    $nextWorkout->add($workout);
+                }
             }
         }
 

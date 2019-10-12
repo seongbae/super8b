@@ -43,21 +43,40 @@ class Helpers
    //  else 
 	  // 	$current = strtotime(date("Y-m-d"));
 
-  	$current = strtotime(date("Y-m-d"));
-	$date    = strtotime(date('Y-m-d', strtotime($dt)));
+    $current = strtotime(date("Y-m-d"));
+  	$date    = strtotime(date('Y-m-d', strtotime($dt)));
 
-	Log::info('fallsOnToday: today->'. date("Y-m-d") . ' variable: '.date('Y-m-d', strtotime($dt)));
-	Log::info('fallsOnToday: today->'. $current . ' variable: '.$date);
+  	Log::info('fallsOnToday: today->'. date("Y-m-d") . ' variable: '.date('Y-m-d', strtotime($dt)));
+  	Log::info('fallsOnToday: today->'. $current . ' variable: '.$date);
 
-	$datediff = $date - $current;
-	$difference = floor($datediff/(60*60*24));
-	
-	Log::info('fallsOnToday: difference->'. $difference);
+  	$datediff = $date - $current;
+  	$difference = floor($datediff/(60*60*24));
+  	
+  	Log::info('fallsOnToday: difference->'. $difference);
 
-	if($difference==0)
-		return true;
+  	if($difference==0)
+  		return true;
 
-	return false;
+  	return false;
+  }
+
+  public static function inFuture($dt)
+  {
+    $current = strtotime(date("Y-m-d"));
+    $date    = strtotime(date('Y-m-d', strtotime($dt)));
+
+    Log::info('fallsOnToday: today->'. date("Y-m-d") . ' variable: '.date('Y-m-d', strtotime($dt)));
+    Log::info('fallsOnToday: today->'. $current . ' variable: '.$date);
+
+    $datediff = $date - $current;
+    $difference = floor($datediff/(60*60*24));
+    
+    Log::info('fallsOnToday: difference->'. $difference);
+
+    if($difference>1)
+      return true;
+
+    return false;
   }
 }
 
