@@ -20,6 +20,7 @@ class CreatePlansTable extends Migration
             $table->string('duration')->nullable();
             $table->text('goals')->nullable();
             $table->integer('user_id');
+            $table->string('status')->default('draft');
             $table->timestamps();
         });
     }

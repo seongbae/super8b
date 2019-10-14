@@ -15,16 +15,26 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::middleware('auth')->group(function () {
+	
+	Route::get('/home', 'HomeController@index')->name('home');
 
-Route::resource('workouts', 'WorkoutController');
-Route::resource('plans', 'PlansController');
-Route::resource('exercise', 'ExerciseController');
-Route::resource('focus', 'FocusController');
+	Route::resource('workouts', 'WorkoutController');
+	Route::resource('plans', 'PlansController');
+	Route::resource('exercise', 'ExerciseController');
+	Route::resource('focus', 'FocusController');
 
-Route::get('/create', 'WorkoutController@create');
+	Route::get('/create', 'WorkoutController@create');
+
+	Route::get('/profile', 'ProfileController@show');
+	Route::view('/password', 'password');
+
+	
+});
+
 
 // Route::get('plans', 'PlansController@index');
 // Route::get('plans/{id}', 'PlansController@show');

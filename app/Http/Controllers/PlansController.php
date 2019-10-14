@@ -26,9 +26,14 @@ class PlansController extends Controller
    */
   public function index()
   {
-    $plans = Plan::with('author')->paginate(15);
+    $myPlans = Plan::with('author')->where('user_id', Auth::id())->paginate(15);
+    $allPlans = Plan::with('author')->where('status', 'published')->paginate(15);
+    $subscribedplans = Auth::user()->subscribedPlans()->paginate(15);
 
-    return view('plans.index')->with('plans', $plans);
+    return view('plans.index')
+          ->with('myplans', $myPlans)
+          ->with('allplans', $allPlans)
+          ->with('subscribedplans', $subscribedplans);
   }
 
   /**

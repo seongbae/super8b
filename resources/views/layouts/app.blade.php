@@ -6,7 +6,9 @@
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
-
+    @auth
+    <meta name="api-token" content="{{ Auth::user()->api_token }}">
+    @endauth
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Scripts -->
@@ -68,6 +70,12 @@
                                     </a>
                                     <a class="dropdown-item" href="/workouts/create">
                                         {{ __('Create a Workout') }}
+                                    </a>
+                                    <a class="dropdown-item" href="/profile">
+                                        {{ __('My Profile') }}
+                                    </a>
+                                    <a class="dropdown-item" href="/password">
+                                        {{ __('Change Password') }}
                                     </a>
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();

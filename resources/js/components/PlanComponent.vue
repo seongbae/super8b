@@ -25,8 +25,9 @@
     <div class="form-group row">
         <div class=" offset-md-4 col-md-6">
             <button type="submit" class="btn btn-primary ">
-                Save
+                Save as draft
             </button>
+            <input type="button" class="btn btn-primary" value="Publish" v-on:click="updateStatus()"> 
         </div>
     </div>
     
@@ -83,6 +84,7 @@
                 this.planDescription = this.plan.description;
                 this.planGoals = this.plan.goals;
                 this.showWorkoutAdd = true;
+                this.planPublished = this.plan.status == 'published';
                 this.fetchWorkoutList();
             }
             //console.log('mounted:'+this.plan_name);
@@ -104,7 +106,8 @@
                 planDescription: "",
                 planGoals: "",
                 plan: "",
-                showWorkoutAdd: false
+                showWorkoutAdd: false,
+                planPublished: false
             };
         },
         components: {
@@ -217,14 +220,25 @@
                 this.workout_id = this.selection.id
                 console.log(this.selection);
             },
-            saveDate(workoutid) {
-                this.setdate_workout_id = workoutid;
-                //alert('2='+this.date);
-                // axios.post('/api/plans/workout/setdate', {plan_id: this.planData.id, workout_id: workoutid, start_on: this.date}).then(res => {
-                //         console.log(res.data);
-                //     }).catch(e => {
-                //         console.log(e);
-                //     });
+            updateStatus() {
+                if (this.plan.status == 'draft')
+                    this.publishPlan(this.plan.id)
+                else
+                    this.unpublishPlan(this.plan.id)
+            },
+            publishPlan(planid) {
+                axios.get('/api/plan/'+this.plan.id+'/publish').then(res => {
+                        this.$toasted.global.error('Plan published');
+                    }).catch(e => {
+                        console.log(e);
+                    });
+            },
+            unpublishPlan(planid) {
+                axios.get('/api/plan/'+this.plan.id+'/unpublish').then(res => {
+                        this.$toasted.global.error('Plan un-published');
+                    }).catch(e => {
+                        console.log(e);
+                    });
             }
         }
     }

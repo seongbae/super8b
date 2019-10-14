@@ -25,7 +25,6 @@
                         <th>Workout</th>
                         <th>Intensity</th>
                         <th>Duration</th>
-                        <th>Author</th>
                         <th>Created</th>
                      </tr>
                      </thead>
@@ -42,6 +41,7 @@
                      </tbody>
                   </table>
                   {{ $myworkouts->links() }}
+                  <a href="/workouts/create" class="btn btn-primary"><i class="fas fa-plus"></i> Create a Workout</a>
               </div>
               <div class="tab-pane fade" id="allworkouts" role="tabpanel" aria-labelledby="history-tab">
                   <table class="table table-sm">

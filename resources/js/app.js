@@ -19,12 +19,20 @@ window.Vue = require('vue');
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 import Datepicker from 'vuejs-datepicker';
+import Toasted from 'vue-toasted';
 
+Vue.use(Toasted)
+Vue.toasted.register('error', message => message, {
+    position : 'bottom-center',
+    duration : 1000
+})
 Vue.component('plan-component', require('./components/PlanComponent.vue').default);
 Vue.component('workout-component', require('./components/WorkoutComponent.vue').default);
 Vue.component('workoutexercise-component', require('./components/WorkoutExerciseComponent.vue').default);
 Vue.component('subscribe-component', require('./components/SubscribeComponent.vue').default);
 Vue.component('mark-complete-component', require('./components/MarkCompleteComponent.vue').default);
+Vue.component('profile', require('./components/Profile.vue').default);
+Vue.component('password', require('./components/Password.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

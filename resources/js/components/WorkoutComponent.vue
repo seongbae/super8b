@@ -178,6 +178,7 @@
                         this.repetition = "";
                         this.set = "";
                         this.exercise_id = "";
+                        this.$toasted.global.error('Exercise added.');
                         console.log(res.data);
                     }).catch(e => {
                         console.log(e);
@@ -188,7 +189,7 @@
                 console.log(this.workout);
                 axios.post('/api/workout/'+this.workoutId+'/'+id, {_method: 'delete'}).then(res => {
                     this.fetchExerciseList();
-                    console.log(res.data);
+                    this.$toasted.global.error('Exercise removed.');
                 }).catch(e => {
                     console.log(e);
                 });
@@ -203,9 +204,9 @@
                         notes: this.workoutNotes,
                         user_id: this.userData.id
                     }).then(res => {
-                    console.log(res.data);
                     this.workout = res.data;
                     this.showExerciseAdd = true;
+                    this.$toasted.global.error('Workout updated!');
                 }).catch(e => {
                     console.log(e);
                 });
