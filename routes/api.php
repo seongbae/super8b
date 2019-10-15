@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Http\Request;
-
+use App\Services\PlansService;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -21,26 +21,28 @@ Route::middleware('auth:api')->group(function () {
 	// Plan routes
 
 	// Create or update plans
-	Route::post('/plan', function (Request $request) {
+	Route::post('/plan', function (Request $request, PlansService $service) {
 		$planId = $request->get('plan_id');
 		$plan = App\Models\Plan::find($planId);
 
 		if ($plan)
 		{
-			$plan->name = $request->get('name');
-			$plan->description = $request->get('description');
-			$plan->goals = $request->get('goals');
-			$plan->user_id = $request->get('user_id');
-			$plan->save();
+			$plan = $service->updatePlan(
+				$request->get('plan_id'),
+				$request->get('name'), 
+				$request->get('description'), 
+				$request->get('goals'), 
+				$request->get('user_id')
+			);			
 		}
 		else
 		{
-			$plan = new App\Models\Plan;
-			$plan->name = $request->get('name');
-			$plan->description = $request->get('description');
-			$plan->goals = $request->get('goals');
-			$plan->user_id = $request->get('user_id');
-			$plan->save();
+			$plan = $service->createPlan(
+				$request->get('name'), 
+				$request->get('description'), 
+				$request->get('goals'), 
+				$request->get('user_id')
+			);
 		}
 
 		return $plan;
@@ -68,24 +70,12 @@ Route::middleware('auth:api')->group(function () {
 	});
 
 	// Set a date for workout when adding to a plan
-	Route::get('/plan/{planid}/publish', function ($planId) {
-		$plan = App\Models\Plan::find($planId);
-		
-		if ($plan)
-		{
-			$plan->status = 'published';
-			$plan->save();
-		}
+	Route::get('/plan/{planid}/publish', function ($planId, App\Services\PlansService $service) {
+		$service->publish($planId);
 	});
 
-	Route::get('/plan/{planid}/unpublish', function ($planId) {
-		$plan = App\Models\Plan::find($planId);
-		
-		if ($plan)
-		{
-			$plan->status = 'draft';
-			$plan->save();
-		}
+	Route::get('/plan/{planid}/unpublish', function ($planId, App\Services\PlansService $service) {
+		$service->unpublish($planId);
 	});
 
 	// Subscribe/unsubscribe to a plan

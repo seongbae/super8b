@@ -42,7 +42,7 @@ let apiToken = document.head.querySelector('meta[name="api-token"]');
 if (apiToken) {
     window.axios.defaults.headers.common['Authorization'] = 'Bearer ' + apiToken.content;
 } else {
-    console.error('API token not found');
+    //console.error('API token not found');
 }
 
 /**

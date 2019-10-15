@@ -71546,9 +71546,8 @@ var apiToken = document.head.querySelector('meta[name="api-token"]');
 
 if (apiToken) {
   window.axios.defaults.headers.common['Authorization'] = 'Bearer ' + apiToken.content;
-} else {
-  console.error('API token not found');
-}
+} else {} //console.error('API token not found');
+
 /**
  * Echo exposes an expressive API for subscribing to channels and listening
  * for events that are broadcast by Laravel. Echo and event broadcasting
