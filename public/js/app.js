@@ -2138,9 +2138,10 @@ __webpack_require__.r(__webpack_exports__);
         goals: this.planGoals,
         user_id: this.userData.id
       }).then(function (res) {
-        console.log(res.data);
         _this2.plan = res.data;
         _this2.showWorkoutAdd = true;
+
+        _this2.$toasted.global.error('Plan saved');
       })["catch"](function (e) {
         console.log(e);
       });
@@ -2152,7 +2153,7 @@ __webpack_require__.r(__webpack_exports__);
         axios.post('/api/plan/workout', {
           workout_id: this.workout_id,
           plan_id: this.plan.id,
-          start_on: moment__WEBPACK_IMPORTED_MODULE_1___default()(String(this.start_on)).format('YYYY-MM-DD 00:00:00')
+          start_on: moment__WEBPACK_IMPORTED_MODULE_1___default()(String(this.start_on)).format('YYYY-MM-DD 12:00:00')
         }).then(function (res) {
           _this3.fetchWorkoutList();
 
@@ -2160,7 +2161,8 @@ __webpack_require__.r(__webpack_exports__);
           _this3.workout = "";
           _this3.workout_id = "";
           _this3.start_on = "";
-          console.log(res.data);
+
+          _this3.$toasted.global.error('Workout added');
         })["catch"](function (e) {
           console.log(e);
         });
@@ -2174,7 +2176,7 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function (res) {
         _this4.fetchWorkoutList();
 
-        console.log(res.data);
+        _this4.$toasted.global.error('Workout removed');
       })["catch"](function (e) {
         console.log(e);
       });
@@ -2203,7 +2205,13 @@ __webpack_require__.r(__webpack_exports__);
       console.log(this.selection);
     },
     updateStatus: function updateStatus() {
-      if (this.plan.status == 'draft') this.publishPlan(this.plan.id);else this.unpublishPlan(this.plan.id);
+      if (this.plan.status == 'draft') {
+        this.publishPlan(this.plan.id);
+        this.$toasted.global.error('Plan is published.');
+      } else {
+        this.unpublishPlan(this.plan.id);
+        this.$toasted.global.error('Plan is set to draft.');
+      }
     },
     publishPlan: function publishPlan(planid) {
       var _this6 = this;
@@ -2474,6 +2482,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['userData', 'workoutData'],
   mounted: function mounted() {
@@ -2501,7 +2511,7 @@ __webpack_require__.r(__webpack_exports__);
       results: [],
       open: false,
       workoutName: "",
-      workoutFocus: "ff",
+      workoutFocus: "",
       workoutDuration: "",
       workoutIntensity: "",
       workoutNotes: "",
@@ -55934,7 +55944,7 @@ var render = function() {
           _c(
             "button",
             { staticClass: "btn btn-primary ", attrs: { type: "submit" } },
-            [_vm._v("\r\n                Save as draft\r\n            ")]
+            [_vm._v("\r\n                Save\r\n            ")]
           ),
           _vm._v(" "),
           _c("input", {
@@ -56364,7 +56374,7 @@ var render = function() {
               id: "name",
               type: "text",
               name: "name",
-              placeholder: "Billy's Workout",
+              placeholder: "Lower Body Workout",
               required: "",
               autofocus: ""
             },
@@ -56549,10 +56559,10 @@ var render = function() {
       _vm._v(" "),
       _vm._m(0),
       _vm._v(" "),
-      _c("hr"),
-      _vm._v(" "),
       _vm.showExerciseAdd
         ? _c("div", [
+            _c("hr"),
+            _vm._v(" "),
             _c("div", { staticClass: "form-group row" }, [
               _c(
                 "label",
@@ -56734,39 +56744,41 @@ var render = function() {
           ])
         : _vm._e(),
       _vm._v(" "),
-      _c("hr"),
-      _vm._v(" "),
       _vm.exerciseList.length > 0
-        ? _c(
-            "ul",
-            { staticClass: "list-group" },
-            _vm._l(_vm.exerciseList, function(exercise) {
-              return _c("li", { staticClass: "list-group-item" }, [
-                _vm._v(
-                  _vm._s(exercise.name) +
-                    " " +
-                    _vm._s(exercise.pivot.repetition) +
-                    " " +
-                    _vm._s(exercise.pivot.set) +
-                    " "
-                ),
-                _c(
-                  "a",
-                  {
-                    staticClass: "float-right",
-                    attrs: { href: "#" },
-                    on: {
-                      click: function($event) {
-                        return _vm.removeExercise(exercise.pivot.id)
+        ? _c("div", [
+            _c("hr"),
+            _vm._v(" "),
+            _c(
+              "ul",
+              { staticClass: "list-group" },
+              _vm._l(_vm.exerciseList, function(exercise) {
+                return _c("li", { staticClass: "list-group-item" }, [
+                  _vm._v(
+                    _vm._s(exercise.name) +
+                      " " +
+                      _vm._s(exercise.pivot.repetition) +
+                      " " +
+                      _vm._s(exercise.pivot.set) +
+                      " "
+                  ),
+                  _c(
+                    "a",
+                    {
+                      staticClass: "float-right",
+                      attrs: { href: "#" },
+                      on: {
+                        click: function($event) {
+                          return _vm.removeExercise(exercise.pivot.id)
+                        }
                       }
-                    }
-                  },
-                  [_c("i", { staticClass: "fas fa-minus-circle" })]
-                )
-              ])
-            }),
-            0
-          )
+                    },
+                    [_c("i", { staticClass: "fas fa-minus-circle" })]
+                  )
+                ])
+              }),
+              0
+            )
+          ])
         : _vm._e()
     ]
   )

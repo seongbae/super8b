@@ -25,7 +25,7 @@
     <div class="form-group row">
         <div class=" offset-md-4 col-md-6">
             <button type="submit" class="btn btn-primary ">
-                Save as draft
+                Save
             </button>
             <input type="button" class="btn btn-primary" value="Publish" v-on:click="updateStatus()"> 
         </div>
@@ -86,6 +86,11 @@
                 this.showWorkoutAdd = true;
                 this.planPublished = this.plan.status == 'published';
                 this.fetchWorkoutList();
+            }
+
+            if (this.planPublished)
+            {
+                
             }
             //console.log('mounted:'+this.plan_name);
             console.log(this.planData);
@@ -168,9 +173,9 @@
                     goals: this.planGoals,
                     user_id:this.userData.id
                 }).then(res => {
-                    console.log(res.data);
                     this.plan = res.data;
                     this.showWorkoutAdd = true;
+                    this.$toasted.global.error('Plan saved');
                 }).catch(e => {
                     console.log(e);
                 });
@@ -188,7 +193,7 @@
                         this.workout = "";
                         this.workout_id = "";
                         this.start_on = "";
-                        console.log(res.data);
+                        this.$toasted.global.error('Workout added');
                     }).catch(e => {
                         console.log(e);
                     });
@@ -199,7 +204,7 @@
             removeWorkout(workoutid) {
                 axios.post('/api/plan/workout/'+this.planData.id+'/'+workoutid, {_method: 'delete'}).then(res => {
                     this.fetchWorkoutList();
-                    console.log(res.data);
+                    this.$toasted.global.error('Workout removed');
                 }).catch(e => {
                     console.log(e);
                 });
@@ -221,10 +226,13 @@
                 console.log(this.selection);
             },
             updateStatus() {
-                if (this.plan.status == 'draft')
+                if (this.plan.status == 'draft'){
                     this.publishPlan(this.plan.id)
-                else
+                }
+                else {
                     this.unpublishPlan(this.plan.id)
+                }
+                
             },
             publishPlan(planid) {
                 axios.get('/api/plan/'+this.plan.id+'/publish').then(res => {

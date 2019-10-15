@@ -4,7 +4,7 @@
         <label for="name" class="col-md-4 col-form-label text-md-right">Name</label>
 
         <div class="col-md-6">
-            <input id="name" type="text" class="form-control" name="name" v-model="workoutName" placeholder="Billy's Workout" required  autofocus>
+            <input id="name" type="text" class="form-control" name="name" v-model="workoutName" placeholder="Lower Body Workout" required  autofocus>
         </div>
     </div>
     <div class="form-group row">
@@ -53,8 +53,8 @@
         </div>
     </div>
     
-    <hr>
     <div v-if="showExerciseAdd">
+    <hr>
         <div class="form-group row">
             <label for="exercise" class="col-md-4 col-form-label text-md-right">Exercise</label>
 
@@ -93,10 +93,12 @@
                 </div>
         </div>
     </div>
+    <div  v-if="exerciseList.length>0">
     <hr>
-    <ul class="list-group" v-if="exerciseList.length>0">
+    <ul class="list-group">
         <li class="list-group-item" v-for="exercise in exerciseList">{{ exercise.name }} {{ exercise.pivot.repetition }} {{ exercise.pivot.set }} <a href="#" @click="removeExercise(exercise.pivot.id)" class="float-right"><i class="fas fa-minus-circle"></i></a></li>
     </ul>
+    </div>
 </form>
 </template>
 
@@ -129,7 +131,7 @@
                 results: [],
                 open: false,
                 workoutName: "",
-                workoutFocus: "ff",
+                workoutFocus: "",
                 workoutDuration: "",
                 workoutIntensity: "",
                 workoutNotes: "",

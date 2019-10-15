@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Exercise;
 
 class ExerciseController extends Controller 
 {
@@ -24,7 +25,9 @@ class ExerciseController extends Controller
    */
   public function index()
   {
-    
+      $exercises = Exercise::orderBy('name')->paginate(10);
+
+      return view('exercises.index')->with('exercises', $exercises);
   }
 
   /**
@@ -44,7 +47,11 @@ class ExerciseController extends Controller
    */
   public function store(Request $request)
   {
-    
+      $exercise = new Exercise;
+      $exercise->name = $request->get('exercise');
+      $exercise->save();
+
+      return redirect('/exercises');
   }
 
   /**
@@ -88,7 +95,10 @@ class ExerciseController extends Controller
    */
   public function destroy($id)
   {
-    
+      $exercise = Exercise::find($id);
+      $exercise->delete();
+
+      return redirect('/exercises');
   }
   
 }

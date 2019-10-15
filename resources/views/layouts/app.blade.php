@@ -45,6 +45,9 @@
                           <li class="nav-item">
                             <a class="nav-link" href="/workouts">Workouts</a>
                           </li>
+                          <li class="nav-item">
+                            <a class="nav-link" href="/exercises">Exercises</a>
+                          </li>
                     </ul>
                     @endauth
                     <!-- Right Side Of Navbar -->

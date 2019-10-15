@@ -15,4 +15,15 @@ class Exercise extends Model
 
     protected $dates = ['deleted_at'];
 
+    public function workouts()
+    {
+        return $this->belongsToMany('App\Models\Workout','workout_exercise', 'workout_id', 'exercise_id');
+    }
+
+    // // $exercise->
+    // public function plans()
+    // {
+    // 	return $this->hasManyThrough('App\Models\Workout', 'App\Models\Plan');
+    // }
+
 }

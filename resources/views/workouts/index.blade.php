@@ -9,16 +9,16 @@
                     {{ session('status') }}
                 </div>
             @endif
-            <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <ul class="nav nav-tabs border-0 super8b-tab-menus" id="myTab" role="tablist">
               <li class="nav-item">
-                <a class="nav-link active" id="home-tab" data-toggle="tab" href="#myworkouts" role="tab" aria-controls="home" aria-selected="true">My Workouts ({{ count($myworkouts)}})</a>
+                <a class="nav-link active border border-bottom-0" id="home-tab" data-toggle="tab" href="#myworkouts" role="tab" aria-controls="home" aria-selected="true">My Workouts ({{ count($myworkouts)}})</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" id="history-tab" data-toggle="tab" href="#allworkouts" role="tab" aria-controls="contact" aria-selected="false">All Workouts ({{ count($allworkouts)}})</a>
+                <a class="nav-link border border-bottom-0" id="history-tab" data-toggle="tab" href="#allworkouts" role="tab" aria-controls="contact" aria-selected="false">All Workouts ({{ count($allworkouts)}})</a>
               </li>
             </ul>
-            <div class="tab-content pt-4 pl-1" id="myTabContent">
-              <div class="tab-pane fade show active" id="myworkouts" role="tabpanel" aria-labelledby="home-tab">
+            <div class="tab-content h-90 super8b-tabs" id="myTabContent">
+              <div class="tab-pane fade show active h-100 p-3 border " id="myworkouts" role="tabpanel" aria-labelledby="home-tab">
                 <table class="table table-sm">
                      <thead>
                      <tr>
@@ -43,7 +43,7 @@
                   {{ $myworkouts->links() }}
                   <a href="/workouts/create" class="btn btn-primary"><i class="fas fa-plus"></i> Create a Workout</a>
               </div>
-              <div class="tab-pane fade" id="allworkouts" role="tabpanel" aria-labelledby="history-tab">
+              <div class="tab-pane fade h-100 p-3 border " id="allworkouts" role="tabpanel" aria-labelledby="history-tab">
                   <table class="table table-sm">
                      <thead>
                      <tr>

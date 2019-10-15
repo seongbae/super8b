@@ -6,3 +6,11 @@
 
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
+
+.nav-tabs .nav-link:not(.active) {
+    border-color: transparent !important;
+}
+
+.super8b-tabs, .super8b-tab-menus .active {
+	background: #FFF
+}

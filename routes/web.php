@@ -24,7 +24,7 @@ Route::middleware('auth')->group(function () {
 
 	Route::resource('workouts', 'WorkoutController');
 	Route::resource('plans', 'PlansController');
-	Route::resource('exercise', 'ExerciseController');
+	Route::resource('exercises', 'ExerciseController');
 	Route::resource('focus', 'FocusController');
 
 	Route::get('/create', 'WorkoutController@create');
