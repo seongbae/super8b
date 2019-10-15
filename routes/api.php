@@ -48,6 +48,19 @@ Route::middleware('auth:api')->group(function () {
 		return $plan;
 	});
 
+	// Create or update plans
+	Route::delete('/plan', function (Request $request, PlansService $service) {
+		$planId = $request->get('plan_id');
+		$plan = App\Models\Plan::find($planId);
+
+		if ($plan)
+		{
+			$plan = $service->deletePlan($planId);
+		}
+		
+		return $plan;
+	});
+
 	// Add workout to a plan
 	Route::post('/plan/workout', function (Request $request) {
 		$plan = App\Models\Plan::find($request->get('plan_id'));

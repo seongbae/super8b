@@ -40,5 +40,6 @@
 
         <env name="DB_CONNECTION" value="sqlite" />
         <env name="APP_DEBUG" value="false" />
+        <env name="TELESCOPE_ENABLED" value="false" />
     </php>
 </phpunit>

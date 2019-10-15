@@ -9,7 +9,8 @@
     @auth
     <meta name="api-token" content="{{ Auth::user()->api_token }}">
     @endauth
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>{{ config('app.name', 'Laravel') }} - {{ config('app.slogan', 'Laravel') }}</title>
+    <meta name="description" content="{{ config('app.description', 'Laravel') }}">
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>

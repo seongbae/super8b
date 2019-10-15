@@ -181,7 +181,7 @@
                     axios.post('/api/plan/workout', {
                         workout_id: this.workout_id, 
                         plan_id: this.plan.id, 
-                        start_on: moment(String(this.start_on)).format('YYYY-MM-DD 00:00:00')
+                        start_on: moment(String(this.start_on)).format('YYYY-MM-DD 12:00:00')
                     }).then(res => {
                         this.fetchWorkoutList();
                         this.query = "";

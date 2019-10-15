@@ -54,10 +54,18 @@ class PlanTest extends TestCase
 
         $response = $this->actingAs($user)->json('POST', '/api/plan', $data);
 
+        $content = $response->getContent();
+        $array = json_decode($content, true);
+
+        $data['plan_id'] = $array['id'];
+        $data['name'] = 'new name';
+
+        $response = $this->actingAs($user)->json('POST', '/api/plan', $data);
+
         $response
-            ->assertStatus(201)
+            ->assertStatus(200)
             ->assertJson([
-                'name' => $data['name'],
+                'name' => 'new name',
             ]);
     }
 
@@ -77,7 +85,7 @@ class PlanTest extends TestCase
 
         $user = factory(\App\Models\User::class)->create();
 
-        $response = $this->actingAs($user)->json('POST', '/api/plan', $data);
+        $response = $this->actingAs($user)->json('DELETE', '/api/plan', $data);
 
         $response
             ->assertStatus(201)
@@ -86,53 +94,53 @@ class PlanTest extends TestCase
             ]);
     }
 
-    /**
-     * Test to create a plan
-     *
-     * @return void
-     */
-    public function test_can_publish_plan()
-    {
-        $data = [
-            'name' => $this->faker->sentence,
-            'description' => $this->faker->paragraph,
-            'user_id' => 1,
-            'status' => 'draft'
-        ];
+    // /**
+    //  * Test to create a plan
+    //  *
+    //  * @return void
+    //  */
+    // public function test_can_publish_plan()
+    // {
+    //     $data = [
+    //         'name' => $this->faker->sentence,
+    //         'description' => $this->faker->paragraph,
+    //         'user_id' => 1,
+    //         'status' => 'draft'
+    //     ];
 
-        $user = factory(\App\Models\User::class)->create();
+    //     $user = factory(\App\Models\User::class)->create();
 
-        $response = $this->actingAs($user)->json('POST', '/api/plan', $data);
+    //     $response = $this->actingAs($user)->json('POST', '/api/plan', $data);
 
-        $response
-            ->assertStatus(201)
-            ->assertJson([
-                'name' => $data['name'],
-            ]);
-    }
+    //     $response
+    //         ->assertStatus(201)
+    //         ->assertJson([
+    //             'name' => $data['name'],
+    //         ]);
+    // }
 
-    /**
-     * Test to create a plan
-     *
-     * @return void
-     */
-    public function test_can_unpublish_plan()
-    {
-        $data = [
-            'name' => $this->faker->sentence,
-            'description' => $this->faker->paragraph,
-            'user_id' => 1,
-            'status' => 'draft'
-        ];
+    // /**
+    //  * Test to create a plan
+    //  *
+    //  * @return void
+    //  */
+    // public function test_can_unpublish_plan()
+    // {
+    //     $data = [
+    //         'name' => $this->faker->sentence,
+    //         'description' => $this->faker->paragraph,
+    //         'user_id' => 1,
+    //         'status' => 'draft'
+    //     ];
 
-        $user = factory(\App\Models\User::class)->create();
+    //     $user = factory(\App\Models\User::class)->create();
 
-        $response = $this->actingAs($user)->json('POST', '/api/plan', $data);
+    //     $response = $this->actingAs($user)->json('POST', '/api/plan', $data);
 
-        $response
-            ->assertStatus(201)
-            ->assertJson([
-                'name' => $data['name'],
-            ]);
-    }
+    //     $response
+    //         ->assertStatus(201)
+    //         ->assertJson([
+    //             'name' => $data['name'],
+    //         ]);
+    // }
 }
