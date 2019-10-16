@@ -1,6 +1,6 @@
 <template>
     <div>
-    <button type="submit" class="btn btn-sm" v-bind:class="{ 'btn-danger': user_completed, 'btn-primary': !user_completed}" @click="update_completion">
+    <button type="submit" class="btn" v-bind:class="{ 'btn-danger': user_completed, 'btn-primary': !user_completed}" @click="update_completion">
         <span v-if="user_completed"><i class="fas fa-check"></i> Completed. Great job!</span>
         <span v-if="!user_completed"><i class="fas fa-plus"></i> Mark Complete</span>
     </button>

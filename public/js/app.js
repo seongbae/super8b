@@ -84497,7 +84497,7 @@ var render = function() {
     _c(
       "button",
       {
-        staticClass: "btn btn-sm",
+        staticClass: "btn",
         class: {
           "btn-danger": _vm.user_completed,
           "btn-primary": !_vm.user_completed
