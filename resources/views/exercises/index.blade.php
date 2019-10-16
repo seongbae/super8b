@@ -18,28 +18,32 @@
                       <thead>
                      <tr>
                         <th>Exercise</th>
-                        <th>Added to Workouts</th>
-                        <th></th>
+                        <th class="text-right">Added to Workouts</th>
+                        <th class="text-right"></th>
                      </tr>
                      </thead>
                     <tbody>
                       @foreach($exercises as $exercise)
                       <tr>
                          <td>{{ $exercise->name }}</td>
-                         <td>{{ $exercise->workouts->count() }}</td>
+                         <td class="text-right">{{ $exercise->workouts->count() }}</td>
                          <td class="text-right">
+                          @can('delete exercises')
                           <form action="/exercises/{{$exercise->id}}" method="POST">
                             <input type="hidden" name="_method" value="DELETE">
                             <input type="submit" name="submit" value="Remove" {{ $exercise->workouts->count() > 0 ? 'disabled ' : ''}} class="btn btn-danger btn-sm" onClick="return confirm(\'Are you sure?\')">
                             <input type="hidden" name="_token" value="{{csrf_token()}}">
                           </form>
+                          @endcan
                         </td>
                       </tr>
                       @endforeach
                    </tbody>
                     </table>
                     {{ $exercises->links() }}
+                    @can('publish exercises')
                     <a href="/plans/create" class="btn btn-primary"  data-toggle="modal" data-target="#myModal"><i class="fas fa-plus"></i> Add Exercise</a>
+                    @endcan
             </div>
           </div>
       </div>

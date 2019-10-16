@@ -12,7 +12,9 @@
                             Edit
                         </a>
                         @endif
+                        @if ($plan->status == 'published')
                         <subscribe-component :user="{{$user}}" :plan="{{$plan}}" :subscribed="{{$user->subscribed($plan)}}"></subscribe-component>
+                        @endif
                     </div>
                 </div>
                 <div class="card-body">
