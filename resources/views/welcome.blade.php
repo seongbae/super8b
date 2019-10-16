@@ -8,8 +8,8 @@
                 <div class="card-header">{{ __('What is Super 8B?') }}</div>
 
                 <div class="card-body">
-                    <p>Super 8B is a simple workout planning tool built by Seong Bae.  It is named after the CGSC Class of 2020 Student Group 8B.</p>
-                    <p>Both workout planners and trainees can use this tool to keep track of workouts and progress. The tool is created to help military leaders plan & share effective workout plans to help Soldiers stay in shape.</p>
+                    <p>Super 8B is a simple workout planning tool.  It is named after the CGSC Class of 2020 Student Group 8B.</p>
+                    <p>Workout planners and partifipants can use this tool to schedule workouts and keep track of progress. The tool is created to help military leaders plan & share effective workout plans to help Soldiers stay in shape.</p>
 
                     <p>
                     <strong>For Planners:</strong>
