@@ -18,6 +18,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/tabs', function () {
+	return view('tabs');
+});
 
 Auth::routes();
 

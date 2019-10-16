@@ -31,11 +31,10 @@
                      <tbody>
                         @foreach($myworkouts as $workout)
                         <tr>
-                           <td><a href="/workouts/{{$workout->id}}">{{ $workout->name }}</a></td>
+                           <td><a href="/workouts/{{$workout->id}}">{{ $workout->name }}</a><br>{{ $workout->focus }}</td>
                            <td>{{ $workout->intensity }}</td>
                            <td>{{ $workout->duration }}</td>
-                           <td>{{ $workout->author->name }}</td>
-                           <td>{{ $workout->created }}</td>
+                           <td>{{ $workout->created_at }}</td>
                         </tr>
                         @endforeach
                      </tbody>
@@ -57,11 +56,11 @@
                      <tbody>
                         @foreach($allworkouts as $workout)
                         <tr>
-                           <td><a href="/workouts/{{$workout->id}}">{{ $workout->name }}</a></td>
+                           <td><a href="/workouts/{{$workout->id}}">{{ $workout->name }}</a><br>{{ $workout->focus }}</td>
                            <td>{{ $workout->intensity }}</td>
                            <td>{{ $workout->duration }}</td>
                            <td>{{ $workout->author->name }}</td>
-                           <td>{{ $workout->created }}</td>
+                           <td>{{ $workout->created_at }}</td>
                         </tr>
                         @endforeach
                      </tbody>

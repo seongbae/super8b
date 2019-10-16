@@ -215,4 +215,10 @@ Route::middleware('auth:api')->group(function () {
 		else
 			$planWorkout->finishers()->detach($user);
 	});
+
+	// Mark workout complete
+	Route::get('/plan/workout/{planworkoutid}/completed', function ($planworkoutid) {
+		$planWorkout = App\Models\PlanWorkout::find($planworkoutid);
+		return $planWorkout->finishers()->orderBy('completed_on', 'desc')->get();
+	});
 });

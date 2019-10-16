@@ -20,7 +20,11 @@ window.Vue = require('vue');
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 import Datepicker from 'vuejs-datepicker';
 import Toasted from 'vue-toasted';
+import BootstrapVue from 'bootstrap-vue'
 
+//import './custom.scss'
+
+Vue.use(BootstrapVue)
 Vue.use(Toasted)
 Vue.toasted.register('error', message => message, {
     position : 'bottom-center',
@@ -33,6 +37,7 @@ Vue.component('subscribe-component', require('./components/SubscribeComponent.vu
 Vue.component('mark-complete-component', require('./components/MarkCompleteComponent.vue').default);
 Vue.component('profile', require('./components/Profile.vue').default);
 Vue.component('password', require('./components/Password.vue').default);
+Vue.component('tabs', require('./components/Tabs.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

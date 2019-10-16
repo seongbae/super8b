@@ -10,6 +10,6 @@ class PlanWorkout extends Model
 
     public function finishers()
     {
-        return $this->belongsToMany('App\Models\User','plan_workout_user', 'plan_workout_id', 'user_id');
+        return $this->belongsToMany('App\Models\User','plan_workout_user', 'plan_workout_id', 'user_id')->withPivot('completed_on');
     }
 }
