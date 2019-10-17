@@ -40,7 +40,7 @@
                           </div>
 
 
-                          <mark-complete-component :user="{{$user}}" :planworkoutid="{{$workout->pivot->id}}" :completed="{{$user->completed($workout->pivot->id)}}"></mark-complete-component>
+                          <mark-complete-component :user="{{$user}}" :planworkoutid="{{$workout->pivot->id}}" :completed="{{$user->completed($workout->pivot->id)}}" :timezone="'{{config('app.server_timezone')}}'"></mark-complete-component>
                       @endforeach
                   @else
                     There's none!

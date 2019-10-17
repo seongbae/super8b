@@ -14,7 +14,10 @@ return [
     */
 
     'name' => env('APP_NAME', 'Laravel'),
+
     'slogan' => env('APP_SLOGAN', 'Laravel'),
+
+    'server_timezone' => env('SERVER_TIMEZONE', 'America/New_York'),
 
     /*
     |--------------------------------------------------------------------------

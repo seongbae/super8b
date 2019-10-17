@@ -12,11 +12,14 @@
 
 <script>
     import moment from 'moment';
+    import 'moment-timezone'
 
     export default {
-        props: ['user', 'completed', 'planworkoutid'],
+        props: ['user', 'completed', 'planworkoutid', 'timezone'],
         mounted() {
             this.fetchUserCompletedList();
+            // console.log(this.timezone)
+            // console.log(moment.tz.guess())
             //console.log('Component mounted.');
             //console.log(this.user);
             //console.log(this.plan);
@@ -53,7 +56,13 @@
                 });
             },
             formatDate(dt) {
-                return moment(String(dt)).local().format('HH:mm YYYY-MM-DD')
+                //console.log('server timezone: '+this.timezone)
+                var serverDate = moment.tz(dt, this.timezone);
+                // console.log('server timezone: '+this.timezone)
+                // console.log('local timezone: '+moment.tz.guess())
+                // console.log('server time: '+serverDate.format())
+                // console.log('local time 1: '+serverDate.clone().tz(moment.tz.guess()).format())
+                return serverDate.clone().tz(moment.tz.guess()).format("HH:mm YYYY-MM-DD")
             }
         }
     }
