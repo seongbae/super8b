@@ -19,8 +19,9 @@ class Helpers
   
   public static function getActivityName($name, $rep, $set)
   {
-  	$setLabel = 'set';
-  	$repLabel = 'repetition';
+  	$setLabel = '';
+  	$repLabel = '';
+    $activityName = '';
 
   	if ($set > 1)
   		$setLabel = 'sets';
@@ -28,7 +29,12 @@ class Helpers
   	if ($rep > 1)
   		$repLabel = 'repetitions';
 
-  	return $name . ' ' . $set . ' ' . $setLabel . ' x ' . $rep . ' ' . $repLabel;
+    if ($set == '' && $rep == '')
+      $activityName = $name;
+    else 
+  	 $activityName =  $name . ' ' . $set . ' ' . $setLabel . ' x ' . $rep . ' ' . $repLabel;
+
+    return $activityName;
   }
 
   public static function fallsOnToday($dt)

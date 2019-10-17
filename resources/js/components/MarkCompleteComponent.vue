@@ -53,7 +53,7 @@
                 });
             },
             formatDate(dt) {
-                return moment(String(dt)).format('HH:mm YYYY-MM-DD')
+                return moment(String(dt)).local().format('HH:mm YYYY-MM-DD')
             }
         }
     }

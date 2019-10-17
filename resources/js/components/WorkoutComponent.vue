@@ -94,17 +94,24 @@
         </div>
     </div>
     <div  v-if="exerciseList.length>0">
-    <hr>
-    <ul class="list-group">
-        <li class="list-group-item" v-for="exercise in exerciseList">{{ exercise.name }} {{ exercise.pivot.repetition }} {{ exercise.pivot.set }} <a href="#" @click="removeExercise(exercise.pivot.id)" class="float-right"><i class="fas fa-minus-circle"></i></a></li>
-    </ul>
+        <hr>
+        <ul class="list-group">
+            <draggable v-model="exerciseList" group="exercise" @start="drag=true" @end="drag=false">
+                    <li v-for="exercise in exerciseList" :key="exercise.pivot.id" class="list-group-item" style="cursor: move;" @dragend="log('a')>{{exercise.name}} <a href="#" @click="removeExercise(exercise.pivot.id)" class="float-right"><i class="fas fa-minus-circle"></i></a></li>
+            </draggable>
+        </ul>
     </div>
 </form>
 </template>
 
 <script>
+    import draggable from 'vuedraggable'
+
     export default {
         props: ['userData','workoutData'],
+        components: {
+            draggable
+        },
         mounted() {
             console.log('Component mounted.');
             console.log(this.workoutData);
@@ -230,6 +237,9 @@
                 this.results = [];
                 console.log(this.selection);
             },
+            log: function(...e) {
+              console.log(...e);
+            }
         }
     }
 </script>
