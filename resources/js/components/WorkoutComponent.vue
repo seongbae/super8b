@@ -216,7 +216,7 @@
             },
             autoComplete(){
                 this.results = [];
-                if(this.query.length > 2){
+                if(this.query.length > 1){
                  axios.get('/api/search/exercise',{params: {query: this.query}}).then(response => {
                   this.results = response.data;
                  });

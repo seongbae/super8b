@@ -1,72 +1,81 @@
 <template>
-<form @submit.prevent="savePlan">
-    <div class="form-group row">
-        <label for="name" class="col-md-4 col-form-label text-md-right">Name</label>
-
-        <div class="col-md-6">
-            <input id="name" type="text" class="form-control" v-model="planName" name="name" placeholder="My Workout Plan" required  autofocus>
+    <div class="card">
+        <div class="card-header">Edit Workout Plan
+            <div class="float-right">
+                status: <b-badge :variant="statusClass">{{planStatus}}</b-badge>
+            </div>
         </div>
-    </div>
-    <div class="form-group row">
-        <label for="notes" class="col-md-4 col-form-label text-md-right">Description</label>
+        <div class="card-body">
+            <form @submit.prevent="savePlan">
+                <div class="form-group row">
+                    <label for="name" class="col-md-4 col-form-label text-md-right">Name</label>
 
-        <div class="col-md-6">
-            <input id="notes" type="text" class="form-control"  v-model="planDescription"  name="notes">
-        </div>
-    </div>
-    <div class="form-group row">
-        <label for="goals" class="col-md-4 col-form-label text-md-right">Goal(s):</label>
+                    <div class="col-md-6">
+                        <input id="name" type="text" class="form-control" v-model="planName" name="name" placeholder="My Workout Plan" required  autofocus>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="notes" class="col-md-4 col-form-label text-md-right">Description</label>
 
-        <div class="col-md-6">
-            <input id="goals" type="text" class="form-control" name="goals" v-model="planGoals" placeholder="pass ACFT, lose weight, etc">
+                    <div class="col-md-6">
+                        <input id="notes" type="text" class="form-control"  v-model="planDescription"  name="notes">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="goals" class="col-md-4 col-form-label text-md-right">Goal(s):</label>
 
-        </div>
-    </div>
-    <div class="form-group row">
-        <div class=" offset-md-4 col-md-6">
-            <button type="submit" class="btn btn-primary ">
-                Save
-            </button>
-            <input type="button" class="btn btn-primary" value="Publish" v-on:click="updateStatus()"> 
-        </div>
-    </div>
-    
-    <div v-if="showWorkoutAdd">
-        <hr>
-        <div class="form-group row">
-            <label for="workout" class="col-md-4 col-form-label text-md-right">Workout: </label>
+                    <div class="col-md-6">
+                        <input id="goals" type="text" class="form-control" name="goals" v-model="planGoals" placeholder="pass ACFT, lose weight, etc">
 
-            <div class="col-md-6">
-                <input id="workout" type="text" class="form-control" v-model="query" v-on:keyup="autoComplete" name="workout">
-                <div class="panel-footer" v-if="results.length">
-                   <ul class="list-group">
-                    <li class="list-group-item" v-for="(result, index) in results" @click="suggestionClick(index)">
-                     <a href="#">{{ result.name }}</a>
-                    </li>
-                   </ul>
-                  </div>
-                  <input id="workout_id" type="hidden" class="form-control" v-model="workout_id" name="workout_id">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class=" offset-md-4 col-md-6">
+                        <button type="submit" class="btn btn-primary ">
+                            Save
+                        </button>
+                        <input type="button" class="btn btn-primary" :value="planAction" v-on:click="updateStatus()"> 
+                    </div>
+                </div>
                 
-            </div>
-        </div>
-        <div class="form-group row">
-            <label for="date" class="col-md-4 col-form-label text-md-right">Date: </label>
+                <div v-if="showWorkoutAdd">
+                    <hr>
+                    <div class="form-group row">
+                        <label for="workout" class="col-md-4 col-form-label text-md-right">Workout: </label>
 
-            <div class="col-md-6">
-                <datepicker v-model="start_on" format="yyyy-MM-dd" input-class="input"></datepicker>
-            </div>
+                        <div class="col-md-6">
+                            <input id="workout" type="text" class="form-control" v-model="query" v-on:keyup="autoComplete" name="workout">
+                            <div class="panel-footer" v-if="results.length">
+                               <ul class="list-group">
+                                <li class="list-group-item" v-for="(result, index) in results" @click="suggestionClick(index)">
+                                 <a href="#">{{ result.name }}</a>
+                                </li>
+                               </ul>
+                              </div>
+                              <input id="workout_id" type="hidden" class="form-control" v-model="workout_id" name="workout_id">
+                            
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="date" class="col-md-4 col-form-label text-md-right">Date: </label>
+
+                        <div class="col-md-6">
+                            <datepicker v-model="start_on" format="yyyy-MM-dd" input-class="input"></datepicker>
+                        </div>
+                    </div>
+                      
+                    <div class="form-group row">
+                        <div class="col-md-6 offset-md-4">
+                            <input type="button" name="addworkout" value="Add Workout" v-on:click="addWorkout" class="btn btn-primary">
+                        </div>
+                    </div>
+                   <ul class="list-group">
+                        <li class="list-group-item" v-for="workout in workoutList">{{workout.pivot.start_on | formatDate }} {{ workout.name }} <a href="#" @click="removeWorkout(workout.pivot.id)" class="float-right"><i class="fas fa-minus-circle"></i></a></li>
+                    </ul>
+                </div>
+            </form>
         </div>
-          
-        <div class="form-group row">
-            <div class="col-md-6 offset-md-4">
-                <input type="button" name="addworkout" value="Add Workout" v-on:click="addWorkout" class="btn btn-primary">
-            </div>
-        </div>
-       <ul class="list-group">
-            <li class="list-group-item" v-for="workout in workoutList">{{workout.pivot.start_on | formatDate }} {{ workout.name }} <a href="#" @click="removeWorkout(workout.pivot.id)" class="float-right"><i class="fas fa-minus-circle"></i></a></li>
-        </ul>
     </div>
-</form>
 </template>
 
 <script>
@@ -84,16 +93,12 @@
                 this.planDescription = this.plan.description;
                 this.planGoals = this.plan.goals;
                 this.showWorkoutAdd = true;
-                this.planPublished = this.plan.status == 'published';
+                this.planStatus = this.plan.status;
                 this.fetchWorkoutList();
-            }
 
-            if (this.planPublished)
-            {
-                
+                if (this.planStatus == 'published')
+                    this.planAction = 'Set as Draft'
             }
-            //console.log('mounted:'+this.plan_name);
-            console.log(this.planData);
         },
         data() {
             return {
@@ -105,14 +110,14 @@
                 query: "",
                 results: [],
                 workout_id: "",
-                //plan_name: this.planData.name,
                 setdate_workout_id: "",
                 planName: "",
                 planDescription: "",
                 planGoals: "",
                 plan: "",
                 showWorkoutAdd: false,
-                planPublished: false
+                planStatus: "draft",
+                planAction: "Publish"
             };
         },
         components: {
@@ -148,15 +153,23 @@
                 set: function (val) {
                   //this.planNameData = name;
                 }
+            },
+            statusClass : {
+                get: function() {
+                    if (this.planStatus == 'draft')
+                        return 'secondary'
+                    else
+                        return 'danger'
+                }
             }
-           // planName : {
-           //      get: function() {
-           //          return this.planNameData;
-           //      },
-           //      set: function (name) {
-           //        this.planNameData = name;
-           //      }
-           //  },
+            // planAction : {
+            //     get: function() {
+            //         if (this.planStatus == 'draft')
+            //             return 'Publish'
+            //         else
+            //             return 'Set as Draft'
+            //     }
+            // }
         },
         methods: {
             fetchWorkoutList() {
@@ -211,7 +224,7 @@
             },
             autoComplete(){
                 this.results = [];
-                if(this.query.length > 2){
+                if(this.query.length > 1){
                  axios.get('/api/search/workout',{params: {query: this.query}}).then(response => {
                   this.results = response.data;
                  });
@@ -236,6 +249,8 @@
             },
             publishPlan(planid) {
                 axios.get('/api/plan/'+this.plan.id+'/publish').then(res => {
+                        this.planStatus = 'published';
+                        this.planAction = 'Set as Draft';
                         this.$toasted.global.error('Plan published');
                     }).catch(e => {
                         console.log(e);
@@ -243,6 +258,8 @@
             },
             unpublishPlan(planid) {
                 axios.get('/api/plan/'+this.plan.id+'/unpublish').then(res => {
+                        this.planStatus = 'draft';
+                        this.planAction = 'Publish';
                         this.$toasted.global.error('Plan un-published');
                     }).catch(e => {
                         console.log(e);
