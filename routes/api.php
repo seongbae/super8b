@@ -171,7 +171,7 @@ Route::middleware('auth:api')->group(function () {
 		$order = 1;
 		foreach($orderedExercises as $exercise)
 		{
-			$workout->exercises()->wherePivot('id', $exercise['pivot']['id'])->updateExistingPivot($exercise['id'], array('order' => $order));
+			$workout->exercises()->wherePivot('id', $exercise['pivot']['id'])->updateExistingPivot($exercise['id'], array('sort' => $order));
 			$order++;
 		}
 	});
