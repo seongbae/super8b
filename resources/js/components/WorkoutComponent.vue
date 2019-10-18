@@ -1,7 +1,7 @@
 <template>
     <div class="row">
         <div class="col-md-6">
-            <form @submit.prevent="saveWorkout">
+            <form @submit.prevent="saveWorkout" autocomplete="off">
                 <div class="form-group row">
                     <label for="name" class="col-md-4 col-form-label text-md-right">Name</label>
 
@@ -61,7 +61,7 @@
                         <label for="exercise" class="col-md-4 col-form-label text-md-right">Exercise</label>
 
                         <div class="col-md-6">
-                            <input id="exercise" type="text" class="form-control" v-model="query" v-on:keyup="autoComplete" name="exercise" placeholder="Bench press">
+                            <input id="exercise" type="text" class="form-control" v-model="query" v-on:keyup="autoComplete" :name="exerciseName" placeholder="Start typing..." autocomplete="new-password">
                             <div class="panel-footer" v-if="results.length">
                                <ul class="list-group">
                                 <li class="list-group-item" v-for="(result, index) in results" @click="suggestionClick(index)">
@@ -170,6 +170,11 @@
                 },
                 set: function (val) {
                   //this.planNameData = name;
+                }
+            },
+            exerciseName : {
+                get: function() {
+                    return "exercise_"+Date.now();
                 }
             }
         },

@@ -155,7 +155,7 @@ Route::middleware('auth:api')->group(function () {
 	// Retrieve exercises in a workout
 	Route::get('/workout/{workoutid}/exercises', function ($id) {
 		$workout = App\Models\Workout::with('exercises')->find($id);
-	    return $workout->exercises()->orderBy('order')->get();
+	    return $workout->exercises()->orderBy('sort')->get();
 	});
 
 	// Remove exercise from a workout

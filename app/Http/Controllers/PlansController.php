@@ -106,7 +106,10 @@ class PlansController extends Controller
    */
   public function destroy($id)
   {
-    
+      $plan = Plan::find($id);
+      $plan->delete();
+
+      return redirect('/plans');
   }
   
 }

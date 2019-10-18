@@ -6,74 +6,81 @@
             </div>
         </div>
         <div class="card-body">
-            <form @submit.prevent="savePlan">
-                <div class="form-group row">
-                    <label for="name" class="col-md-4 col-form-label text-md-right">Name</label>
+            <div class="row">
+                <div class="col-md-6">
+                    <form @submit.prevent="savePlan">
+                        <div class="form-group row">
+                            <label for="name" class="col-md-4 col-form-label text-md-right">Name</label>
 
-                    <div class="col-md-6">
-                        <input id="name" type="text" class="form-control" v-model="planName" name="name" placeholder="My Workout Plan" required  autofocus>
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label for="notes" class="col-md-4 col-form-label text-md-right">Description</label>
-
-                    <div class="col-md-6">
-                        <input id="notes" type="text" class="form-control"  v-model="planDescription"  name="notes">
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label for="goals" class="col-md-4 col-form-label text-md-right">Goal(s):</label>
-
-                    <div class="col-md-6">
-                        <input id="goals" type="text" class="form-control" name="goals" v-model="planGoals" placeholder="pass ACFT, lose weight, etc">
-
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <div class=" offset-md-4 col-md-6">
-                        <button type="submit" class="btn btn-primary ">
-                            Save
-                        </button>
-                        <input type="button" class="btn btn-primary" :value="planAction" v-on:click="updateStatus()"> 
-                    </div>
-                </div>
-                
-                <div v-if="showWorkoutAdd">
-                    <hr>
-                    <div class="form-group row">
-                        <label for="workout" class="col-md-4 col-form-label text-md-right">Workout: </label>
-
-                        <div class="col-md-6">
-                            <input id="workout" type="text" class="form-control" v-model="query" v-on:keyup="autoComplete" name="workout">
-                            <div class="panel-footer" v-if="results.length">
-                               <ul class="list-group">
-                                <li class="list-group-item" v-for="(result, index) in results" @click="suggestionClick(index)">
-                                 <a href="#">{{ result.name }}</a>
-                                </li>
-                               </ul>
-                              </div>
-                              <input id="workout_id" type="hidden" class="form-control" v-model="workout_id" name="workout_id">
-                            
+                            <div class="col-md-6">
+                                <input id="name" type="text" class="form-control" v-model="planName" name="name" placeholder="My Workout Plan" required  autofocus>
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-group row">
-                        <label for="date" class="col-md-4 col-form-label text-md-right">Date: </label>
+                        <div class="form-group row">
+                            <label for="notes" class="col-md-4 col-form-label text-md-right">Description</label>
 
-                        <div class="col-md-6">
-                            <datepicker v-model="start_on" format="yyyy-MM-dd" input-class="input"></datepicker>
+                            <div class="col-md-6">
+                                <input id="notes" type="text" class="form-control"  v-model="planDescription"  name="notes">
+                            </div>
                         </div>
-                    </div>
-                      
-                    <div class="form-group row">
-                        <div class="col-md-6 offset-md-4">
-                            <input type="button" name="addworkout" value="Add Workout" v-on:click="addWorkout" class="btn btn-primary">
+                        <div class="form-group row">
+                            <label for="goals" class="col-md-4 col-form-label text-md-right">Goal(s):</label>
+
+                            <div class="col-md-6">
+                                <input id="goals" type="text" class="form-control" name="goals" v-model="planGoals" placeholder="pass ACFT, lose weight, etc">
+
+                            </div>
                         </div>
-                    </div>
-                   <ul class="list-group">
+                        <div class="form-group row">
+                            <div class=" offset-md-4 col-md-6">
+                                <button type="submit" class="btn btn-primary ">
+                                    Save
+                                </button>
+                                <input type="button" class="btn btn-primary" :value="planAction" v-on:click="updateStatus()"> 
+                            </div>
+                        </div>
+                        
+                        <div v-if="showWorkoutAdd">
+                            <hr>
+                            <div class="form-group row">
+                                <label for="workout" class="col-md-4 col-form-label text-md-right">Workout: </label>
+
+                                <div class="col-md-6">
+                                    <input id="workout" type="text" class="form-control" v-model="query" v-on:keyup="autoComplete" name="workout">
+                                    <div class="panel-footer" v-if="results.length">
+                                       <ul class="list-group">
+                                        <li class="list-group-item" v-for="(result, index) in results" @click="suggestionClick(index)">
+                                         <a href="#">{{ result.name }}</a>
+                                        </li>
+                                       </ul>
+                                      </div>
+                                      <input id="workout_id" type="hidden" class="form-control" v-model="workout_id" name="workout_id">
+                                    
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="date" class="col-md-4 col-form-label text-md-right">Date: </label>
+
+                                <div class="col-md-6">
+                                    <datepicker v-model="start_on" format="yyyy-MM-dd" input-class="form-control"></datepicker>
+                                </div>
+                            </div>
+                              
+                            <div class="form-group row">
+                                <div class="col-md-6 offset-md-4">
+                                    <input type="button" name="addworkout" value="Add Workout" v-on:click="addWorkout" class="btn btn-primary">
+                                </div>
+                            </div>
+                           
+                        </div>
+                    </form>
+                </div>
+                <div class="col-md-6">
+                    <ul class="list-group">
                         <li class="list-group-item" v-for="workout in workoutList">{{workout.pivot.start_on | formatDate }} {{ workout.name }} <a href="#" @click="removeWorkout(workout.pivot.id)" class="float-right"><i class="fas fa-minus-circle"></i></a></li>
                     </ul>
                 </div>
-            </form>
+            </div>
         </div>
     </div>
 </template>
@@ -195,6 +202,11 @@
                 
             },
             addWorkout() {
+                if (this.start_on == "") {
+                    this.$toasted.global.error('Please add a date');
+                    return;
+                }
+
                 if (this.workout_id > 0) {
                     axios.post('/api/plan/workout', {
                         workout_id: this.workout_id, 
@@ -239,7 +251,7 @@
                 console.log(this.selection);
             },
             updateStatus() {
-                if (this.plan.status == 'draft'){
+                if (this.planStatus == 'draft'){
                     this.publishPlan(this.plan.id)
                 }
                 else {

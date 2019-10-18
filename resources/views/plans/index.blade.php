@@ -28,8 +28,8 @@
                         <th>Plan</th>
                         <th>Goals</th>
                         <th>Duration</th>
-                        <th>Author</th>
                         <th>Status</th>
+                        <th></th>
                      </tr>
                      </thead>
                  <tbody>
@@ -38,8 +38,14 @@
                        <td><a href="/plans/{{$plan->id}}">{{ $plan->name }}</a></td>
                        <td>{{ $plan->goals }}</td>
                        <td>{{ $plan->duration }}</td>
-                       <td>{{ $plan->author->name }}</td>
                        <td>{{ $plan->status }}</td>
+                       <td><a href="/plans/{{$plan->id}}/edit" class="btn btn-primary btn-sm float-left mr-2">Edit</a>
+                        <form action="/plans/{{$plan->id}}" method="POST">
+                          <input type="hidden" name="_method" value="DELETE"> 
+                          <input type="submit" name="submit" value="Delete" onclick="return confirm('Are you sure?')" class="btn btn-danger btn-sm"> 
+                          <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                        </form>
+                      </td>
                     </tr>
                     @endforeach
                  </tbody>
