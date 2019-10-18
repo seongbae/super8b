@@ -38,7 +38,8 @@ Route::middleware('auth')->group(function () {
 	Route::get('/profile', 'ProfileController@show');
 	Route::view('/password', 'password');
 
-	
+	Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');
+
 });
 
 
