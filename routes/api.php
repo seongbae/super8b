@@ -2,6 +2,8 @@
 
 use Illuminate\Http\Request;
 use App\Services\PlansService;
+use Illuminate\Support\Facades\Log;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -153,13 +155,25 @@ Route::middleware('auth:api')->group(function () {
 	// Retrieve exercises in a workout
 	Route::get('/workout/{workoutid}/exercises', function ($id) {
 		$workout = App\Models\Workout::with('exercises')->find($id);
-	    return $workout->exercises;
+	    return $workout->exercises()->orderBy('order')->get();
 	});
 
 	// Remove exercise from a workout
 	Route::delete('/workout/{workoutid}/{exerciseid}', function ($workoutid, $workoutExerciseId) {
 		$workout = App\Models\Workout::find($workoutid);
 		$workout->exercises()->wherePivot('id', $workoutExerciseId)->detach();
+	});
+
+	Route::post('/workout/exercise/update_order', function (Request $request) {
+		$workout = App\Models\Workout::find($request->get('workout_id'));
+		$orderedExercises = $request->get('exercises');
+
+		$order = 1;
+		foreach($orderedExercises as $exercise)
+		{
+			$workout->exercises()->wherePivot('id', $exercise['pivot']['id'])->updateExistingPivot($exercise['id'], array('order' => $order));
+			$order++;
+		}
 	});
 
 	// Search routes

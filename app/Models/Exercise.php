@@ -17,7 +17,7 @@ class Exercise extends Model
 
     public function workouts()
     {
-        return $this->belongsToMany('App\Models\Workout','workout_exercise', 'workout_id', 'exercise_id');
+        return $this->belongsToMany('App\Models\Workout','workout_exercise', 'exercise_id','workout_id')->withPivot('set','repetition','id','notes', 'order');
     }
 
     // // $exercise->

@@ -1,107 +1,112 @@
 <template>
-<form @submit.prevent="saveWorkout">
-    <div class="form-group row">
-        <label for="name" class="col-md-4 col-form-label text-md-right">Name</label>
-
+    <div class="row">
         <div class="col-md-6">
-            <input id="name" type="text" class="form-control" name="name" v-model="workoutName" placeholder="Lower Body Workout" required  autofocus>
-        </div>
-    </div>
-    <div class="form-group row">
-        <label for="focus" class="col-md-4 col-form-label text-md-right">Focus</label>
+            <form @submit.prevent="saveWorkout">
+                <div class="form-group row">
+                    <label for="name" class="col-md-4 col-form-label text-md-right">Name</label>
 
-        <div class="col-md-6">
-            <input id="focus" type="text" class="form-control" name="focus" v-model="workoutFocus" placeholder="Upper body, lower body, endurance...">
-        </div>
-    </div>
-    <div class="form-group row">
-        <label for="notes" class="col-md-4 col-form-label text-md-right">Intensity</label>
-
-        <div class="col-md-6">
-            <select name="intensity" id="intensity" class="form-control" v-model="workoutIntensity">
-                <option value="low">Low</option>
-                <option value="medium">Medium</option>
-                <option value="high">High</option>
-            </select>
-        </div>
-    </div>
-
-    <div class="form-group row">
-        <label for="notes" class="col-md-4 col-form-label text-md-right">Duration</label>
-
-        <div class="col-md-6">
-            <input id="notes" type="text" class="form-control" name="notes"  v-model="workoutDuration" placeholder="30m, 1hr, etc">
-
-        </div>
-    </div>
-
-    <div class="form-group row">
-        <label for="notes" class="col-md-4 col-form-label text-md-right">Notes</label>
-
-        <div class="col-md-6">
-            <input id="notes" type="text" class="form-control" name="notes" v-model="workoutNotes">
-
-        </div>
-    </div>
-    <div class="form-group row">
-        <label for="notes" class="col-md-4 col-form-label text-md-right"></label>
-
-        <div class="col-md-6">
-            <button type="submit" class="btn btn-primary">
-                Save
-            </button>
-        </div>
-    </div>
-    
-    <div v-if="showExerciseAdd">
-    <hr>
-        <div class="form-group row">
-            <label for="exercise" class="col-md-4 col-form-label text-md-right">Exercise</label>
-
-            <div class="col-md-6">
-                <input id="exercise" type="text" class="form-control" v-model="query" v-on:keyup="autoComplete" name="exercise" placeholder="Bench press">
-                <div class="panel-footer" v-if="results.length">
-                   <ul class="list-group">
-                    <li class="list-group-item" v-for="(result, index) in results" @click="suggestionClick(index)">
-                     <a href="#">{{ result.name }}</a>
-                    </li>
-                   </ul>
-                  </div>
-                  <input id="exercise_id" type="hidden" class="form-control" v-model="exercise_id" name="exercise_id">
-            </div>
-        </div>
-        <div class="form-group row">
-            <label for="repetition" class="col-md-4 col-form-label text-md-right">Repetition</label>
-
-            <div class="col-md-6">
-                <input id="repetition" type="text" class="form-control" name="repetition" v-model="repetition">
-            </div>
-        </div>
-
-        <div class="form-group row">
-            <label for="sets" class="col-md-4 col-form-label text-md-right">Set</label>
-
-            <div class="col-md-6">
-                <input id="set" type="text" class="form-control" name="set" v-model="set">
-
-            </div>
-        </div>
-
-        <div class="form-group row mb-0">
-            <div class="col-md-6 offset-md-4">
-                <input type="button" name="addExercise" value="Add Exercise" v-on:click="addExercise" class="btn btn-primary">
+                    <div class="col-md-6">
+                        <input id="name" type="text" class="form-control" name="name" v-model="workoutName" placeholder="Lower Body Workout" required  autofocus>
+                    </div>
                 </div>
+                <div class="form-group row">
+                    <label for="focus" class="col-md-4 col-form-label text-md-right">Focus</label>
+
+                    <div class="col-md-6">
+                        <input id="focus" type="text" class="form-control" name="focus" v-model="workoutFocus" placeholder="Upper body, lower body, endurance...">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="notes" class="col-md-4 col-form-label text-md-right">Intensity</label>
+
+                    <div class="col-md-6">
+                        <select name="intensity" id="intensity" class="form-control" v-model="workoutIntensity">
+                            <option value="low">Low</option>
+                            <option value="medium">Medium</option>
+                            <option value="high">High</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="notes" class="col-md-4 col-form-label text-md-right">Duration</label>
+
+                    <div class="col-md-6">
+                        <input id="notes" type="text" class="form-control" name="notes"  v-model="workoutDuration" placeholder="30m, 1hr, etc">
+
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label for="notes" class="col-md-4 col-form-label text-md-right">Notes</label>
+
+                    <div class="col-md-6">
+                        <input id="notes" type="text" class="form-control" name="notes" v-model="workoutNotes">
+
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="notes" class="col-md-4 col-form-label text-md-right"></label>
+
+                    <div class="col-md-6">
+                        <button type="submit" class="btn btn-primary">
+                            Save
+                        </button>
+                    </div>
+                </div>
+                
+                <div v-if="showExerciseAdd">
+                <hr>
+                    <div class="form-group row">
+                        <label for="exercise" class="col-md-4 col-form-label text-md-right">Exercise</label>
+
+                        <div class="col-md-6">
+                            <input id="exercise" type="text" class="form-control" v-model="query" v-on:keyup="autoComplete" name="exercise" placeholder="Bench press">
+                            <div class="panel-footer" v-if="results.length">
+                               <ul class="list-group">
+                                <li class="list-group-item" v-for="(result, index) in results" @click="suggestionClick(index)">
+                                 <a href="#">{{ result.name }}</a>
+                                </li>
+                               </ul>
+                              </div>
+                              <input id="exercise_id" type="hidden" class="form-control" v-model="exercise_id" name="exercise_id">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="repetition" class="col-md-4 col-form-label text-md-right">Repetition</label>
+
+                        <div class="col-md-6">
+                            <input id="repetition" type="text" class="form-control" name="repetition" v-model="repetition">
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="sets" class="col-md-4 col-form-label text-md-right">Set</label>
+
+                        <div class="col-md-6">
+                            <input id="set" type="text" class="form-control" name="set" v-model="set">
+
+                        </div>
+                    </div>
+
+                    <div class="form-group row mb-0">
+                        <div class="col-md-6 offset-md-4">
+                            <input type="button" name="addExercise" value="Add Exercise" v-on:click="addExercise" class="btn btn-primary">
+                            </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="col-md-6">
+            <div  v-if="exerciseList.length>0">
+                <ul class="list-group">
+                    <draggable v-model="exerciseList" group="exercise" @start="drag=true" @end="drag=false">
+                            <li v-for="exercise in exerciseList" :key="exercise.pivot.id" class="list-group-item" style="cursor: move;" @dragend="updateOrder()">{{exercise.name}} <a href="#" @click="removeExercise(exercise.pivot.id)" class="float-right"><i class="fas fa-minus-circle"></i></a></li>
+                    </draggable>
+                </ul>
+            </div>
         </div>
     </div>
-    <div  v-if="exerciseList.length>0">
-        <hr>
-        <ul class="list-group">
-            <draggable v-model="exerciseList" group="exercise" @start="drag=true" @end="drag=false">
-                    <li v-for="exercise in exerciseList" :key="exercise.pivot.id" class="list-group-item" style="cursor: move;" @dragend="log('a')>{{exercise.name}} <a href="#" @click="removeExercise(exercise.pivot.id)" class="float-right"><i class="fas fa-minus-circle"></i></a></li>
-            </draggable>
-        </ul>
-    </div>
-</form>
 </template>
 
 <script>
@@ -237,8 +242,18 @@
                 this.results = [];
                 console.log(this.selection);
             },
-            log: function(...e) {
-              console.log(...e);
+            updateOrder() {
+                axios.post('/api/workout/exercise/update_order', {
+                            workout_id: this.workoutId, 
+                            exercises: this.exerciseList
+                        }).then(res => {
+                        //this.fetchExerciseList();
+                        
+                        console.log(res.data);
+                    }).catch(e => {
+                        console.log(e);
+                    });
+              console.log(this.exerciseList);
             }
         }
     }
