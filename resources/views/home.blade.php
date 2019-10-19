@@ -36,7 +36,7 @@
                           @endforeach
                         </div>
                           <div class="mb-2">
-                            <small class="text-muted">Part of <a href="/plans/{{$workout->pivot->plan_id}}">{{ Helpers::getPlanName($workout->pivot->plan_id)}}</a></small>
+                            <small class="text-muted">Part of {{ Helpers::getPlanName($workout->pivot->plan_id)}}</small>
                           </div>
 
 
@@ -61,7 +61,7 @@
                           @endforeach
 
                           <div class="mt-2">
-                            <small class="text-muted">part of <a href="/plans/{{$workout->pivot->plan_id}}">{{ Helpers::getPlanName($workout->pivot->plan_id)}}</a></small>
+                            <small class="text-muted">part of {{ Helpers::getPlanName($workout->pivot->plan_id)}}</small>
                           </div>
                           <hr>
                       @endforeach

@@ -26,6 +26,22 @@ class RouteServiceProvider extends ServiceProvider
         //
 
         parent::boot();
+
+        Route::bind('plan', function ($value, $route) {
+            return $this->getModel(\App\Models\Plan::class, $value);
+        });
+
+        Route::bind('workout', function ($value, $route) {
+            return $this->getModel(\App\Models\Workout::class, $value);
+        });
+    }
+
+    private function getModel($model, $routeKey)
+    {
+        $id = \Hashids::connection($model)->decode($routeKey)[0] ?? null;
+        $modelInstance = resolve($model);
+
+        return  $modelInstance->findOrFail($id);
     }
 
     /**

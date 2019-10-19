@@ -65,9 +65,9 @@ class PlansController extends Controller
    * @param  int  $id
    * @return Response
    */
-  public function show($id)
+  public function show(Plan $plan)
   {
-    $plan = Plan::with('workouts')->find($id);
+    //$plan = Plan::with('workouts')->find($id);
     $user = Auth::user();
 
     return view('plans.show')->with('plan', $plan)->with('user', $user);
@@ -79,10 +79,9 @@ class PlansController extends Controller
    * @param  int  $id
    * @return Response
    */
-  public function edit($id)
+  public function edit(Plan $plan)
   {
     $user = Auth::user();
-    $plan = Plan::with('author')->with('workouts')->find($id);
 
     return view('plans.edit')->with('plan', $plan)->with('user', $user);
   }
@@ -104,9 +103,8 @@ class PlansController extends Controller
    * @param  int  $id
    * @return Response
    */
-  public function destroy($id)
+  public function destroy(Plan $plan)
   {
-      $plan = Plan::find($id);
       $plan->delete();
 
       return redirect('/plans');

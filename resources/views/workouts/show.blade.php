@@ -8,7 +8,7 @@
                 <div class="card-header">{{$workout->name}}
                     <div class="float-right">
                         @if ($workout->user_id == Auth::id())
-                        <a class="btn btn-primary btn-sm" href="/workouts/{{$workout->id}}/edit">
+                        <a class="btn btn-primary btn-sm" href="{{ route('workouts.edit', $workout)}}">
                             Edit
                         </a>
                         @endif
@@ -46,16 +46,9 @@
 
                     <table class="table table-sm table-striped mt-2">
                          <tbody>
-                            @foreach($workout->exercises as $exercise)
+                            @foreach($workout->exercises()->orderBy('sort')->get() as $exercise)
                             <tr>
-                               <td>{{ $exercise->name }} 
-                                    @if ($exercise->pivot->set)
-                                        {{$exercise->pivot->set}} set(s) of 
-                                    @endif
-                                    @if ($exercise->pivot->repetition)
-                                        {{$exercise->pivot->repetition}} repetition
-                                    @endif
-                               </td>
+                               <td>{{ Helpers::getActivityName($exercise->name, $exercise->pivot->repetition, $exercise->pivot->set) }}</td>
                             </tr>
                             @endforeach
                          </tbody>

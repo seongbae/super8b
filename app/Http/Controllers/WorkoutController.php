@@ -70,10 +70,8 @@ class WorkoutController extends Controller
    * @param  int  $id
    * @return Response
    */
-  public function show($id)
+  public function show(Workout $workout)
   {
-    $workout = Workout::find($id);
-
     return view('workouts.show')->with('workout', $workout);
   }
 
@@ -83,9 +81,8 @@ class WorkoutController extends Controller
    * @param  int  $id
    * @return Response
    */
-  public function edit($id)
+  public function edit(Workout $workout)
   {
-    $workout = Workout::find($id);
     $user = Auth::user();
 
     return view('workouts.edit')->with('workout', $workout)->with('user', $user);
@@ -108,10 +105,9 @@ class WorkoutController extends Controller
    * @param  int  $id
    * @return Response
    */
-  public function destroy($id)
+  public function destroy(Workout $workout)
   {
-      $workout = Workout::find($id);
-      $workout->delete();
+       $workout->delete();
 
       return redirect('/workouts');
   }

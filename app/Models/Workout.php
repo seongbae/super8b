@@ -4,10 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Http\Traits\Hashidable;
 
 class Workout extends Model 
 {
-
+    use Hashidable;
+    
     protected $table = 'workouts';
     public $timestamps = true;
 

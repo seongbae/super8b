@@ -35,12 +35,12 @@
                  <tbody>
                     @foreach($myplans as $plan)
                     <tr>
-                       <td><a href="/plans/{{$plan->id}}">{{ $plan->name }}</a></td>
+                       <td><a href="{{ route('plans.show', $plan)}}">{{ $plan->name }}</a></td>
                        <td>{{ $plan->goals }}</td>
                        <td>{{ $plan->duration }}</td>
                        <td>{{ $plan->status }}</td>
-                       <td><a href="/plans/{{$plan->id}}/edit" class="btn btn-secondary btn-sm float-left mr-2"><i class="fas fa-edit"></i></a>
-                        <form action="/plans/{{$plan->id}}" method="POST">
+                       <td><a href="{{ route('plans.edit', $plan)}}" class="btn btn-secondary btn-sm float-left mr-2"><i class="fas fa-edit"></i></a>
+                        <form action="{{ route('plans.destroy', $plan)}}" method="POST">
                           <input type="hidden" name="_method" value="DELETE"> 
                           <button name="submit" value="Delete" onclick="return confirm('Are you sure?')" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i></button>
                           <input type="hidden" name="_token" value="{{ csrf_token() }}">
@@ -66,7 +66,7 @@
                      <tbody>
                         @foreach($allplans as $plan)
                         <tr>
-                           <td><a href="/plans/{{$plan->id}}">{{ $plan->name }}</a></td>
+                           <td><a href="{{ route('plans.show', $plan)}}">{{ $plan->name }}</a></td>
                            <td>{{ $plan->goals }}</td>
                            <td>{{ $plan->duration }}</td>
                            <td>{{ $plan->author->name }}</td>

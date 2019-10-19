@@ -101,7 +101,7 @@
             <div  v-if="exerciseList.length>0">
                 <ul class="list-group">
                     <draggable v-model="exerciseList" group="exercise" @start="drag=true" @end="drag=false">
-                            <li v-for="exercise in exerciseList" :key="exercise.pivot.id" class="list-group-item" style="cursor: move;" @dragend="updateOrder()">{{exercise.name}} <a href="#" @click="removeExercise(exercise.pivot.id)" class="float-right"><i class="fas fa-minus-circle"></i></a></li>
+                            <li v-for="exercise in exerciseList" :key="exercise.pivot.id" class="list-group-item" style="cursor: move;" @dragend="updateOrder()">{{getActivityName(exercise.name,exercise.pivot.repetition,exercise.pivot.set)}} <a href="#" @click="removeExercise(exercise.pivot.id)" class="float-right"><i class="fas fa-minus-circle"></i></a></li>
                     </draggable>
                 </ul>
             </div>
@@ -259,6 +259,34 @@
                         console.log(e);
                     });
               console.log(this.exerciseList);
+            },
+            getActivityName(name, rep, set) {
+                var setLabel = '';
+                var repLabel = '';
+                var activityName = '';
+                var x = '';
+
+                if (set > 1)
+                    setLabel = 'sets';
+                else if (set == 1)
+                  setLabel = 'set';
+
+                if (rep > 1)
+                    repLabel = 'repetitions';
+                else if (rep == 1)
+                  repLabel = 'repetition';
+
+                if (set && rep)
+                  x = ' x ';
+
+                if (!set && !rep)
+                  activityName = name;
+                else if (!set)
+                    activityName =  name + ' ' + rep;
+                else
+                  activityName =  name + ' ' + set + ' ' + setLabel + x + rep;
+
+                return activityName;
             }
         }
     }

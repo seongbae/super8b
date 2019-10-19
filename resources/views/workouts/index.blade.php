@@ -32,12 +32,12 @@
                      <tbody>
                         @foreach($myworkouts as $workout)
                         <tr>
-                           <td><a href="/workouts/{{$workout->id}}">{{ $workout->name }}</a></td>
+                           <td><a href="{{ route('workouts.show', $workout)}}">{{ $workout->name }}</a></td>
                            <td>{{ $workout->focus }}</td>
                            <td>{{ $workout->intensity }}</td>
                            <td>{{ $workout->duration }}</td>
-                           <td><a href="/workouts/{{$workout->id}}/edit" class="btn btn-secondary btn-sm float-left mr-2"><i class="fas fa-edit"></i></a>
-                        <form action="/workouts/{{$workout->id}}" method="POST">
+                           <td><a href="{{ route('workouts.edit', $workout)}}" class="btn btn-secondary btn-sm float-left mr-2"><i class="fas fa-edit"></i></a>
+                        <form action="{{ route('workouts.destroy', $workout)}}" method="POST">
                           <input type="hidden" name="_method" value="DELETE"> 
                           <button name="submit" value="Delete" onclick="return confirm('Are you sure?')" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i></button>
                           <input type="hidden" name="_token" value="{{ csrf_token() }}">
@@ -64,7 +64,7 @@
                      <tbody>
                         @foreach($allworkouts as $workout)
                         <tr>
-                           <td><a href="/workouts/{{$workout->id}}">{{ $workout->name }}</a></td>
+                           <td><a href="{{ route('workouts.edit', $workout)}}">{{ $workout->name }}</a></td>
                            <td>{{ $workout->focus }}</td>
                            <td>{{ $workout->intensity }}</td>
                            <td>{{ $workout->duration }}</td>

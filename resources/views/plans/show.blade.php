@@ -39,7 +39,7 @@
                           </tr>
                         </thead>
                          <tbody>
-                            @foreach($plan->workouts as $workout)
+                            @foreach($plan->workouts()->orderBy('start_on')->get() as $workout)
                             <tr>
                                <td>{{ \Carbon\Carbon::parse($workout->pivot->start_on)->format('m/d/Y')}}</td>
                                <td>{{ $workout->name }}</td>

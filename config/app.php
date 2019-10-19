@@ -196,6 +196,7 @@ return [
         Spatie\Permission\PermissionServiceProvider::class,
 
         Rap2hpoutre\LaravelLogViewer\LaravelLogViewerServiceProvider::class,
+        Vinkla\Hashids\HashidsServiceProvider::class,
 
     ],
 
@@ -250,6 +251,7 @@ return [
 
         
         'Helpers' => App\Helpers::class,
+        'Hashids' => Vinkla\Hashids\Facades\Hashids::class
     ],
 
 ];
