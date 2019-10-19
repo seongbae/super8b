@@ -37,6 +37,7 @@ Vue.component('subscribe-component', require('./components/SubscribeComponent.vu
 Vue.component('mark-complete-component', require('./components/MarkCompleteComponent.vue').default);
 Vue.component('profile', require('./components/Profile.vue').default);
 Vue.component('password', require('./components/Password.vue').default);
+Vue.component('plan-workout', require('./components/PlanWorkoutComponent.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

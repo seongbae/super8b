@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Plan;
+use App\Models\Workout;
 use Auth;
 
 class PlansController extends Controller 
@@ -70,7 +71,15 @@ class PlansController extends Controller
     //$plan = Plan::with('workouts')->find($id);
     $user = Auth::user();
 
-    return view('plans.show')->with('plan', $plan)->with('user', $user);
+    $workouts = Workout::with('exercises')->get(); //->wherePivot('plan_id', $plan->id)->get();
+
+    $workoutArray = [];
+    foreach ($workouts as $workout)
+    {
+      $workoutArray[$workout->id] = $workout;
+    }
+
+    return view('plans.show')->with('plan', $plan)->with('workouts',$workoutArray)->with('user', $user);
   }
 
   /**

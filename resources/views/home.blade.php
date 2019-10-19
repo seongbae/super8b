@@ -25,21 +25,7 @@
                 @else
                   @if (count($todaysWorkout) > 0)
                       @foreach ($todaysWorkout as $workout)
-                        <strong>{{ \Carbon\Carbon::parse($workout->pivot->start_on)->format('l m/d/Y')}}</strong><br>
-                        <strong>Workout:</strong> {{$workout->name}}<br>
-                        @if ($workout->pivot->location)
-                        <strong>Location:</strong> {{$workout->pivot->location}}<br>
-                        @endif
-                        <div class="py-3">
-                          @foreach ($workout->exercises()->orderBy('sort')->get() as $exercise)
-                              {{Helpers::getActivityName($exercise->name, $exercise->pivot->repetition, $exercise->pivot->set)}}<br/>
-                          @endforeach
-                        </div>
-                          <div class="mb-2">
-                            <small class="text-muted">Part of {{ Helpers::getPlanName($workout->pivot->plan_id)}}</small>
-                          </div>
-
-
+                          @include('partials._workout')
                           <mark-complete-component :user="{{$user}}" :planworkoutid="{{$workout->pivot->id}}" :completed="{{$user->completed($workout->pivot->id)}}" :timezone="'{{config('app.server_timezone')}}'"></mark-complete-component>
                       @endforeach
                   @else
@@ -54,15 +40,7 @@
                   @if (count($nextWorkout) > 0)
                     <div class="mt-2">
                       @foreach ($nextWorkout as $workout)
-                        <strong>{{ \Carbon\Carbon::parse($workout->pivot->start_on)->format('l m/d/Y')}}</strong><br>
-                        <strong>Workout:</strong> {{$workout->name}}<br>
-                          @foreach ($workout->exercises()->orderBy('sort')->get() as $exercise)
-                              {{Helpers::getActivityName($exercise->name, $exercise->pivot->repetition, $exercise->pivot->set)}}<br/>
-                          @endforeach
-
-                          <div class="mt-2">
-                            <small class="text-muted">part of {{ Helpers::getPlanName($workout->pivot->plan_id)}}</small>
-                          </div>
+                        @include('partials._workout')
                           <hr>
                       @endforeach
                       </div>

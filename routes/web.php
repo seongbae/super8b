@@ -31,9 +31,8 @@ Route::middleware('auth')->group(function () {
 	Route::resource('workouts', 'WorkoutController');
 	Route::resource('plans', 'PlansController');
 	Route::resource('exercises', 'ExerciseController');
-	Route::resource('focus', 'FocusController');
 
-	Route::get('/create', 'WorkoutController@create');
+	Route::resource('clone', 'CloneController');
 
 	Route::get('/profile', 'ProfileController@show');
 	Route::view('/password', 'password');

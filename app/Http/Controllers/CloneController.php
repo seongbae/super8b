@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Plan;
 
-class FocusController extends Controller 
+class CloneController extends Controller 
 {
 
   /**
@@ -24,7 +25,7 @@ class FocusController extends Controller
    */
   public function index()
   {
-    
+   
   }
 
   /**
@@ -32,9 +33,9 @@ class FocusController extends Controller
    *
    * @return Response
    */
-  public function create()
+  public function create(Plan $plan)
   {
-    
+     return view('clone')->with('plan', $plan);
   }
 
   /**
@@ -53,9 +54,9 @@ class FocusController extends Controller
    * @param  int  $id
    * @return Response
    */
-  public function show($id)
+  public function show(Plan $plan)
   {
-    
+     return view('clone')->with('plan', $plan);
   }
 
   /**

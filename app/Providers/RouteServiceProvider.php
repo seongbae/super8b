@@ -34,6 +34,10 @@ class RouteServiceProvider extends ServiceProvider
         Route::bind('workout', function ($value, $route) {
             return $this->getModel(\App\Models\Workout::class, $value);
         });
+
+        Route::bind('clone', function ($value, $route) {
+            return $this->getModel(\App\Models\Plan::class, $value);
+        });
     }
 
     private function getModel($model, $routeKey)
