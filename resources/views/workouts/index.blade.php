@@ -26,6 +26,7 @@
                         <th>Focus</th>
                         <th>Intensity</th>
                         <th>Duration</th>
+                        <th></th>
                      </tr>
                      </thead>
                      <tbody>
@@ -35,6 +36,13 @@
                            <td>{{ $workout->focus }}</td>
                            <td>{{ $workout->intensity }}</td>
                            <td>{{ $workout->duration }}</td>
+                           <td><a href="/workouts/{{$workout->id}}/edit" class="btn btn-secondary btn-sm float-left mr-2"><i class="fas fa-edit"></i></a>
+                        <form action="/workouts/{{$workout->id}}" method="POST">
+                          <input type="hidden" name="_method" value="DELETE"> 
+                          <button name="submit" value="Delete" onclick="return confirm('Are you sure?')" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i></button>
+                          <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                        </form>
+                      </td>
                         </tr>
                         @endforeach
                      </tbody>

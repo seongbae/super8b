@@ -31,7 +31,7 @@
                         <strong>Location:</strong> {{$workout->pivot->location}}<br>
                         @endif
                         <div class="py-3">
-                          @foreach ($workout->exercises as $exercise)
+                          @foreach ($workout->exercises()->orderBy('sort')->get() as $exercise)
                               {{Helpers::getActivityName($exercise->name, $exercise->pivot->repetition, $exercise->pivot->set)}}<br/>
                           @endforeach
                         </div>
@@ -56,7 +56,7 @@
                       @foreach ($nextWorkout as $workout)
                         <strong>{{ \Carbon\Carbon::parse($workout->pivot->start_on)->format('l m/d/Y')}}</strong><br>
                         <strong>Workout:</strong> {{$workout->name}}<br>
-                          @foreach ($workout->exercises as $exercise)
+                          @foreach ($workout->exercises()->orderBy('sort')->get() as $exercise)
                               {{Helpers::getActivityName($exercise->name, $exercise->pivot->repetition, $exercise->pivot->set)}}<br/>
                           @endforeach
 

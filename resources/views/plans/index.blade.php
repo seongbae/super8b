@@ -39,10 +39,10 @@
                        <td>{{ $plan->goals }}</td>
                        <td>{{ $plan->duration }}</td>
                        <td>{{ $plan->status }}</td>
-                       <td><a href="/plans/{{$plan->id}}/edit" class="btn btn-primary btn-sm float-left mr-2">Edit</a>
+                       <td><a href="/plans/{{$plan->id}}/edit" class="btn btn-secondary btn-sm float-left mr-2"><i class="fas fa-edit"></i></a>
                         <form action="/plans/{{$plan->id}}" method="POST">
                           <input type="hidden" name="_method" value="DELETE"> 
-                          <input type="submit" name="submit" value="Delete" onclick="return confirm('Are you sure?')" class="btn btn-danger btn-sm"> 
+                          <button name="submit" value="Delete" onclick="return confirm('Are you sure?')" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i></button>
                           <input type="hidden" name="_token" value="{{ csrf_token() }}">
                         </form>
                       </td>

@@ -22,34 +22,32 @@ class Helpers
   	$setLabel = '';
   	$repLabel = '';
     $activityName = '';
+    $x = '';
 
-  	if ($set > 1)
+    if ($set > 1)
   		$setLabel = 'sets';
+    elseif ($set == 1)
+      $setLabel = 'set';
 
   	if ($rep > 1)
   		$repLabel = 'repetitions';
+    elseif ($rep == 1)
+      $repLabel = 'repetition';
+
+    if ($set >= 1 && $rep >= 1)
+      $x = ' x ';
 
     if ($set == '' && $rep == '')
       $activityName = $name;
     else 
-  	 $activityName =  $name . ' ' . $set . ' ' . $setLabel . ' x ' . $rep . ' ' . $repLabel;
+  	 $activityName =  $name . ' ' . $set . ' ' . $setLabel . $x . $rep;
 
     return $activityName;
   }
 
   public static function fallsOnToday($dt)
   {
-  	// if(Session::has('current_time_zone')){
-   //     $current_time_zone = Session::get('current_time_zone');
-   //     $utc = strtotime($attr)-date('Z'); // Convert the time zone to GMT 0. If the server time is what ever no problem.
-
-   //     $current = $utc+$current_time_zone; // Convert the time to local time
-   //     $current = date("Y-m-d", $attr);
-   //  }
-   //  else 
-	  // 	$current = strtotime(date("Y-m-d"));
-
-    $current = strtotime(date("Y-m-d"));
+  	$current = strtotime(date("Y-m-d"));
   	$date    = strtotime(date('Y-m-d', strtotime($dt)));
 
   	Log::info('fallsOnToday: today->'. date("Y-m-d") . ' variable: '.date('Y-m-d', strtotime($dt)));
@@ -79,7 +77,7 @@ class Helpers
     
     Log::info('fallsOnToday: difference->'. $difference);
 
-    if($difference>1)
+    if($difference>=1)
       return true;
 
     return false;

@@ -110,7 +110,10 @@ class WorkoutController extends Controller
    */
   public function destroy($id)
   {
-    
+      $workout = Workout::find($id);
+      $workout->delete();
+
+      return redirect('/workouts');
   }
   
 }

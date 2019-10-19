@@ -32,7 +32,7 @@ class HomeController extends Controller
 
         foreach ($user->subscribedPlans as $plan)
         {
-            foreach ($plan->workouts as $workout)
+            foreach ($plan->workouts()->orderBy('start_on')->get() as $workout)
             {
                 if (Helpers::fallsOnToday($workout->pivot->start_on))
                 {
