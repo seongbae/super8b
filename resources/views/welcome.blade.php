@@ -8,13 +8,13 @@
                 <div class="card-header">{{ __('What is Super 8B?') }}</div>
 
                 <div class="card-body">
-                    <p>Super 8B is a simple workout planning tool built for military leaders.  The goal is to assist workout planners with planning and publishing workouts to a group and to share effective workout plans with the greater military community.</p>
+                    <p>Super 8B is a simple workout planning tool built for the military leaders.  The goal is to assist workout planners with planning and publishing workouts to groups and to share effective workout plans with others.</p>
 
                     <p>
                     <strong>For Planners:</strong>
                     <ul>
                         <li>Create long-term workout plans</li>
-                        <li>Share workout plans with a group</li>
+                        <li>Publish workout plans</li>
                     </ul>
                 </p>
                 <p>
