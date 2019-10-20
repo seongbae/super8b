@@ -12,21 +12,21 @@
                         <div class="form-group row">
                             <label for="name" class="col-md-4 col-form-label text-md-right">Name</label>
 
-                            <div class="col-md-6">
+                            <div class="col-md-8">
                                 <input id="name" type="text" class="form-control" v-model="planName" name="name" placeholder="My Workout Plan" required  autofocus>
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="notes" class="col-md-4 col-form-label text-md-right">Description</label>
 
-                            <div class="col-md-6">
-                                <input id="notes" type="text" class="form-control"  v-model="planDescription"  name="notes">
+                            <div class="col-md-8">
+                                <textarea id="notes" type="text" class="form-control" name="notes" v-model="planDescription"></textarea>
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="goals" class="col-md-4 col-form-label text-md-right">Goal(s):</label>
 
-                            <div class="col-md-6">
+                            <div class="col-md-8">
                                 <input id="goals" type="text" class="form-control" name="goals" v-model="planGoals" placeholder="pass ACFT, lose weight, etc">
 
                             </div>
@@ -36,16 +36,17 @@
                                 <button type="submit" class="btn btn-primary ">
                                     Save
                                 </button>
-                                <input type="button" class="btn btn-primary" :value="planAction" v-on:click="updateStatus()"> 
+                                <input type="button" class="btn btn-primary" :value="planAction" v-on:click="updateStatus()" v-show="showWorkoutAdd"> 
                             </div>
                         </div>
                         
                         <div v-if="showWorkoutAdd">
                             <hr>
+                            <h5>Add some workouts to your plan</h5>
                             <div class="form-group row">
                                 <label for="workout" class="col-md-4 col-form-label text-md-right">Workout: </label>
 
-                                <div class="col-md-6">
+                                <div class="col-md-8">
                                     <input id="workout" type="text" class="form-control" v-model="query" v-on:keyup="autoComplete" name="workout">
                                     <div class="panel-footer" v-if="results.length">
                                        <ul class="list-group">
@@ -61,8 +62,8 @@
                             <div class="form-group row">
                                 <label for="date" class="col-md-4 col-form-label text-md-right">Date: </label>
 
-                                <div class="col-md-6">
-                                    <datepicker v-model="start_on" format="yyyy-MM-dd" input-class="form-control"></datepicker>
+                                <div class="col-md-8">
+                                    <datepicker v-model="start_on" format="yyyy-MM-dd" input-class="form-control" :value="today"></datepicker>
                                 </div>
                             </div>
                               
@@ -76,6 +77,7 @@
                     </form>
                 </div>
                 <div class="col-md-6">
+                    <h5>Workouts in this plan</h5>
                     <ul class="list-group">
                         <li class="list-group-item" v-for="workout in workoutList">{{workout.pivot.start_on | formatDate }} {{ workout.name }} <a href="#" @click="removeWorkout(workout.pivot.id)" class="float-right"><i class="fas fa-minus-circle"></i></a></li>
                     </ul>
@@ -124,7 +126,8 @@
                 plan: "",
                 showWorkoutAdd: false,
                 planStatus: "draft",
-                planAction: "Publish"
+                planAction: "Publish",
+                today: new Date()
             };
         },
         components: {

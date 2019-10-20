@@ -32,7 +32,6 @@ Vue.toasted.register('error', message => message, {
 })
 Vue.component('plan-component', require('./components/PlanComponent.vue').default);
 Vue.component('workout-component', require('./components/WorkoutComponent.vue').default);
-Vue.component('workoutexercise-component', require('./components/WorkoutExerciseComponent.vue').default);
 Vue.component('subscribe-component', require('./components/SubscribeComponent.vue').default);
 Vue.component('mark-complete-component', require('./components/MarkCompleteComponent.vue').default);
 Vue.component('profile', require('./components/Profile.vue').default);

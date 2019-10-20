@@ -4,13 +4,12 @@
       <tr>
         <th>Date</th>
         <th>Workout</th>
-        <th>Intensity</th>
-        <th>Duration</th>
+        <th>Focus</th>
       </tr>
     </thead>
      <tbody>
         <tr v-for="(workout, index) in this.workouts" :key="index">
-            <td>{{workout.pivot.start_on | formatDate }}</td>
+            <td style="width:120px;">{{workout.pivot.start_on | formatDate }}</td>
             <td>
                 <a href="#" :id="workout.name+workout.pivot.id" variant="primary">{{workout.name}}</a>
                 <b-popover :target="workout.name+workout.pivot.id" triggers="focus">
@@ -22,8 +21,7 @@
                     </ul>
                 </b-popover>
             </td>
-            <td>{{workout.intensity}}</td>
-            <td>{{workout.duration}}</td>
+            <td>{{workout.focus}}</td>
         </tr>
      </tbody>
   </table>
@@ -34,10 +32,7 @@
     
     export default {
         props: ['workouts','workoutlookups'],
-        mounted() {
-            console.log('Component mounted.');
-            console.log(this.workouts);
-            console.log(this.workoutlookups);
+        mounted() {;
         },
         data() {
             return {

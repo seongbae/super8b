@@ -18,13 +18,6 @@
         props: ['user', 'completed', 'planworkoutid', 'timezone'],
         mounted() {
             this.fetchUserCompletedList();
-            // console.log(this.timezone)
-            // console.log(moment.tz.guess())
-            //console.log('Component mounted.');
-            //console.log(this.user);
-            //console.log(this.plan);
-            //console.log(this.subscribed);
-            //moment(String(this.start_on)).format('YYYY-MM-DD 12:00:00')
         },
         data() {
             return {

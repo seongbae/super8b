@@ -99,9 +99,17 @@ Route::middleware('auth:api')->group(function () {
 		$subscriber = App\Models\User::find($request->get('user_id'));
 
 		if ($request->get('subscribe'))
+		{
+			Log::info('subscribing...');
+			Log::info(json_encode($plan));
+			Log::info(json_encode($subscriber));
 			$plan->subscribers()->attach($subscriber);
+		}
 		else
+		{
+			Log::info('unsubscribing...');
 			$plan->subscribers()->detach($subscriber);
+		}
 	});
 
 	// Workout routes

@@ -3,12 +3,6 @@
 @if ($workout->focus)
 <strong>Focus:</strong> {{$workout->focus}}<br>
 @endif
-@if ($workout->intensity)
-<strong>Intensity:</strong> {{$workout->intensity}}<br>
-@endif
-@if ($workout->duratin)
-<strong>Duration:</strong> {{$workout->duration}}<br>
-@endif
 @if ($workout->pivot->location)
 <strong>Location:</strong> {{$workout->pivot->location}}<br>
 @endif

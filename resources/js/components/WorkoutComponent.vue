@@ -17,28 +17,7 @@
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label for="notes" class="col-md-4 col-form-label text-md-right">Intensity</label>
-
-                    <div class="col-md-8">
-                        <select name="intensity" id="intensity" class="form-control" v-model="workoutIntensity">
-                            <option value="low">Low</option>
-                            <option value="medium">Medium</option>
-                            <option value="high">High</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="form-group row">
-                    <label for="notes" class="col-md-4 col-form-label text-md-right">Duration</label>
-
-                    <div class="col-md-8">
-                        <input id="notes" type="text" class="form-control" name="notes"  v-model="workoutDuration" placeholder="30m, 1hr, etc">
-
-                    </div>
-                </div>
-
-                <div class="form-group row">
-                    <label for="notes" class="col-md-4 col-form-label text-md-right">Notes</label>
+                    <label for="notes" class="col-md-4 col-form-label text-md-right">Instructions</label>
 
                     <div class="col-md-8">
                         <textarea id="notes" type="text" class="form-control" name="notes" v-model="workoutNotes"></textarea>
@@ -118,9 +97,6 @@
             draggable
         },
         mounted() {
-            console.log('Component mounted.');
-            console.log(this.workoutData);
-            console.log(this.userData);
 
             if (this.workoutData)
             {

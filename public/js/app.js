@@ -1859,13 +1859,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['user', 'completed', 'planworkoutid', 'timezone'],
   mounted: function mounted() {
-    this.fetchUserCompletedList(); // console.log(this.timezone)
-    // console.log(moment.tz.guess())
-    //console.log('Component mounted.');
-    //console.log(this.user);
-    //console.log(this.plan);
-    //console.log(this.subscribed);
-    //moment(String(this.start_on)).format('YYYY-MM-DD 12:00:00')
+    this.fetchUserCompletedList();
   },
   data: function data() {
     return {
@@ -2093,6 +2087,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2127,7 +2123,8 @@ __webpack_require__.r(__webpack_exports__);
       plan: "",
       showWorkoutAdd: false,
       planStatus: "draft",
-      planAction: "Publish"
+      planAction: "Publish",
+      today: new Date()
     };
   },
   components: {
@@ -2341,15 +2338,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['workouts', 'workoutlookups'],
   mounted: function mounted() {
-    console.log('Component mounted.');
-    console.log(this.workouts);
-    console.log(this.workoutlookups);
+    ;
   },
   data: function data() {
     return {};
@@ -2480,12 +2473,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['user', 'plan', 'subscribed'],
-  mounted: function mounted() {
-    console.log('Component mounted.');
-    console.log(this.user);
-    console.log(this.plan);
-    console.log(this.subscribed);
-  },
+  mounted: function mounted() {},
   data: function data() {
     return {
       user_subscribed: this.subscribed
@@ -2615,27 +2603,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['userData', 'workoutData'],
@@ -2643,10 +2610,6 @@ __webpack_require__.r(__webpack_exports__);
     draggable: vuedraggable__WEBPACK_IMPORTED_MODULE_0___default.a
   },
   mounted: function mounted() {
-    console.log('Component mounted.');
-    console.log(this.workoutData);
-    console.log(this.userData);
-
     if (this.workoutData) {
       this.workout = this.workoutData;
       this.workout_id = this.workout.id;
@@ -2808,64 +2771,6 @@ __webpack_require__.r(__webpack_exports__);
       if (set && rep) x = ' x ';
       if (!set && !rep) activityName = name;else if (!set) activityName = name + ' ' + rep;else activityName = name + ' ' + set + ' ' + setLabel + x + rep;
       return activityName;
-    }
-  }
-});
-
-/***/ }),
-
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/WorkoutExerciseComponent.vue?vue&type=script&lang=js&":
-/*!***********************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/WorkoutExerciseComponent.vue?vue&type=script&lang=js& ***!
-  \***********************************************************************************************************************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-//
-//
-//
-//
-//
-//
-//
-//
-/* harmony default export */ __webpack_exports__["default"] = ({
-  mounted: function mounted() {
-    console.log('Component mounted.');
-    this.fetchExerciseList();
-  },
-  data: function data() {
-    return {
-      exerciseList: [],
-      exercise: ""
-    };
-  },
-  methods: {
-    fetchExerciseList: function fetchExerciseList() {
-      var _this = this;
-
-      axios.get('/api/exercises/1').then(function (res) {
-        _this.exerciseList = res.data;
-      });
-    },
-    addExercise: function addExercise() {
-      this.exercises.push(this.exercise);
-      this.exercise = ""; // axios.post('/tweet/save', {body: this.body}).then(res => {
-      //     console.log(res.data);
-      // }).catch(e => {
-      //     console.log(e);
-      // });
-    },
-    saveWorkout: function saveWorkout() {
-      axios.post('/workout', {
-        body: this.body
-      }).then(function (res) {
-        console.log(res.data);
-      })["catch"](function (e) {
-        console.log(e);
-      });
     }
   }
 });
@@ -89265,7 +89170,7 @@ var render = function() {
                   [_vm._v("Name")]
                 ),
                 _vm._v(" "),
-                _c("div", { staticClass: "col-md-6" }, [
+                _c("div", { staticClass: "col-md-8" }, [
                   _c("input", {
                     directives: [
                       {
@@ -89307,8 +89212,8 @@ var render = function() {
                   [_vm._v("Description")]
                 ),
                 _vm._v(" "),
-                _c("div", { staticClass: "col-md-6" }, [
-                  _c("input", {
+                _c("div", { staticClass: "col-md-8" }, [
+                  _c("textarea", {
                     directives: [
                       {
                         name: "model",
@@ -89342,7 +89247,7 @@ var render = function() {
                   [_vm._v("Goal(s):")]
                 ),
                 _vm._v(" "),
-                _c("div", { staticClass: "col-md-6" }, [
+                _c("div", { staticClass: "col-md-8" }, [
                   _c("input", {
                     directives: [
                       {
@@ -89388,6 +89293,14 @@ var render = function() {
                   ),
                   _vm._v(" "),
                   _c("input", {
+                    directives: [
+                      {
+                        name: "show",
+                        rawName: "v-show",
+                        value: _vm.showWorkoutAdd,
+                        expression: "showWorkoutAdd"
+                      }
+                    ],
                     staticClass: "btn btn-primary",
                     attrs: { type: "button", value: _vm.planAction },
                     on: {
@@ -89403,6 +89316,8 @@ var render = function() {
                 ? _c("div", [
                     _c("hr"),
                     _vm._v(" "),
+                    _c("h5", [_vm._v("Add some workouts to your plan")]),
+                    _vm._v(" "),
                     _c("div", { staticClass: "form-group row" }, [
                       _c(
                         "label",
@@ -89413,7 +89328,7 @@ var render = function() {
                         [_vm._v("Workout: ")]
                       ),
                       _vm._v(" "),
-                      _c("div", { staticClass: "col-md-6" }, [
+                      _c("div", { staticClass: "col-md-8" }, [
                         _c("input", {
                           directives: [
                             {
@@ -89509,12 +89424,13 @@ var render = function() {
                       _vm._v(" "),
                       _c(
                         "div",
-                        { staticClass: "col-md-6" },
+                        { staticClass: "col-md-8" },
                         [
                           _c("datepicker", {
                             attrs: {
                               format: "yyyy-MM-dd",
-                              "input-class": "form-control"
+                              "input-class": "form-control",
+                              value: _vm.today
                             },
                             model: {
                               value: _vm.start_on,
@@ -89549,6 +89465,8 @@ var render = function() {
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "col-md-6" }, [
+          _c("h5", [_vm._v("Workouts in this plan")]),
+          _vm._v(" "),
           _c(
             "ul",
             { staticClass: "list-group" },
@@ -89611,7 +89529,7 @@ var render = function() {
       "tbody",
       _vm._l(this.workouts, function(workout, index) {
         return _c("tr", { key: index }, [
-          _c("td", [
+          _c("td", { staticStyle: { width: "120px" } }, [
             _vm._v(_vm._s(_vm._f("formatDate")(workout.pivot.start_on)))
           ]),
           _vm._v(" "),
@@ -89681,9 +89599,7 @@ var render = function() {
             1
           ),
           _vm._v(" "),
-          _c("td", [_vm._v(_vm._s(workout.intensity))]),
-          _vm._v(" "),
-          _c("td", [_vm._v(_vm._s(workout.duration))])
+          _c("td", [_vm._v(_vm._s(workout.focus))])
         ])
       }),
       0
@@ -89701,9 +89617,7 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("Workout")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Intensity")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("Duration")])
+        _c("th", [_vm._v("Focus")])
       ])
     ])
   }
@@ -90019,100 +89933,7 @@ var render = function() {
                 staticClass: "col-md-4 col-form-label text-md-right",
                 attrs: { for: "notes" }
               },
-              [_vm._v("Intensity")]
-            ),
-            _vm._v(" "),
-            _c("div", { staticClass: "col-md-8" }, [
-              _c(
-                "select",
-                {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.workoutIntensity,
-                      expression: "workoutIntensity"
-                    }
-                  ],
-                  staticClass: "form-control",
-                  attrs: { name: "intensity", id: "intensity" },
-                  on: {
-                    change: function($event) {
-                      var $$selectedVal = Array.prototype.filter
-                        .call($event.target.options, function(o) {
-                          return o.selected
-                        })
-                        .map(function(o) {
-                          var val = "_value" in o ? o._value : o.value
-                          return val
-                        })
-                      _vm.workoutIntensity = $event.target.multiple
-                        ? $$selectedVal
-                        : $$selectedVal[0]
-                    }
-                  }
-                },
-                [
-                  _c("option", { attrs: { value: "low" } }, [_vm._v("Low")]),
-                  _vm._v(" "),
-                  _c("option", { attrs: { value: "medium" } }, [
-                    _vm._v("Medium")
-                  ]),
-                  _vm._v(" "),
-                  _c("option", { attrs: { value: "high" } }, [_vm._v("High")])
-                ]
-              )
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "form-group row" }, [
-            _c(
-              "label",
-              {
-                staticClass: "col-md-4 col-form-label text-md-right",
-                attrs: { for: "notes" }
-              },
-              [_vm._v("Duration")]
-            ),
-            _vm._v(" "),
-            _c("div", { staticClass: "col-md-8" }, [
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.workoutDuration,
-                    expression: "workoutDuration"
-                  }
-                ],
-                staticClass: "form-control",
-                attrs: {
-                  id: "notes",
-                  type: "text",
-                  name: "notes",
-                  placeholder: "30m, 1hr, etc"
-                },
-                domProps: { value: _vm.workoutDuration },
-                on: {
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
-                    }
-                    _vm.workoutDuration = $event.target.value
-                  }
-                }
-              })
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "form-group row" }, [
-            _c(
-              "label",
-              {
-                staticClass: "col-md-4 col-form-label text-md-right",
-                attrs: { for: "notes" }
-              },
-              [_vm._v("Notes")]
+              [_vm._v("Instructions")]
             ),
             _vm._v(" "),
             _c("div", { staticClass: "col-md-8" }, [
@@ -90156,7 +89977,7 @@ var render = function() {
                     [_vm._v("Exercise")]
                   ),
                   _vm._v(" "),
-                  _c("div", { staticClass: "col-md-6" }, [
+                  _c("div", { staticClass: "col-md-8" }, [
                     _c("input", {
                       directives: [
                         {
@@ -90252,7 +90073,7 @@ var render = function() {
                     [_vm._v("Repetition")]
                   ),
                   _vm._v(" "),
-                  _c("div", { staticClass: "col-md-6" }, [
+                  _c("div", { staticClass: "col-md-8" }, [
                     _c("input", {
                       directives: [
                         {
@@ -90291,7 +90112,7 @@ var render = function() {
                     [_vm._v("Set")]
                   ),
                   _vm._v(" "),
-                  _c("div", { staticClass: "col-md-6" }, [
+                  _c("div", { staticClass: "col-md-8" }, [
                     _c("input", {
                       directives: [
                         {
@@ -90432,52 +90253,6 @@ var staticRenderFns = [
     ])
   }
 ]
-render._withStripped = true
-
-
-
-/***/ }),
-
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/WorkoutExerciseComponent.vue?vue&type=template&id=ecd1d75a&":
-/*!***************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/WorkoutExerciseComponent.vue?vue&type=template&id=ecd1d75a& ***!
-  \***************************************************************************************************************************************************************************************************************************/
-/*! exports provided: render, staticRenderFns */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c(
-    "form",
-    {
-      on: {
-        submit: function($event) {
-          $event.preventDefault()
-          return _vm.addExercise($event)
-        }
-      }
-    },
-    [
-      _c(
-        "ul",
-        { staticClass: "list-group" },
-        _vm._l(_vm.exercises, function(exercise) {
-          return _c("li", { staticClass: "list-group-item" }, [
-            _vm._v(_vm._s(exercise))
-          ])
-        }),
-        0
-      )
-    ]
-  )
-}
-var staticRenderFns = []
 render._withStripped = true
 
 
@@ -108397,7 +108172,6 @@ Vue.toasted.register('error', function (message) {
 });
 Vue.component('plan-component', __webpack_require__(/*! ./components/PlanComponent.vue */ "./resources/js/components/PlanComponent.vue")["default"]);
 Vue.component('workout-component', __webpack_require__(/*! ./components/WorkoutComponent.vue */ "./resources/js/components/WorkoutComponent.vue")["default"]);
-Vue.component('workoutexercise-component', __webpack_require__(/*! ./components/WorkoutExerciseComponent.vue */ "./resources/js/components/WorkoutExerciseComponent.vue")["default"]);
 Vue.component('subscribe-component', __webpack_require__(/*! ./components/SubscribeComponent.vue */ "./resources/js/components/SubscribeComponent.vue")["default"]);
 Vue.component('mark-complete-component', __webpack_require__(/*! ./components/MarkCompleteComponent.vue */ "./resources/js/components/MarkCompleteComponent.vue")["default"]);
 Vue.component('profile', __webpack_require__(/*! ./components/Profile.vue */ "./resources/js/components/Profile.vue")["default"]);
@@ -108958,75 +108732,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_WorkoutComponent_vue_vue_type_template_id_2781bd4b___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_WorkoutComponent_vue_vue_type_template_id_2781bd4b___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
-
-
-
-/***/ }),
-
-/***/ "./resources/js/components/WorkoutExerciseComponent.vue":
-/*!**************************************************************!*\
-  !*** ./resources/js/components/WorkoutExerciseComponent.vue ***!
-  \**************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _WorkoutExerciseComponent_vue_vue_type_template_id_ecd1d75a___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./WorkoutExerciseComponent.vue?vue&type=template&id=ecd1d75a& */ "./resources/js/components/WorkoutExerciseComponent.vue?vue&type=template&id=ecd1d75a&");
-/* harmony import */ var _WorkoutExerciseComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./WorkoutExerciseComponent.vue?vue&type=script&lang=js& */ "./resources/js/components/WorkoutExerciseComponent.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
-
-
-
-
-
-/* normalize component */
-
-var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _WorkoutExerciseComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _WorkoutExerciseComponent_vue_vue_type_template_id_ecd1d75a___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _WorkoutExerciseComponent_vue_vue_type_template_id_ecd1d75a___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
-  false,
-  null,
-  null,
-  null
-  
-)
-
-/* hot reload */
-if (false) { var api; }
-component.options.__file = "resources/js/components/WorkoutExerciseComponent.vue"
-/* harmony default export */ __webpack_exports__["default"] = (component.exports);
-
-/***/ }),
-
-/***/ "./resources/js/components/WorkoutExerciseComponent.vue?vue&type=script&lang=js&":
-/*!***************************************************************************************!*\
-  !*** ./resources/js/components/WorkoutExerciseComponent.vue?vue&type=script&lang=js& ***!
-  \***************************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_WorkoutExerciseComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./WorkoutExerciseComponent.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/WorkoutExerciseComponent.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_WorkoutExerciseComponent_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
-
-/***/ }),
-
-/***/ "./resources/js/components/WorkoutExerciseComponent.vue?vue&type=template&id=ecd1d75a&":
-/*!*********************************************************************************************!*\
-  !*** ./resources/js/components/WorkoutExerciseComponent.vue?vue&type=template&id=ecd1d75a& ***!
-  \*********************************************************************************************/
-/*! exports provided: render, staticRenderFns */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_WorkoutExerciseComponent_vue_vue_type_template_id_ecd1d75a___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./WorkoutExerciseComponent.vue?vue&type=template&id=ecd1d75a& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/WorkoutExerciseComponent.vue?vue&type=template&id=ecd1d75a&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_WorkoutExerciseComponent_vue_vue_type_template_id_ecd1d75a___WEBPACK_IMPORTED_MODULE_0__["render"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_WorkoutExerciseComponent_vue_vue_type_template_id_ecd1d75a___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

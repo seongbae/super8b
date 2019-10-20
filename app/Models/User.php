@@ -56,12 +56,9 @@ class User extends Authenticatable
 
     public function subscribed($plan)
     {
-        // Log::info($this);
-        // Log::info($plan);
-
         foreach($this->subscribedPlans as $subscribedPlan)
         {
-            Log::info('subscribedPlan->id: '. $subscribedPlan->id . ' plan->id: '.$plan->id);
+            //Log::info('subscribedPlan->id: '. $subscribedPlan->id . ' plan->id: '.$plan->id);
 
             if ($subscribedPlan->id == $plan->id)
                 return 'true';

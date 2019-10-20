@@ -27,13 +27,6 @@
             addExercise() {
                 this.exercises.push(this.exercise);
                 this.exercise = "";
-
-                // axios.post('/tweet/save', {body: this.body}).then(res => {
-                //     console.log(res.data);
-                // }).catch(e => {
-                //     console.log(e);
-                // });
-                
             },
             saveWorkout() {
                 axios.post('/workout', {body: this.body}).then(res => {

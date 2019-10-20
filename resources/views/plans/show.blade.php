@@ -8,7 +8,7 @@
                 <div class="card-header">{{$plan->name}}
                     <div class="float-right">
                         @if ($plan->status == 'published')
-                        <subscribe-component :user="{{$user}}" :plan="{{$plan}}" :subscribed="{{$user->subscribed($plan)}}"></subscribe-component>
+                        <subscribe-component :user="{{$user}}" :plan="{{$plan}}" :subscribed="'{{$user->subscribed($plan)}}'"></subscribe-component>
                         @endif
                         <div class="ml-2 dropdown show float-right" >
                           <a class="btn btn-secondary dropdown-toggle btn-sm" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -21,6 +21,11 @@
                             <a class="dropdown-item" href="{{route('plans.edit', $plan)}}">
                                 Edit
                             </a>
+                            <form action="{{ route('plans.destroy', $plan)}}" method="POST" class="dropdown-item">
+                              <input type="hidden" name="_method" value="DELETE"> 
+                              <button name="submit" value="Delete" onclick="return confirm('Are you sure?')" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i></button>
+                              <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                            </form>
                             @endif
                           </div>
                         </div>

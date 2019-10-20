@@ -9,10 +9,6 @@
     export default {
         props: ['user', 'plan', 'subscribed'],
         mounted() {
-            console.log('Component mounted.');
-            console.log(this.user);
-            console.log(this.plan);
-            console.log(this.subscribed);
         },
         data() {
             return {

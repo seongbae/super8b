@@ -5,15 +5,19 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">Copy Plan
+                <div class="card-header"><i class="far fa-copy"></i> Copy Plan
                     <div class="float-right">
                         
                     </div>
                 </div>
                 <div class="card-body">
-                    <strong>Copying:</strong> {{$plan->name}}
+                    <strong>Name:</strong> {{$plan->name}}<br>
+                    <strong>Description:</strong> {{$plan->description}}<br>
+                    <strong>Goals:</strong> {{$plan->goals}}<br>
+                    <strong>Workouts:</strong> {{$plan->workouts()->count()}}<br>
                     <hr>
-                    <form>
+                    <form action="/clone" method="POST">
+                        @csrf
                         <div class="form-group row">
                             <label for="name" class="col-md-4 col-form-label text-md-right">Name</label>
 
@@ -22,10 +26,10 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="notes" class="col-md-4 col-form-label text-md-right">Description</label>
+                            <label for="description" class="col-md-4 col-form-label text-md-right">Description</label>
 
                             <div class="col-md-6">
-                                <input id="notes" type="text" class="form-control" value="{{$plan->description}}" name="notes">
+                                <input id="description" type="text" class="form-control" value="{{$plan->description}}" name="description">
                             </div>
                         </div>
                         <div class="form-group row">
@@ -40,16 +44,17 @@
                             <label for="goals" class="col-md-4 col-form-label text-md-right">Start on:</label>
 
                             <div class="col-md-6">
-                                <input id="goals" type="text" class="form-control" value="{{$plan->goals}}" name="goals"  placeholder="pass ACFT, lose weight, etc">
+                                <input id="start_date" type="date" class="form-control" value="{{Carbon\Carbon::now()->addDays(7)->format('Y-m-d')}}" required name="start_date" >
 
                             </div>
                         </div>
                         <div class="form-group row">
                             <div class=" offset-md-4 col-md-6">
+                              <input type="hidden" name="plan_id" value="{{$plan->id}}">
                                 <button type="submit" class="btn btn-primary ">
-                                    Save
+                                    Copy
                                 </button>
-                                <a href=""  class="btn btn-primary ">Cancel</a>
+                                <a href="{{URL::previous()}}"  class="btn btn-primary ">Cancel</a>
                             </div>
                         </div>
                         
