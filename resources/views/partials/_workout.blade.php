@@ -12,6 +12,9 @@
 @if ($workout->pivot->location)
 <strong>Location:</strong> {{$workout->pivot->location}}<br>
 @endif
+@if ($workout->notes)
+{{$workout->notes}}<br>
+@endif
 <div class="py-3">
   @foreach ($workout->exercises()->orderBy('sort')->get() as $exercise)
       {{Helpers::getActivityName($exercise->name, $exercise->pivot->repetition, $exercise->pivot->set)}}<br/>
