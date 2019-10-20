@@ -5,21 +5,21 @@
                 <div class="form-group row">
                     <label for="name" class="col-md-4 col-form-label text-md-right">Name</label>
 
-                    <div class="col-md-6">
+                    <div class="col-md-8">
                         <input id="name" type="text" class="form-control" name="name" v-model="workoutName" placeholder="Lower Body Workout" required  autofocus>
                     </div>
                 </div>
                 <div class="form-group row">
                     <label for="focus" class="col-md-4 col-form-label text-md-right">Focus</label>
 
-                    <div class="col-md-6">
+                    <div class="col-md-8">
                         <input id="focus" type="text" class="form-control" name="focus" v-model="workoutFocus" placeholder="Upper body, lower body, endurance...">
                     </div>
                 </div>
                 <div class="form-group row">
                     <label for="notes" class="col-md-4 col-form-label text-md-right">Intensity</label>
 
-                    <div class="col-md-6">
+                    <div class="col-md-8">
                         <select name="intensity" id="intensity" class="form-control" v-model="workoutIntensity">
                             <option value="low">Low</option>
                             <option value="medium">Medium</option>
@@ -31,7 +31,7 @@
                 <div class="form-group row">
                     <label for="notes" class="col-md-4 col-form-label text-md-right">Duration</label>
 
-                    <div class="col-md-6">
+                    <div class="col-md-8">
                         <input id="notes" type="text" class="form-control" name="notes"  v-model="workoutDuration" placeholder="30m, 1hr, etc">
 
                     </div>
@@ -40,15 +40,15 @@
                 <div class="form-group row">
                     <label for="notes" class="col-md-4 col-form-label text-md-right">Notes</label>
 
-                    <div class="col-md-6">
-                        <input id="notes" type="text" class="form-control" name="notes" v-model="workoutNotes">
+                    <div class="col-md-8">
+                        <textarea id="notes" type="text" class="form-control" name="notes" v-model="workoutNotes"></textarea>
 
                     </div>
                 </div>
                 <div class="form-group row">
                     <label for="notes" class="col-md-4 col-form-label text-md-right"></label>
 
-                    <div class="col-md-6">
+                    <div class="col-md-8">
                         <button type="submit" class="btn btn-primary">
                             Save
                         </button>
@@ -60,7 +60,7 @@
                     <div class="form-group row">
                         <label for="exercise" class="col-md-4 col-form-label text-md-right">Exercise</label>
 
-                        <div class="col-md-6">
+                        <div class="col-md-8">
                             <input id="exercise" type="text" class="form-control" v-model="query" v-on:keyup="autoComplete" :name="exerciseName" placeholder="Start typing..." autocomplete="new-password">
                             <div class="panel-footer" v-if="results.length">
                                <ul class="list-group">
@@ -75,7 +75,7 @@
                     <div class="form-group row">
                         <label for="repetition" class="col-md-4 col-form-label text-md-right">Repetition</label>
 
-                        <div class="col-md-6">
+                        <div class="col-md-8">
                             <input id="repetition" type="text" class="form-control" name="repetition" v-model="repetition">
                         </div>
                     </div>
@@ -83,7 +83,7 @@
                     <div class="form-group row">
                         <label for="sets" class="col-md-4 col-form-label text-md-right">Set</label>
 
-                        <div class="col-md-6">
+                        <div class="col-md-8">
                             <input id="set" type="text" class="form-control" name="set" v-model="set">
 
                         </div>

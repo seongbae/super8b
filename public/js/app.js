@@ -89940,7 +89940,7 @@ var render = function() {
               [_vm._v("Name")]
             ),
             _vm._v(" "),
-            _c("div", { staticClass: "col-md-6" }, [
+            _c("div", { staticClass: "col-md-8" }, [
               _c("input", {
                 directives: [
                   {
@@ -89982,7 +89982,7 @@ var render = function() {
               [_vm._v("Focus")]
             ),
             _vm._v(" "),
-            _c("div", { staticClass: "col-md-6" }, [
+            _c("div", { staticClass: "col-md-8" }, [
               _c("input", {
                 directives: [
                   {
@@ -90022,7 +90022,7 @@ var render = function() {
               [_vm._v("Intensity")]
             ),
             _vm._v(" "),
-            _c("div", { staticClass: "col-md-6" }, [
+            _c("div", { staticClass: "col-md-8" }, [
               _c(
                 "select",
                 {
@@ -90075,7 +90075,7 @@ var render = function() {
               [_vm._v("Duration")]
             ),
             _vm._v(" "),
-            _c("div", { staticClass: "col-md-6" }, [
+            _c("div", { staticClass: "col-md-8" }, [
               _c("input", {
                 directives: [
                   {
@@ -90115,8 +90115,8 @@ var render = function() {
               [_vm._v("Notes")]
             ),
             _vm._v(" "),
-            _c("div", { staticClass: "col-md-6" }, [
-              _c("input", {
+            _c("div", { staticClass: "col-md-8" }, [
+              _c("textarea", {
                 directives: [
                   {
                     name: "model",
@@ -90422,7 +90422,7 @@ var staticRenderFns = [
         attrs: { for: "notes" }
       }),
       _vm._v(" "),
-      _c("div", { staticClass: "col-md-6" }, [
+      _c("div", { staticClass: "col-md-8" }, [
         _c(
           "button",
           { staticClass: "btn btn-primary", attrs: { type: "submit" } },

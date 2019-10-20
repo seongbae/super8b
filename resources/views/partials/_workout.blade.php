@@ -13,7 +13,7 @@
 <strong>Location:</strong> {{$workout->pivot->location}}<br>
 @endif
 @if ($workout->notes)
-{{$workout->notes}}<br>
+{!! nl2br($workout->notes) !!}<br>
 @endif
 <div class="py-3">
   @foreach ($workout->exercises()->orderBy('sort')->get() as $exercise)
