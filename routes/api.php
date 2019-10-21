@@ -117,7 +117,7 @@ Route::middleware('auth:api')->group(function () {
 	// Retrieve workouts in a plan
 	Route::get('/workout/{planid}', function ($id) {
 		$plan = App\Models\Plan::find($id);
-	    return $plan->workouts; //()->withPivot('id','start_on','order');
+	    return $plan->workouts()->orderBy('start_on')->get(); //()->withPivot('id','start_on','order');
 	});
 
 	// Add exercise to a workout
