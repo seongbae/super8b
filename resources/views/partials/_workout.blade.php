@@ -15,5 +15,5 @@
   @endforeach
 </div>
 <div class="mb-2">
-  <small class="text-muted">Part of {{ Helpers::getPlanName($workout->pivot->plan_id)}}</small>
+  <small class="text-muted">Part of <a href="{{ route('plans.show', App\Models\Plan::find($workout->pivot->plan_id))}}">{{ Helpers::getPlanName($workout->pivot->plan_id)}}</a></small>
 </div>
