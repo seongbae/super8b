@@ -2605,6 +2605,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['userData', 'workoutData'],
@@ -2617,6 +2627,7 @@ __webpack_require__.r(__webpack_exports__);
       this.workout_id = this.workout.id;
       this.workoutName = this.workout.name;
       this.workoutFocus = this.workout.focus;
+      this.workoutVisibility = this.workout.visibility;
       this.workoutDuration = this.workout.duration;
       this.workoutIntensity = this.workout.intensity;
       this.workoutNotes = this.workout.notes;
@@ -2633,6 +2644,7 @@ __webpack_require__.r(__webpack_exports__);
       open: false,
       workoutName: "",
       workoutFocus: "",
+      workoutVisibility: {},
       workoutDuration: "",
       workoutIntensity: "",
       workoutNotes: "",
@@ -2718,7 +2730,8 @@ __webpack_require__.r(__webpack_exports__);
         intensity: this.workoutIntensity,
         duration: this.workoutDuration,
         notes: this.workoutNotes,
-        user_id: this.userData.id
+        user_id: this.userData.id,
+        visibility: this.workoutVisibility
       }).then(function (res) {
         _this4.workout = res.data;
         _this4.showExerciseAdd = true;
@@ -89948,6 +89961,59 @@ var render = function() {
                   }
                 }
               })
+            ])
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "form-group row" }, [
+            _c(
+              "label",
+              {
+                staticClass: "col-md-4 col-form-label text-md-right",
+                attrs: { for: "focus" }
+              },
+              [_vm._v("Visibility")]
+            ),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-md-8" }, [
+              _c(
+                "select",
+                {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.workoutVisibility,
+                      expression: "workoutVisibility"
+                    }
+                  ],
+                  staticClass: "form-control",
+                  attrs: { name: "visibility" },
+                  on: {
+                    change: function($event) {
+                      var $$selectedVal = Array.prototype.filter
+                        .call($event.target.options, function(o) {
+                          return o.selected
+                        })
+                        .map(function(o) {
+                          var val = "_value" in o ? o._value : o.value
+                          return val
+                        })
+                      _vm.workoutVisibility = $event.target.multiple
+                        ? $$selectedVal
+                        : $$selectedVal[0]
+                    }
+                  }
+                },
+                [
+                  _c("option", { attrs: { value: "private", selected: "" } }, [
+                    _vm._v("Private")
+                  ]),
+                  _vm._v(" "),
+                  _c("option", { attrs: { value: "public" } }, [
+                    _vm._v("Public")
+                  ])
+                ]
+              )
             ])
           ]),
           _vm._v(" "),

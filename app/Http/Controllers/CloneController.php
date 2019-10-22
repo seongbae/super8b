@@ -65,22 +65,29 @@ class CloneController extends Controller
 
     foreach($fromPlan->workouts as $workout)
     {
-      $newWorkout = new Workout;
-      $newWorkout->name = $workout->name;
-      $newWorkout->notes = $workout->notes;
-      $newWorkout->focus = $workout->focus;
-      $newWorkout->user_id = Auth::id();
-      $newWorkout->save();
-
       $workoutStarton = new Carbon($workout->pivot->start_on);
         
       if ($index == 0)
-        $addDays = $newStarton->diffInDays($workoutStarton); //$workoutStarton->diffInDays($newStarton);
+        $addDays = $newStarton->diffInDays($workoutStarton); 
       else
         $startOn = $workoutStarton->addDays($addDays);
 
-      Log::info('startOn: '.$startOn);
-      $newPlan->workouts()->attach($newWorkout, array('start_on'=>$startOn));
+      if ($request->get('workouts') == 'copy')
+      {
+        $newWorkout = new Workout;
+        $newWorkout->name = $workout->name;
+        $newWorkout->notes = $workout->notes;
+        $newWorkout->focus = $workout->focus;
+        $newWorkout->user_id = Auth::id();
+        $newWorkout->save();
+
+        $newPlan->workouts()->attach($newWorkout, array('start_on'=>$startOn));
+      }
+      else 
+      {
+        $newPlan->workouts()->attach($workout, array('start_on'=>$startOn));
+      }
+
       $index++;
     }
 

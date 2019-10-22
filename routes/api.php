@@ -143,6 +143,7 @@ Route::middleware('auth:api')->group(function () {
 			$workout->duration = $request->get('duration');
 			$workout->notes = $request->get('notes');
 			$workout->user_id = $request->get('user_id');
+			$workout->visibility = $request->get('visibility');
 			$workout->save();
 		}
 		else
@@ -154,6 +155,7 @@ Route::middleware('auth:api')->group(function () {
 			$workout->duration = $request->get('duration');
 			$workout->notes = $request->get('notes');
 			$workout->user_id = $request->get('user_id');
+			$workout->visibility = $request->get('visibility');
 			$workout->save();
 		}
 

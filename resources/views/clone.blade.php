@@ -41,6 +41,17 @@
                             </div>
                         </div>
                         <div class="form-group row">
+                            <label for="goals" class="col-md-4 col-form-label text-md-right">Workouts(s):</label>
+
+                            <div class="col-md-6">
+                                <select name="workouts" class="form-control">
+                                    <option value="keep" selected>Keep original workouts</option>
+                                    <option value="copy">Copy workouts</option>
+                                </select>
+
+                            </div>
+                        </div>
+                        <div class="form-group row">
                             <label for="goals" class="col-md-4 col-form-label text-md-right">Start on:</label>
 
                             <div class="col-md-6">

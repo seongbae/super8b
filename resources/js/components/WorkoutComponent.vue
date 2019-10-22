@@ -17,6 +17,16 @@
                     </div>
                 </div>
                 <div class="form-group row">
+                    <label for="focus" class="col-md-4 col-form-label text-md-right">Visibility</label>
+
+                    <div class="col-md-8">
+                        <select name="visibility" class="form-control" v-model="workoutVisibility">
+                            <option value="private" selected>Private</option>
+                            <option value="public">Public</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group row">
                     <label for="notes" class="col-md-4 col-form-label text-md-right">Instructions</label>
 
                     <div class="col-md-8">
@@ -106,6 +116,7 @@
                 this.workout_id = this.workout.id;
                 this.workoutName = this.workout.name;
                 this.workoutFocus = this.workout.focus;
+                this.workoutVisibility = this.workout.visibility;
                 this.workoutDuration = this.workout.duration;
                 this.workoutIntensity = this.workout.intensity;
                 this.workoutNotes = this.workout.notes;
@@ -122,6 +133,7 @@
                 open: false,
                 workoutName: "",
                 workoutFocus: "",
+                workoutVisibility: {},
                 workoutDuration: "",
                 workoutIntensity: "",
                 workoutNotes: "",
@@ -199,7 +211,8 @@
                         intensity: this.workoutIntensity,
                         duration: this.workoutDuration,
                         notes: this.workoutNotes,
-                        user_id: this.userData.id
+                        user_id: this.userData.id,
+                        visibility: this.workoutVisibility
                     }).then(res => {
                     this.workout = res.data;
                     this.showExerciseAdd = true;

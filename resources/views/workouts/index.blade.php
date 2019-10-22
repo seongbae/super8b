@@ -24,8 +24,8 @@
                      <tr>
                         <th>Workout</th>
                         <th>Focus</th>
-                        <th>Intensity</th>
-                        <th>Duration</th>
+                        <th># of Activities</th>
+                        <th>Visibility</th>
                         <th></th>
                      </tr>
                      </thead>
@@ -34,8 +34,8 @@
                         <tr>
                            <td><a href="{{ route('workouts.show', $workout)}}">{{ $workout->name }}</a></td>
                            <td>{{ $workout->focus }}</td>
-                           <td>{{ $workout->intensity }}</td>
-                           <td>{{ $workout->duration }}</td>
+                           <td>{{ $workout->exercises()->count() }}</td>
+                           <td>{{ $workout->visibility }}</td>
                            <td><a href="{{ route('workouts.edit', $workout)}}" class="btn btn-secondary btn-sm float-left mr-2"><i class="fas fa-edit"></i></a>
                         <form action="{{ route('workouts.destroy', $workout)}}" method="POST">
                           <input type="hidden" name="_method" value="DELETE"> 
@@ -56,18 +56,18 @@
                      <tr>
                         <th>Workout</th>
                         <th>Focus</th>
-                        <th>Intensity</th>
-                        <th>Duration</th>
+                        <th># of Activities</th>
+                        <th>Visibility</th>
                         <th>Author</th>
                      </tr>
                      </thead>
                      <tbody>
                         @foreach($allworkouts as $workout)
                         <tr>
-                           <td><a href="{{ route('workouts.edit', $workout)}}">{{ $workout->name }}</a></td>
+                           <td><a href="{{ route('workouts.show', $workout)}}">{{ $workout->name }}</a></td>
                            <td>{{ $workout->focus }}</td>
-                           <td>{{ $workout->intensity }}</td>
-                           <td>{{ $workout->duration }}</td>
+                           <td>{{ $workout->exercises()->count() }}</td>
+                           <td>{{ $workout->visibility }}</td>
                            <td>{{ $workout->author->name }}</td>
                         </tr>
                         @endforeach
