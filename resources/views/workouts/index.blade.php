@@ -57,7 +57,6 @@
                         <th>Workout</th>
                         <th>Focus</th>
                         <th class="text-center"># of Activities</th>
-                        <th>Visibility</th>
                         <th>Author</th>
                      </tr>
                      </thead>
@@ -67,7 +66,6 @@
                            <td><a href="{{ route('workouts.show', $workout)}}">{{ $workout->name }}</a></td>
                            <td>{{ $workout->focus }}</td>
                            <td class="text-center">{{ $workout->exercises()->count() }}</td>
-                           <td>{{ $workout->visibility }}</td>
                            <td>{{ $workout->author->name }}</td>
                         </tr>
                         @endforeach
