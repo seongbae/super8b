@@ -24,7 +24,7 @@
                      <tr>
                         <th>Workout</th>
                         <th>Focus</th>
-                        <th># of Activities</th>
+                        <th class="text-center"># of Activities</th>
                         <th>Visibility</th>
                         <th></th>
                      </tr>
@@ -34,7 +34,7 @@
                         <tr>
                            <td><a href="{{ route('workouts.show', $workout)}}">{{ $workout->name }}</a></td>
                            <td>{{ $workout->focus }}</td>
-                           <td>{{ $workout->exercises()->count() }}</td>
+                           <td class="text-center">{{ $workout->exercises()->count() }}</td>
                            <td>{{ $workout->visibility }}</td>
                            <td><a href="{{ route('workouts.edit', $workout)}}" class="btn btn-secondary btn-sm float-left mr-2"><i class="fas fa-edit"></i></a>
                         <form action="{{ route('workouts.destroy', $workout)}}" method="POST">
@@ -56,7 +56,7 @@
                      <tr>
                         <th>Workout</th>
                         <th>Focus</th>
-                        <th># of Activities</th>
+                        <th class="text-center"># of Activities</th>
                         <th>Visibility</th>
                         <th>Author</th>
                      </tr>
@@ -66,7 +66,7 @@
                         <tr>
                            <td><a href="{{ route('workouts.show', $workout)}}">{{ $workout->name }}</a></td>
                            <td>{{ $workout->focus }}</td>
-                           <td>{{ $workout->exercises()->count() }}</td>
+                           <td class="text-center">{{ $workout->exercises()->count() }}</td>
                            <td>{{ $workout->visibility }}</td>
                            <td>{{ $workout->author->name }}</td>
                         </tr>
