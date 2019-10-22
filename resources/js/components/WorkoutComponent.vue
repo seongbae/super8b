@@ -31,6 +31,8 @@
                         <button type="submit" class="btn btn-primary">
                             Save
                         </button>
+                       <!--  <input type="button" value="Save and Create New" class="btn btn-primary" @click="saveAndCreateNew()">
+                        <input type="button" value="Close" class="btn btn-primary" @click="goBack()"> -->
                     </div>
                 </div>
                 
@@ -63,7 +65,7 @@
                         <label for="sets" class="col-md-4 col-form-label text-md-right">Set</label>
 
                         <div class="col-md-8">
-                            <input id="set" type="text" class="form-control" name="set" v-model="set">
+                            <input id="set" type="number" class="form-control" name="set" v-model="set" min="1" max="100">
 
                         </div>
                     </div>
@@ -207,6 +209,24 @@
                 });
                 
             },
+            saveAndCreateNew() {
+                axios.post('/api/workout', {
+                        workout_id: this.workoutId, 
+                        name: this.workoutName, 
+                        focus: this.workoutFocus,
+                        intensity: this.workoutIntensity,
+                        duration: this.workoutDuration,
+                        notes: this.workoutNotes,
+                        user_id: this.userData.id
+                    }).then(res => {
+                    this.workout = res.data;
+                    this.showExerciseAdd = true;
+                    this.$toasted.global.error('Workout updated!');
+                }).catch(e => {
+                    console.log(e);
+                });
+                
+            },
             autoComplete(){
                 this.results = [];
                 if(this.query.length > 1){
@@ -235,6 +255,9 @@
                         console.log(e);
                     });
               console.log(this.exerciseList);
+            },
+            goBack() {
+              window.history.length > 1 ? this.$router.go(-1) : this.$router.push('/')
             },
             getActivityName(name, rep, set) {
                 var setLabel = '';

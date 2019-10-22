@@ -21,11 +21,13 @@ window.Vue = require('vue');
 import Datepicker from 'vuejs-datepicker';
 import Toasted from 'vue-toasted';
 import BootstrapVue from 'bootstrap-vue'
+import VueRouter from 'vue-router'
 
 //import './custom.scss'
 
 Vue.use(BootstrapVue)
 Vue.use(Toasted)
+Vue.use(VueRouter)
 Vue.toasted.register('error', message => message, {
     position : 'bottom-center',
     duration : 1000

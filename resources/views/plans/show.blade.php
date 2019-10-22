@@ -8,7 +8,7 @@
                 <div class="card-header">{{$plan->name}}
                     <div class="float-right">
                         @if ($plan->status == 'published')
-                        <subscribe-component :user="{{$user}}" :plan="{{$plan}}" :subscribed="'{{$user->subscribed($plan)}}'"></subscribe-component>
+                        <subscribe-component :user="{{$user}}" :plan="{{$plan}}" :subscribed="{{$user->subscribed($plan)}}"></subscribe-component>
                         @endif
                         <div class="ml-2 dropdown show float-right" >
                           <a class="btn btn-secondary dropdown-toggle btn-sm" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

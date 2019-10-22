@@ -51,14 +51,18 @@ class User extends Authenticatable
 
     public function subscribedPlans()
     {
-        return $this->belongsToMany('App\Models\Plan','plan_subscriber', 'plan_id', 'user_id')->withPivot('subscribed_on');
+        return $this->belongsToMany('App\Models\Plan','plan_subscriber', 'user_id', 'plan_id')->withPivot('subscribed_on');
     }
 
     public function subscribed($plan)
     {
+        Log::info('subscribed...');
+
+        Log::info('subscribed count: '.count($this->subscribedPlans));
+
         foreach($this->subscribedPlans as $subscribedPlan)
         {
-            //Log::info('subscribedPlan->id: '. $subscribedPlan->id . ' plan->id: '.$plan->id);
+            Log::info('subscribedPlan->id: '. $subscribedPlan->id . ' plan->id: '.$plan->id);
 
             if ($subscribedPlan->id == $plan->id)
                 return 'true';
