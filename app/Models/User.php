@@ -84,7 +84,7 @@ class User extends Authenticatable
 
     public function completedWorkouts()
     {
-        return $this->belongsToMany('App\Models\PlanWorkout','plan_workout_user', 'user_id', 'plan_workout_id')->withPivot('completed_on');
+        return $this->hasMany('App\Models\PlanWorkoutUser','user_id');
     }
 
 }

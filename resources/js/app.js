@@ -28,10 +28,7 @@ import VueRouter from 'vue-router'
 Vue.use(BootstrapVue)
 Vue.use(Toasted)
 Vue.use(VueRouter)
-Vue.toasted.register('error', message => message, {
-    position : 'bottom-center',
-    duration : 1000
-})
+
 Vue.component('plan-component', require('./components/PlanComponent.vue').default);
 Vue.component('workout-component', require('./components/WorkoutComponent.vue').default);
 Vue.component('subscribe-component', require('./components/SubscribeComponent.vue').default);
@@ -40,6 +37,23 @@ Vue.component('profile', require('./components/Profile.vue').default);
 Vue.component('password', require('./components/Password.vue').default);
 Vue.component('plan-workout', require('./components/PlanWorkoutComponent.vue').default);
 
+Vue.toasted.register('error', message => message, {
+    position : 'bottom-center',
+    duration : 1000
+})
+
+const router = new VueRouter({
+  routes: [
+    // {
+    //   path: '/',
+    //   component: Home
+    // },
+    // {
+    //   path: '/workouts/create',
+    //   component: CreateWorkout
+    // }
+  ]
+});
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -47,6 +61,7 @@ Vue.component('plan-workout', require('./components/PlanWorkoutComponent.vue').d
  */
 
 const app = new Vue({
-    el: '#app'
+    el: '#app',
+    router: router
 });
 

@@ -11,7 +11,7 @@
                     </div>
                 </div>
             <div class="card-body">
-                    <workout-component :user-data="{{$user}}" :workout-data="{{ $workout}}"></workout-component>
+                    <workout-component :user-data="{{$user}}" :workout-data="{{ $workout}}" :page-mode="'edit'"></workout-component>
                 </div>
             </div>
         </div>

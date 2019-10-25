@@ -2617,7 +2617,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['userData', 'workoutData'],
+  props: ['userData', 'workoutData', 'pageMode'],
   components: {
     draggable: vuedraggable__WEBPACK_IMPORTED_MODULE_0___default.a
   },
@@ -2633,6 +2633,8 @@ __webpack_require__.r(__webpack_exports__);
       this.workoutNotes = this.workout.notes;
       this.showExerciseAdd = true;
       this.fetchExerciseList();
+    } else {
+      this.workoutVisibility = 'private';
     }
   },
   data: function data() {
@@ -2742,27 +2744,16 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     saveAndCreateNew: function saveAndCreateNew() {
-      var _this5 = this;
+      if (!this.workoutName) {
+        this.$toasted.global.error('Workout name required');
+        return;
+      }
 
-      axios.post('/api/workout', {
-        workout_id: this.workoutId,
-        name: this.workoutName,
-        focus: this.workoutFocus,
-        intensity: this.workoutIntensity,
-        duration: this.workoutDuration,
-        notes: this.workoutNotes,
-        user_id: this.userData.id
-      }).then(function (res) {
-        _this5.workout = res.data;
-        _this5.showExerciseAdd = true;
-
-        _this5.$toasted.global.error('Workout updated!');
-      })["catch"](function (e) {
-        console.log(e);
-      });
+      this.saveWorkout();
+      window.location.href = "/workouts/create";
     },
     autoComplete: function autoComplete() {
-      var _this6 = this;
+      var _this5 = this;
 
       this.results = [];
 
@@ -2772,7 +2763,7 @@ __webpack_require__.r(__webpack_exports__);
             query: this.query
           }
         }).then(function (response) {
-          _this6.results = response.data;
+          _this5.results = response.data;
         });
       }
     },
@@ -2797,7 +2788,7 @@ __webpack_require__.r(__webpack_exports__);
       console.log(this.exerciseList);
     },
     goBack: function goBack() {
-      window.history.length > 1 ? this.$router.go(-1) : this.$router.push('/');
+      window.history.length > 1 ? this.$router.go(-1) : this.$router.push('/workouts');
     },
     getActivityName: function getActivityName(name, rep, set) {
       var setLabel = '';
@@ -90052,7 +90043,44 @@ var render = function() {
             ])
           ]),
           _vm._v(" "),
-          _vm._m(0),
+          _c("div", { staticClass: "form-group row" }, [
+            _c("label", {
+              staticClass: "col-md-4 col-form-label text-md-right",
+              attrs: { for: "notes" }
+            }),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-md-8" }, [
+              _c(
+                "button",
+                { staticClass: "btn btn-primary", attrs: { type: "submit" } },
+                [_vm._v("\n                        Save\n                    ")]
+              ),
+              _vm._v(" "),
+              _c("input", {
+                staticClass: "btn btn-primary",
+                attrs: { type: "button", value: "Save and Create New" },
+                on: {
+                  click: function($event) {
+                    return _vm.saveAndCreateNew()
+                  }
+                }
+              }),
+              _vm._v(" "),
+              _c(
+                "a",
+                {
+                  staticClass: "btn btn-primary",
+                  attrs: { href: "#" },
+                  on: {
+                    click: function($event) {
+                      return _vm.goBack()
+                    }
+                  }
+                },
+                [_vm._v("Cancel")]
+              )
+            ])
+          ]),
           _vm._v(" "),
           _vm.showExerciseAdd
             ? _c("div", [
@@ -90329,27 +90357,7 @@ var render = function() {
     ])
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "form-group row" }, [
-      _c("label", {
-        staticClass: "col-md-4 col-form-label text-md-right",
-        attrs: { for: "notes" }
-      }),
-      _vm._v(" "),
-      _c("div", { staticClass: "col-md-8" }, [
-        _c(
-          "button",
-          { staticClass: "btn btn-primary", attrs: { type: "submit" } },
-          [_vm._v("\n                        Save\n                    ")]
-        )
-      ])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -111159,12 +111167,6 @@ window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.
 Vue.use(bootstrap_vue__WEBPACK_IMPORTED_MODULE_2__["default"]);
 Vue.use(vue_toasted__WEBPACK_IMPORTED_MODULE_1___default.a);
 Vue.use(vue_router__WEBPACK_IMPORTED_MODULE_3__["default"]);
-Vue.toasted.register('error', function (message) {
-  return message;
-}, {
-  position: 'bottom-center',
-  duration: 1000
-});
 Vue.component('plan-component', __webpack_require__(/*! ./components/PlanComponent.vue */ "./resources/js/components/PlanComponent.vue")["default"]);
 Vue.component('workout-component', __webpack_require__(/*! ./components/WorkoutComponent.vue */ "./resources/js/components/WorkoutComponent.vue")["default"]);
 Vue.component('subscribe-component', __webpack_require__(/*! ./components/SubscribeComponent.vue */ "./resources/js/components/SubscribeComponent.vue")["default"]);
@@ -111172,6 +111174,23 @@ Vue.component('mark-complete-component', __webpack_require__(/*! ./components/Ma
 Vue.component('profile', __webpack_require__(/*! ./components/Profile.vue */ "./resources/js/components/Profile.vue")["default"]);
 Vue.component('password', __webpack_require__(/*! ./components/Password.vue */ "./resources/js/components/Password.vue")["default"]);
 Vue.component('plan-workout', __webpack_require__(/*! ./components/PlanWorkoutComponent.vue */ "./resources/js/components/PlanWorkoutComponent.vue")["default"]);
+Vue.toasted.register('error', function (message) {
+  return message;
+}, {
+  position: 'bottom-center',
+  duration: 1000
+});
+var router = new vue_router__WEBPACK_IMPORTED_MODULE_3__["default"]({
+  routes: [// {
+    //   path: '/',
+    //   component: Home
+    // },
+    // {
+    //   path: '/workouts/create',
+    //   component: CreateWorkout
+    // }
+  ]
+});
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -111179,7 +111198,8 @@ Vue.component('plan-workout', __webpack_require__(/*! ./components/PlanWorkoutCo
  */
 
 var app = new Vue({
-  el: '#app'
+  el: '#app',
+  router: router
 });
 
 /***/ }),

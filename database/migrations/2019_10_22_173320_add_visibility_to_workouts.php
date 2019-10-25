@@ -26,7 +26,7 @@ class AddVisibilityToWorkouts extends Migration
     public function down()
     {
         Schema::table('workouts', function (Blueprint $table) {
-            $table->dropColumn('votes');
+            $table->dropColumn('visibility');
         });
     }
 }

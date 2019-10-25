@@ -10,7 +10,7 @@
                 </div>
 
                 <div class="card-body">
-                    <workout-component :user-data="{{$user}}"></workout-component>
+                    <workout-component :user-data="{{$user}}" :page-mode="'create'"></workout-component>
 	            </div>
                 </div>
             </div>

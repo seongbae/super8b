@@ -14,7 +14,10 @@
                 <a class="nav-link active border border-bottom-0" id="todays-workout-tab" data-toggle="tab" href="#todays-workout" role="tab" aria-controls="home" aria-selected="true">Today's Workout</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link border border-bottom-0" id="history-tab" data-toggle="tab" href="#next-workout" role="tab" aria-controls="contact" aria-selected="false">Coming up</a>
+                <a class="nav-link border border-bottom-0" id="next-workouts-tab" data-toggle="tab" href="#next-workout" role="tab" aria-controls="contact" aria-selected="false">Coming up</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link border border-bottom-0" id="completed-workouts-tab" data-toggle="tab" href="#completed-workouts" role="tab" aria-controls="contact" aria-selected="false">Completed</a>
               </li>
             </ul>
             <div class="tab-content h-90 super8b-tabs" id="home-workout-tabs">
@@ -36,11 +39,23 @@
 
                 
               </div>
-              <div class="tab-pane h-100 p-3 border" id="next-workout" role="tabpanel" aria-labelledby="next-workout-tab">
+              <div class="tab-pane h-100 p-3 border" id="next-workout" role="tabpanel" aria-labelledby="next-workouts-tab">
                   @if (count($nextWorkout) > 0)
                     <div class="mt-2">
                       @foreach ($nextWorkout as $workout)
                         @include('partials._workout')
+                          <hr>
+                      @endforeach
+                      </div>
+                  @else
+                    There's none!
+                  @endif
+              </div>
+              <div class="tab-pane h-100 p-3 border" id="completed-workouts" role="tabpanel" aria-labelledby="completed-workouts-tab">
+                  @if (count($user->completedWorkouts) > 0)
+                    <div class="mt-2">
+                      @foreach ($user->completedWorkouts as $planWorkoutUser)
+                          <a href="{{route('workouts.show',$planWorkoutUser->planWorkout->workout)}}">{{$planWorkoutUser->planWorkout->workout->name}}</a> [<small class="text-muted"><a href="{{ route('plans.show', $planWorkoutUser->planWorkout->plan)}}">{{$planWorkoutUser->planWorkout->plan->name}}</a></small>] - completed on {{$planWorkoutUser->completed_on}} <br>
                           <hr>
                       @endforeach
                       </div>

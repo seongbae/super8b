@@ -41,8 +41,8 @@
                         <button type="submit" class="btn btn-primary">
                             Save
                         </button>
-                       <!--  <input type="button" value="Save and Create New" class="btn btn-primary" @click="saveAndCreateNew()">
-                        <input type="button" value="Close" class="btn btn-primary" @click="goBack()"> -->
+                         <input type="button" value="Save and Create New" class="btn btn-primary" @click="saveAndCreateNew()">
+                       <a class="btn btn-primary" href="#" @click="goBack()">Cancel</a>
                     </div>
                 </div>
                 
@@ -104,7 +104,7 @@
     import draggable from 'vuedraggable'
 
     export default {
-        props: ['userData','workoutData'],
+        props: ['userData','workoutData', 'pageMode'],
         components: {
             draggable
         },
@@ -122,6 +122,8 @@
                 this.workoutNotes = this.workout.notes;
                 this.showExerciseAdd = true;
                 this.fetchExerciseList();
+            } else {
+                this.workoutVisibility = 'private';
             }
         },
         data() {
@@ -223,21 +225,13 @@
                 
             },
             saveAndCreateNew() {
-                axios.post('/api/workout', {
-                        workout_id: this.workoutId, 
-                        name: this.workoutName, 
-                        focus: this.workoutFocus,
-                        intensity: this.workoutIntensity,
-                        duration: this.workoutDuration,
-                        notes: this.workoutNotes,
-                        user_id: this.userData.id
-                    }).then(res => {
-                    this.workout = res.data;
-                    this.showExerciseAdd = true;
-                    this.$toasted.global.error('Workout updated!');
-                }).catch(e => {
-                    console.log(e);
-                });
+                if (!this.workoutName) {
+                    this.$toasted.global.error('Workout name required');
+                    return;
+                }
+
+                this.saveWorkout();
+                window.location.href = "/workouts/create";
                 
             },
             autoComplete(){
@@ -270,7 +264,7 @@
               console.log(this.exerciseList);
             },
             goBack() {
-              window.history.length > 1 ? this.$router.go(-1) : this.$router.push('/')
+              window.history.length > 1 ? this.$router.go(-1) : this.$router.push('/workouts')
             },
             getActivityName(name, rep, set) {
                 var setLabel = '';

@@ -14,6 +14,7 @@ class CreatePlanWorkoutUserTable extends Migration
     public function up()
     {
         Schema::create('plan_workout_user', function (Blueprint $table) {
+            $table->bigIncrements('id');
             $table->integer('plan_workout_id');
             $table->integer('user_id');
             $table->timestamp('completed_on')->useCurrent();
