@@ -35,6 +35,18 @@
                     </div>
                 </div>
                 <div class="form-group row">
+                    <label for="notes" class="col-md-4 col-form-label text-md-right">Add to Plans</label>
+
+                    <div class="col-md-8">
+                        <multiselect v-model="selectedPlans" :options="plans" :multiple="true" :close-on-select="false" :clear-on-select="false" :preserve-search="true" placeholder="Select a plan" label="name" track-by="name" :preselect-first="false">
+                            <template slot="selection" slot-scope="{ values, search, isOpen }">
+                                <span class="multiselect__single" v-if="values.length &amp;&amp; !isOpen">{{ values.length }} plans selected</span>
+                            </template>
+                      </multiselect>
+                      <!-- <pre class="language-json"><code>{{ selectedPlans  }}</code></pre> -->
+                    </div>
+                </div>
+                <div class="form-group row">
                     <label for="notes" class="col-md-4 col-form-label text-md-right"></label>
 
                     <div class="col-md-8">
@@ -104,7 +116,7 @@
     import draggable from 'vuedraggable'
 
     export default {
-        props: ['userData','workoutData', 'pageMode'],
+        props: ['userData','workoutData', 'pageMode', 'plans'],
         components: {
             draggable
         },
@@ -144,7 +156,16 @@
                 workout_id: "",
                 exercise_id: "",
                 repetition: "",
-                set: ""
+                set: "",
+                selectedPlans: [],
+                options: [
+                    { name: 'Vue.js', language: 'JavaScript' },
+                    { name: 'Adonis', language: 'JavaScript' },
+                    { name: 'Rails', language: 'Ruby' },
+                    { name: 'Sinatra', language: 'Ruby' },
+                    { name: 'Laravel', language: 'PHP' },
+                    { name: 'Phoenix', language: 'Elixir' }
+                  ]
             };
         },
         computed: {
@@ -214,7 +235,8 @@
                         duration: this.workoutDuration,
                         notes: this.workoutNotes,
                         user_id: this.userData.id,
-                        visibility: this.workoutVisibility
+                        visibility: this.workoutVisibility,
+                        plans: this.selectedPlans
                     }).then(res => {
                     this.workout = res.data;
                     this.showExerciseAdd = true;

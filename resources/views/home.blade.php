@@ -30,6 +30,9 @@
                       @foreach ($todaysWorkout as $workout)
                           @include('partials._workout')
                           <mark-complete-component :user="{{$user}}" :planworkoutid="{{$workout->pivot->id}}" :completed="{{$user->completed($workout->pivot->id)}}" :timezone="'{{config('app.server_timezone')}}'"></mark-complete-component>
+                          @if (count($todaysWorkout) > 1)
+                        <hr>
+                      @endif
                       @endforeach
                   @else
                     There's none!

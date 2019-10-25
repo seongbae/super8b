@@ -22,6 +22,7 @@ import Datepicker from 'vuejs-datepicker';
 import Toasted from 'vue-toasted';
 import BootstrapVue from 'bootstrap-vue'
 import VueRouter from 'vue-router'
+import Multiselect from 'vue-multiselect'
 
 //import './custom.scss'
 
@@ -36,6 +37,7 @@ Vue.component('mark-complete-component', require('./components/MarkCompleteCompo
 Vue.component('profile', require('./components/Profile.vue').default);
 Vue.component('password', require('./components/Password.vue').default);
 Vue.component('plan-workout', require('./components/PlanWorkoutComponent.vue').default);
+Vue.component('multiselect', Multiselect);
 
 Vue.toasted.register('error', message => message, {
     position : 'bottom-center',

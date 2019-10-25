@@ -11,5 +11,9 @@ const mix = require('laravel-mix');
  |
  */
 
+mix.styles([
+    'node_modules/vue-multiselect/dist/vue-multiselect.min.css'
+], 'public/css/vendor.css');
+
 mix.js('resources/js/app.js', 'public/js')
    .sass('resources/sass/app.scss', 'public/css');

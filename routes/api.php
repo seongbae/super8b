@@ -159,6 +159,16 @@ Route::middleware('auth:api')->group(function () {
 			$workout->save();
 		}
 
+		if ($request->get('plans')) 
+		{
+			foreach($request->get('plans') as $plan)
+			{
+				$plan = App\Models\Plan::find($plan['id']);
+
+				$plan->workouts()->attach($workout, ['start_on'=>Carbon\Carbon::now()]);
+			}
+		}
+
 		return $workout;
 	});
 
