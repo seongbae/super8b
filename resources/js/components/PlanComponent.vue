@@ -240,7 +240,7 @@
             autoComplete(){
                 this.results = [];
                 if(this.query.length > 1){
-                 axios.get('/api/search/workout',{params: {query: this.query}}).then(response => {
+                 axios.get('/api/search/workout',{params: {query: this.query, user_id: this.userData.id}}).then(response => {
                   this.results = response.data;
                  });
                 }

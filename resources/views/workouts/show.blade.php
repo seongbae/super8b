@@ -7,11 +7,25 @@
             <div class="card">
                 <div class="card-header">{{$workout->name}}
                     <div class="float-right">
-                        @if ($workout->user_id == Auth::id())
-                        <a class="btn btn-primary btn-sm" href="{{ route('workouts.edit', $workout)}}">
-                            Edit
-                        </a>
-                        @endif
+                        <div class="ml-2 dropdown show float-right" >
+                          <a class="btn btn-secondary dropdown-toggle btn-sm" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Action
+                          </a>
+
+                          <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                            <a class="dropdown-item" href="{{route('workouts.copy', $workout)}}">Copy</a>
+                            @if ($workout->user_id == Auth::id())
+                            <a class="dropdown-item" href="{{ route('workouts.edit', $workout)}}">
+                                Edit
+                            </a>
+                            <form action="{{ route('workouts.destroy', $workout)}}" method="POST" id="workout_form">
+                              <input type="hidden" name="_method" value="DELETE"> 
+                              <a class="dropdown-item" href="#" onclick="var r = confirm('Are you sure?'); if (r) { document.getElementById('workout_form').submit(); return false;}">Delete</a>
+                              <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                            </form>
+                            @endif
+                          </div>
+                        </div>
                     </div>
                 </div>
                 <div class="card-body">

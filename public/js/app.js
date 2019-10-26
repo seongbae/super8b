@@ -2247,7 +2247,8 @@ __webpack_require__.r(__webpack_exports__);
       if (this.query.length > 1) {
         axios.get('/api/search/workout', {
           params: {
-            query: this.query
+            query: this.query,
+            user_id: this.userData.id
           }
         }).then(function (response) {
           _this5.results = response.data;

@@ -9,6 +9,8 @@ use App\Http\Traits\Hashidable;
 class Workout extends Model 
 {
     use Hashidable;
+
+    public $with = ['exercises'];
     
     protected $table = 'workouts';
     public $timestamps = true;

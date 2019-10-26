@@ -208,8 +208,9 @@ Route::middleware('auth:api')->group(function () {
 	// Search workouts
 	Route::get('/search/workout',function(Request $request){
 		$query = $request->get('query');
-		$users = App\Models\Workout::where('name','like','%'.$query.'%')->get();
-		return response()->json($users);
+		$userId = $request->get('user_id');
+		$workouts = App\Models\Workout::where('user_id',$userId)->where('name','like','%'.$query.'%')->get();
+		return response()->json($workouts);
 	});
 
 	// User routes

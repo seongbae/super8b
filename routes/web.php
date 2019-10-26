@@ -29,6 +29,7 @@ Route::middleware('auth')->group(function () {
 	Route::get('/home', 'HomeController@index')->name('home');
 
 	Route::resource('workouts', 'WorkoutController');
+	Route::get('workouts/copy/{workout}', 'WorkoutController@clone')->name('workouts.copy');
 	Route::resource('plans', 'PlansController');
 	Route::resource('exercises', 'ExerciseController');
 

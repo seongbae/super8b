@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Workout;
 use App\Models\Plan;
 use Auth;
-
+use Illuminate\Support\Facades\Log;
 
 class WorkoutController extends Controller 
 {
@@ -28,8 +28,8 @@ class WorkoutController extends Controller
    */
   public function index()
   {
-    $myWorkouts = Workout::where('user_id', Auth::id())->orderBy('name')->paginate(15);
-    $allWorkouts = Workout::where('visibility','public')->orderBy('name')->paginate(15);
+    $myWorkouts = Workout::where('user_id', Auth::id())->orderBy('name')->paginate(10);
+    $allWorkouts = Workout::where('visibility','public')->orderBy('name')->paginate(10);
     $user = Auth::user();
 
     return view('workouts.index')->with('myworkouts', $myWorkouts)->with('allworkouts', $allWorkouts)->with('user', $user);
@@ -62,6 +62,34 @@ class WorkoutController extends Controller
       
 
       //return redirect('/home');
+  }
+
+  /**
+   * Store a newly created resource in storage.
+   *
+   * @return Response
+   */
+  public function clone(Workout $workout)
+  {
+      //$workout->load('exercises');
+
+      Log::info(json_encode($workout));
+
+      $newModel = $workout->replicate();
+      $newModel->push();
+
+      foreach ($workout->getRelations() as $relationName => $values){
+          $newModel->{$relationName}()->sync($values);
+      }
+
+      // foreach($workout->getRelations() as $relation => $items){
+      //     foreach($items as $item){
+      //         unset($item->id);
+      //         $newModel->{$relation}()->create($item->toArray());
+      //     }
+      // }
+
+      return redirect()->back();
   }
 
   /**
