@@ -21,9 +21,9 @@
                             <a class="dropdown-item" href="{{route('plans.edit', $plan)}}">
                                 Edit
                             </a>
-                            <form action="{{ route('plans.destroy', $plan)}}" method="POST" class="dropdown-item">
+                            <form action="{{ route('plans.destroy', $plan)}}" method="POST" id="plan_form">
                               <input type="hidden" name="_method" value="DELETE"> 
-                              <button name="submit" value="Delete" onclick="return confirm('Are you sure?')" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i></button>
+                              <a class="dropdown-item" href="#" onclick="var r = confirm('Are you sure?'); if (r) { document.getElementById('plan_form').submit(); return false;}">Delete</a>
                               <input type="hidden" name="_token" value="{{ csrf_token() }}">
                             </form>
                             @endif
