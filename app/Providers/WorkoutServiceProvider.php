@@ -19,9 +19,9 @@ class WorkoutServiceProvider extends ServiceProvider
         //     return new WorkoutService();
         // });
 
-        $this->app->singleton(WorkoutService::class, function ($app) {
-            return new WorkoutService($app);
-        });
+        // $this->app->singleton(WorkoutService::class, function ($app) {
+        //     return new WorkoutService($app);
+        // });
 
    
 

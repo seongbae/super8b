@@ -1,6 +1,6 @@
 <template>
     <div class="card">
-        <div class="card-header">Edit Workout Plan
+        <div class="card-header">Create/Edit Workout Plan
             <div class="float-right">
                 status: <b-badge :variant="statusClass">{{planStatus}}</b-badge>
             </div>

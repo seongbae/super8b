@@ -1,5 +1,4 @@
-<strong>Date:</strong> {{ \Carbon\Carbon::parse($workout->pivot->start_on)->format('l m/d/Y')}}</strong><br>
-<strong>Workout:</strong> {{$workout->name}}<br>
+{{ \Carbon\Carbon::parse($workout->pivot->start_on)->format('l m/d/Y')}} - {{$workout->name}}<br>
 @if ($workout->focus)
 <strong>Focus:</strong> {{$workout->focus}}<br>
 @endif
