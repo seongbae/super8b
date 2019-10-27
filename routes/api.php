@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use App\Services\PlansService;
 use Illuminate\Support\Facades\Log;
+use App\Services\WorkoutServiceInterface;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,13 +24,13 @@ Route::middleware('auth:api')->group(function () {
 	// Plan routes
 
 	// Create or update plans
-	Route::post('/plan', function (Request $request, PlansService $service) {
+	Route::post('/plan', function (Request $request, WorkoutServiceInterface $wsp) {
 		$planId = $request->get('plan_id');
 		$plan = App\Models\Plan::find($planId);
 
 		if ($plan)
 		{
-			$plan = $service->updatePlan(
+			$plan = $wsp->updatePlan(
 				$request->get('plan_id'),
 				$request->get('name'), 
 				$request->get('description'), 
@@ -39,7 +40,7 @@ Route::middleware('auth:api')->group(function () {
 		}
 		else
 		{
-			$plan = $service->createPlan(
+			$plan = $wsp->createPlan(
 				$request->get('name'), 
 				$request->get('description'), 
 				$request->get('goals'), 
@@ -47,48 +48,74 @@ Route::middleware('auth:api')->group(function () {
 			);
 		}
 
-		return $plan;
+		if ($plan)
+			return response()->json($plan, 201);
+		else
+			return response()->json(null, 204);
 	});
 
-	// Create or update plans
-	Route::delete('/plan', function (Request $request, PlansService $service) {
+	// Delete plan
+	Route::delete('/plan', function (Request $request, WorkoutServiceInterface $wsp) {
 		$planId = $request->get('plan_id');
 		$plan = App\Models\Plan::find($planId);
 
 		if ($plan)
 		{
-			$plan = $service->deletePlan($planId);
+			$wsp->deletePlan($plan);
+			return response()->json(null, 204);
 		}
-		
-		return $plan;
+		else
+			return response()->json(null, 404);
 	});
 
 	// Add workout to a plan
-	Route::post('/plan/workout', function (Request $request) {
+	Route::post('/plan/workout', function (Request $request, WorkoutServiceInterface $wsp) {
 		$plan = App\Models\Plan::find($request->get('plan_id'));
 		$workout = App\Models\Workout::find($request->get('workout_id'));
-		$plan->workouts()->attach($workout, ['start_on'=>$request->get('start_on')]);
+
+		if ($plan && $workout)
+		{
+			$wsp->addWorkoutToPlan($plan, $workout, $request->get('start_on'));
+			return response()->json(null, 202);
+		}
+		else
+		{
+			response()->json(null, 400);
+		}
 	});
 
 	// Remove workout from a plan
-	Route::delete('/plan/workout/{planid}/{planWorkoutId}', function ($planId, $planWorkoutId) {
+	Route::delete('/plan/workout/{planid}/{planWorkoutId}', function ($planId, $planWorkoutId, WorkoutServiceInterface $wsp) {
 		$plan = App\Models\Plan::find($planId);
-		$plan->workouts()->wherePivot('id', $planWorkoutId)->detach();
+
+		if ($plan && $planWorkoutId)
+		{
+			$wsp->removeWorkoutFromPlan($plan, $workout, $request->get('start_on'));
+
+			return response()->json(null, 202);
+		}
+		else
+		{
+			response()->json(null, 400);
+		}
+		
 	});
 
 	// Set a date for workout when adding to a plan
-	Route::post('/plan/workout/setdate', function (Request $request) {
-		$plan = App\Models\Plan::find($request->get('plan_id'));
-		$workout = App\Models\Workout::find($request->get('workout_id'));
-		$parsed_date = Carbon\Carbon::parse($request->get('start_on'))->toDateTimeString();
-		$plan->workouts()->updateExistingPivot($workout, array('start_on'=>$parsed_date));
-	});
+	// Route::post('/plan/workout/setdate', function (Request $request, WorkoutServiceInterface $wsp) {
+	// 	$plan = App\Models\Plan::find($request->get('plan_id'));
+	// 	$workout = App\Models\Workout::find($request->get('workout_id'));
+	// 	$parsed_date = Carbon\Carbon::parse($request->get('start_on'))->toDateTimeString();
 
-	// Set a date for workout when adding to a plan
+	// 	$plan->workouts()->updateExistingPivot($workout, array('start_on'=>$parsed_date));
+	// });
+
+	// Publish a plan
 	Route::get('/plan/{planid}/publish', function ($planId, App\Services\PlansService $service) {
 		$service->publish($planId);
 	});
 
+	// Unpublish a plan
 	Route::get('/plan/{planid}/unpublish', function ($planId, App\Services\PlansService $service) {
 		$service->unpublish($planId);
 	});
@@ -99,17 +126,9 @@ Route::middleware('auth:api')->group(function () {
 		$subscriber = App\Models\User::find($request->get('user_id'));
 
 		if ($request->get('subscribe'))
-		{
-			Log::info('subscribing...');
-			Log::info(json_encode($plan));
-			Log::info(json_encode($subscriber));
 			$plan->subscribers()->attach($subscriber);
-		}
 		else
-		{
-			Log::info('unsubscribing...');
 			$plan->subscribers()->detach($subscriber);
-		}
 	});
 
 	// Workout routes

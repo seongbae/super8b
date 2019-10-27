@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-8">
+        <div class="col-md-10">
             <div class="card">
                 <div class="card-header">{{$workout->name}}
                     <div class="float-right">
@@ -50,8 +50,8 @@
                             <strong>Intensity:</strong> {{$workout->intensity}}<br>
                         @endif
 
-                        @if ($workout->note)
-                            <strong>Note:</strong> {{$workout->note}}<br>
+                        @if ($workout->notes)
+                            {{$workout->notes}}<br>
                         @endif
                     </div>
                     

@@ -55,16 +55,26 @@
                   @endif
               </div>
               <div class="tab-pane h-100 p-3 border" id="completed-workouts" role="tabpanel" aria-labelledby="completed-workouts-tab">
-                  @if (count($user->completedWorkouts) > 0)
-                    <div class="mt-2">
-                      @foreach ($user->completedWorkouts as $planWorkoutUser)
-                          <a href="{{route('workouts.show',$planWorkoutUser->planWorkout->workout)}}">{{$planWorkoutUser->planWorkout->workout->name}}</a> [<small class="text-muted"><a href="{{ route('plans.show', $planWorkoutUser->planWorkout->plan)}}">{{$planWorkoutUser->planWorkout->plan->name}}</a></small>] - completed on {{$planWorkoutUser->completed_on}} <br>
-                          <hr>
-                      @endforeach
-                      </div>
-                  @else
-                    There's none!
+                <div class="row">
+                  @if (App::environment('local')) 
+                  <div class="col-md-6 text-center">
+                    @include('partials._body', ['muscle' => $muscle])
+                  </div>
                   @endif
+                  <div class="col-md-6">
+                    @if (count($user->completedWorkouts) > 0)
+                      <div class="mt-2">
+                        @foreach ($user->completedWorkouts as $planWorkoutUser)
+                            <a href="{{route('workouts.show',$planWorkoutUser->planWorkout->workout)}}">{{$planWorkoutUser->planWorkout->workout->name}}</a>  - completed on {{$planWorkoutUser->completed_on}} 
+                            <hr>
+                            <!-- [<small class="text-muted"><a href="{{ route('plans.show', $planWorkoutUser->planWorkout->plan)}}">{{$planWorkoutUser->planWorkout->plan->name}}</a></small>] -->
+                        @endforeach
+                        </div>
+                    @else
+                      There's none!
+                    @endif
+                  </div>
+                </div>
               </div>
               <!-- <div class="tab-pane fade" id="subscribe" role="tabpanel" aria-labelledby="subscribe-tab">
                   @if (count($user->subscribedPlans) > 0)

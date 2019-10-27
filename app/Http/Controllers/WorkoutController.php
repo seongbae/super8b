@@ -76,18 +76,13 @@ class WorkoutController extends Controller
       Log::info(json_encode($workout));
 
       $newModel = $workout->replicate();
+      $newModel->visibility = 'private';
+      $newModel->user_id = Auth::id();
       $newModel->push();
 
       foreach ($workout->getRelations() as $relationName => $values){
           $newModel->{$relationName}()->sync($values);
       }
-
-      // foreach($workout->getRelations() as $relation => $items){
-      //     foreach($items as $item){
-      //         unset($item->id);
-      //         $newModel->{$relation}()->create($item->toArray());
-      //     }
-      // }
 
       return redirect()->back();
   }

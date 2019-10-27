@@ -46,9 +46,18 @@ class HomeController extends Controller
             }
         }
 
+        $muscle['pectoral'] = 0.8;
+        $muscle['triceps'] = 0.2;
+
         return view('home')
             ->with('user', $user)
             ->with('todaysWorkout', $todaysWorkout)
-            ->with('nextWorkout', $nextWorkout);
+            ->with('nextWorkout', $nextWorkout)
+            ->with('muscle', $muscle);
+    }
+
+    public function showBody()
+    {
+        return view('body');
     }
 }

@@ -198,6 +198,8 @@ return [
         Rap2hpoutre\LaravelLogViewer\LaravelLogViewerServiceProvider::class,
         Vinkla\Hashids\HashidsServiceProvider::class,
 
+        App\Providers\WorkoutServiceProvider::class,
+
     ],
 
     /*
