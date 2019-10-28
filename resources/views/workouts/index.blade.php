@@ -11,10 +11,10 @@
             @endif
             <ul class="nav nav-tabs border-0 super8b-tab-menus" id="myTab" role="tablist">
               <li class="nav-item">
-                <a class="nav-link active border border-bottom-0" id="home-tab" data-toggle="tab" href="#myworkouts" role="tab" aria-controls="home" aria-selected="true">My Workouts ({{ count($myworkouts)}})</a>
+                <a class="nav-link active border border-bottom-0" id="home-tab" data-toggle="tab" href="#myworkouts" role="tab" aria-controls="home" aria-selected="true">My Workouts</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link border border-bottom-0" id="history-tab" data-toggle="tab" href="#allworkouts" role="tab" aria-controls="contact" aria-selected="false">All Workouts ({{ count($allworkouts)}})</a>
+                <a class="nav-link border border-bottom-0" id="history-tab" data-toggle="tab" href="#allworkouts" role="tab" aria-controls="contact" aria-selected="false">All Workouts</a>
               </li>
             </ul>
             <div class="tab-content h-90 super8b-tabs" id="myTabContent">
@@ -47,7 +47,6 @@
                         @endforeach
                      </tbody>
                   </table>
-                  {{ $myworkouts->links() }}
                   <a href="/workouts/create" class="btn btn-primary"><i class="fas fa-plus"></i> Create a Workout</a>
               </div>
               <div class="tab-pane fade h-100 p-3 border " id="allworkouts" role="tabpanel" aria-labelledby="history-tab">
@@ -71,7 +70,6 @@
                         @endforeach
                      </tbody>
                   </table>
-                  {{ $allworkouts->links() }}
               </div>
           </div>
         </div>

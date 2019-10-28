@@ -90,7 +90,7 @@ Route::middleware('auth:api')->group(function () {
 
 		if ($plan && $planWorkoutId)
 		{
-			$wsp->removeWorkoutFromPlan($plan, $workout, $request->get('start_on'));
+			$wsp->removeWorkoutFromPlan($plan, $planWorkoutId);
 
 			return response()->json(null, 202);
 		}

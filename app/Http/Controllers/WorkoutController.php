@@ -28,8 +28,8 @@ class WorkoutController extends Controller
    */
   public function index()
   {
-    $myWorkouts = Workout::where('user_id', Auth::id())->orderBy('name')->paginate(10);
-    $allWorkouts = Workout::where('visibility','public')->orderBy('name')->paginate(10);
+    $myWorkouts = Workout::where('user_id', Auth::id())->orderBy('name')->get();
+    $allWorkouts = Workout::where('visibility','public')->orderBy('name')->get();
     $user = Auth::user();
 
     return view('workouts.index')->with('myworkouts', $myWorkouts)->with('allworkouts', $allWorkouts)->with('user', $user);

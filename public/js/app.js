@@ -89195,7 +89195,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "card" }, [
     _c("div", { staticClass: "card-header" }, [
-      _vm._v("Edit Workout Plan\n        "),
+      _vm._v("Create/Edit Workout Plan\n        "),
       _c(
         "div",
         { staticClass: "float-right" },
@@ -90075,68 +90075,6 @@ var render = function() {
                 }
               })
             ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "form-group row" }, [
-            _c(
-              "label",
-              {
-                staticClass: "col-md-4 col-form-label text-md-right",
-                attrs: { for: "notes" }
-              },
-              [_vm._v("Add to Plans")]
-            ),
-            _vm._v(" "),
-            _c(
-              "div",
-              { staticClass: "col-md-8" },
-              [
-                _c("multiselect", {
-                  attrs: {
-                    options: _vm.plans,
-                    multiple: true,
-                    "close-on-select": false,
-                    "clear-on-select": false,
-                    "preserve-search": true,
-                    placeholder: "Select a plan",
-                    label: "name",
-                    "track-by": "name",
-                    "preselect-first": false
-                  },
-                  scopedSlots: _vm._u([
-                    {
-                      key: "selection",
-                      fn: function(ref) {
-                        var values = ref.values
-                        var search = ref.search
-                        var isOpen = ref.isOpen
-                        return [
-                          values.length && !isOpen
-                            ? _c(
-                                "span",
-                                { staticClass: "multiselect__single" },
-                                [
-                                  _vm._v(
-                                    _vm._s(values.length) + " plans selected"
-                                  )
-                                ]
-                              )
-                            : _vm._e()
-                        ]
-                      }
-                    }
-                  ]),
-                  model: {
-                    value: _vm.selectedPlans,
-                    callback: function($$v) {
-                      _vm.selectedPlans = $$v
-                    },
-                    expression: "selectedPlans"
-                  }
-                })
-              ],
-              1
-            )
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "form-group row" }, [

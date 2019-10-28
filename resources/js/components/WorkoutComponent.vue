@@ -34,7 +34,7 @@
 
                     </div>
                 </div>
-                <div class="form-group row">
+                <!-- <div class="form-group row">
                     <label for="notes" class="col-md-4 col-form-label text-md-right">Add to Plans</label>
 
                     <div class="col-md-8">
@@ -43,9 +43,9 @@
                                 <span class="multiselect__single" v-if="values.length &amp;&amp; !isOpen">{{ values.length }} plans selected</span>
                             </template>
                       </multiselect>
-                      <!-- <pre class="language-json"><code>{{ selectedPlans  }}</code></pre> -->
+                      <pre class="language-json"><code>{{ selectedPlans  }}</code></pre>
                     </div>
-                </div>
+                </div> -->
                 <div class="form-group row">
                     <label for="notes" class="col-md-4 col-form-label text-md-right"></label>
 
