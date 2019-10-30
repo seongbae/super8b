@@ -24,6 +24,11 @@ class ProfileController extends Controller
     	return view('profile');
     }
 
+    public function showDeveloper()
+    {
+        return view('developer');
+    }
+
     public function updateAuthUserPassword(Request $request)
     {
         $this->validate($request, [

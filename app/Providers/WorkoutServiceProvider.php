@@ -5,6 +5,7 @@ namespace App\Providers;
 use Illuminate\Support\ServiceProvider;
 use App\Services\WorkoutService;
 use App\Services\WorkoutServiceInterface;
+use Illuminate\View\View;
 
 class WorkoutServiceProvider extends ServiceProvider
 {
@@ -15,6 +16,8 @@ class WorkoutServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        $this->app->bind(WorkoutServiceInterface::class, WorkoutService::class);
+
         // $this->app->singleton(WorkoutService::class, function ($app) {
         //     return new WorkoutService();
         // });
@@ -22,12 +25,6 @@ class WorkoutServiceProvider extends ServiceProvider
         // $this->app->singleton(WorkoutService::class, function ($app) {
         //     return new WorkoutService($app);
         // });
-
-   
-
-        $this->app->bind(WorkoutServiceInterface::class, WorkoutService::class);
-
-        //$this->app->bind('App\Service\WorkoutService');
     }
 
     /**
@@ -41,8 +38,15 @@ class WorkoutServiceProvider extends ServiceProvider
             return 'hello world';
         });
 
-        // View::composer(
-        //     ‘profile’, ‘App\Http\ViewComposers\ProfileComposer’
-        // );
+        view()->composer(
+            [
+                'home', 
+                'profile'
+            ],
+            'App\Http\View\Composers\ProfileComposer'
+        );
+
+        view()->share('name', 'Seong');
+
     }
 }

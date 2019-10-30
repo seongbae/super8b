@@ -63,6 +63,7 @@
                   @endif
                   <div class="col-md-6">
                     @if (count($user->completedWorkouts) > 0)
+                     Now: {{ Carbon\Carbon::now() }}<br>
                       <div class="mt-2">
                         @foreach ($user->completedWorkouts as $planWorkoutUser)
                             <a href="{{route('workouts.show',$planWorkoutUser->planWorkout->workout)}}">{{$planWorkoutUser->planWorkout->workout->name}}</a>  - completed on {{$planWorkoutUser->completed_on}} 
