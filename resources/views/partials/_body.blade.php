@@ -60,7 +60,7 @@ document.querySelectorAll(".muscle-groups svg g g[id]").forEach(function(group) 
   // el = group.element;
   // let id = group.path[1].id.toLowerCase()
   // if(!id) id = group.path[2].id.toLowerCase()
-  console.log(group);
+  //console.log(group);
 
   
     
