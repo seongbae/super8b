@@ -88,7 +88,7 @@ class Helpers
   {
     $date = Carbon::createFromFormat('Y-m-d H:i:s', $dt, config('app.server_timezone'));
     $date->setTimezone($tz);
-    return $date->toDateTimeString();
+    return $date->format('g:i A m/d/Y');
   }
 }
 
