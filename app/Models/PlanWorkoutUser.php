@@ -8,6 +8,8 @@ class PlanWorkoutUser extends Model
 {
 	// public $with = ['plan_workout'];
 
+	protected $dates = ['completed_on'];
+
     protected $table = 'plan_workout_user';
 
     public function planWorkout()
