@@ -63,10 +63,11 @@
                   @endif
                   <div class="col-md-6">
                     @if (count($user->completedWorkouts) > 0)
+                    Server timezone: {{config('app.server_timezone')}}<br>
                     User timezone: {{$user->timezone}}<br>
                       <div class="mt-2">
                         @foreach ($user->completedWorkouts as $planWorkoutUser)
-                            <a href="{{route('workouts.show',$planWorkoutUser->planWorkout->workout)}}">{{$planWorkoutUser->planWorkout->workout->name}}</a>  - completed on {{$planWorkoutUser->completed_on->timezone($user->timezone)}} || {{$planWorkoutUser->completed_on}} 
+                            <a href="{{route('workouts.show',$planWorkoutUser->planWorkout->workout)}}">{{$planWorkoutUser->planWorkout->workout->name}}</a>  - completed on {{Helpers::getLocalDateTime($planWorkoutUser->completed_on, $user->timezone)}} || {{$planWorkoutUser->completed_on}} 
                             <hr>
                             <!-- [<small class="text-muted"><a href="{{ route('plans.show', $planWorkoutUser->planWorkout->plan)}}">{{$planWorkoutUser->planWorkout->plan->name}}</a></small>] -->
                         @endforeach

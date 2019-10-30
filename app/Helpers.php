@@ -8,6 +8,7 @@ use App\Models\Plan;
 use Auth;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
+use Carbon\Carbon;
 
 class Helpers
 { 
@@ -81,6 +82,13 @@ class Helpers
       return true;
 
     return false;
+  }
+
+  public static function getLocalDateTime($dt, $tz)
+  {
+    $date = Carbon::createFromFormat('Y-m-d H:i:s', $dt, config('app.server_timezone'));
+    $date->setTimezone($tz);
+    return $date->toDateTimeString();
   }
 }
 
