@@ -51,8 +51,8 @@ class Helpers
   	$current = strtotime(date("Y-m-d"));
   	$date    = strtotime(date('Y-m-d', strtotime($dt)));
 
-  	Log::info('fallsOnToday: today->'. date("Y-m-d") . ' variable: '.date('Y-m-d', strtotime($dt)));
-  	Log::info('fallsOnToday: today->'. $current . ' variable: '.$date);
+  	//Log::info('fallsOnToday: today->'. date("Y-m-d") . ' variable: '.date('Y-m-d', strtotime($dt)));
+  	//Log::info('fallsOnToday: today->'. $current . ' variable: '.$date);
 
   	$datediff = $date - $current;
   	$difference = floor($datediff/(60*60*24));
@@ -70,13 +70,13 @@ class Helpers
     $current = strtotime(date("Y-m-d"));
     $date    = strtotime(date('Y-m-d', strtotime($dt)));
 
-    Log::info('fallsOnToday: today->'. date("Y-m-d") . ' variable: '.date('Y-m-d', strtotime($dt)));
-    Log::info('fallsOnToday: today->'. $current . ' variable: '.$date);
+    //Log::info('fallsOnToday: today->'. date("Y-m-d") . ' variable: '.date('Y-m-d', strtotime($dt)));
+    //Log::info('fallsOnToday: today->'. $current . ' variable: '.$date);
 
     $datediff = $date - $current;
     $difference = floor($datediff/(60*60*24));
     
-    Log::info('fallsOnToday: difference->'. $difference);
+    //Log::info('fallsOnToday: difference->'. $difference);
 
     if($difference>=1)
       return true;

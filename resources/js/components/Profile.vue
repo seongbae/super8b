@@ -1,10 +1,5 @@
 <template>
-  <div class="card">
-      <div class="card-header">
-        <i class="fas fa-pencil-alt"></i> Edit Profile
-      </div>
-      <div class="card-body">
-        <form class="form-horizontal">
+  <form class="form-horizontal">
           <div class="form-group row">
             <label class="col-md-3">Full Name</label>
             <div class="col-md-9">
@@ -29,8 +24,6 @@
           </div>
         </div>
         </form>
-      </div>
-  </div>
 </template>
 
 <script>

@@ -4,8 +4,8 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <profile></profile>
-        </div>
+        	<account :user-data="{{Auth::user()}}" :authurl="'{{$authurl}}'"></account>
+    	</div>
     </div>
 </div>
 @endsection

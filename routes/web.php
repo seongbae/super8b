@@ -35,9 +35,10 @@ Route::middleware('auth')->group(function () {
 
 	Route::resource('clone', 'CloneController');
 
-	Route::get('/profile', 'ProfileController@show');
+	Route::get('/account', 'ProfileController@show')->name('user.profile');
 	Route::view('/password', 'password');
 	Route::get('/developer', 'ProfileController@showDeveloper');
+	Route::get('/oauth2callback', 'ProfileController@handleOAuth2Callback');
 
 	Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');
 

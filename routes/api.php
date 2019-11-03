@@ -275,4 +275,12 @@ Route::middleware('auth:api')->group(function () {
 		$planWorkout = App\Models\PlanWorkout::find($planworkoutid);
 		return $planWorkout->finishers()->orderBy('completed_on', 'desc')->get();
 	});
+
+	Route::post('/user/remove_integration', function (Request $request) {
+		$user = App\Models\User::find($request->get('user_id'));
+		$user->gcalendar_credentials = null;
+        $user->gcalendar_integration_active = 0;
+        $user->save();
+		
+	});
 });

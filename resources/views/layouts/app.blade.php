@@ -82,11 +82,8 @@
                                     <a class="dropdown-item" href="/workouts/create">
                                         {{ __('Create a Workout') }}
                                     </a>
-                                    <a class="dropdown-item" href="/profile">
-                                        {{ __('My Profile') }}
-                                    </a>
-                                    <a class="dropdown-item" href="/password">
-                                        {{ __('Change Password') }}
+                                    <a class="dropdown-item" href="/account">
+                                        {{ __('My Account') }}
                                     </a>
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();

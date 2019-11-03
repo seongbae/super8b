@@ -59,7 +59,7 @@ Vue.component('profile', require('./components/Profile.vue').default);
 Vue.component('password', require('./components/Password.vue').default);
 Vue.component('plan-workout', require('./components/PlanWorkoutComponent.vue').default);
 Vue.component('multiselect', Multiselect);
-
+Vue.component('account', require('./components/Account.vue').default);
 
 Vue.toasted.register('error', message => message, {
     position : 'bottom-center',
