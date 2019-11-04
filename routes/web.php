@@ -18,8 +18,12 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/tabs', function () {
-	return view('tabs');
+Route::get('/terms', function () {
+	return view('terms');
+});
+
+Route::get('/privacy', function () {
+	return view('privacy');
 });
 
 Auth::routes();
