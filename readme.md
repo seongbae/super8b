@@ -1,72 +1,134 @@
-<p align="center"><img src="https://res.cloudinary.com/dtfbvvkyp/image/upload/v1566331377/laravel-logolockup-cmyk-red.svg" width="400"></p>
+<!-- PROJECT SHIELDS -->
+<!--
+*** I'm using markdown "reference style" links for readability.
+*** Reference links are enclosed in brackets [ ] instead of parentheses ( ).
+*** See the bottom of this document for the declaration of the reference variables
+*** for contributors-url, forks-url, etc. This is an optional, concise syntax you may use.
+*** https://www.markdownguide.org/basic-syntax/#reference-style-links
+-->
+[![Contributors][contributors-shield]][contributors-url]
+[![Forks][forks-shield]][forks-url]
+[![Stargazers][stars-shield]][stars-url]
+[![Issues][issues-shield]][issues-url]
+[![MIT License][license-shield]][license-url]
 
+
+
+<!-- PROJECT LOGO -->
+<br />
 <p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/d/total.svg" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/v/stable.svg" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
+  <h3 align="center">Super8B</h3>
+
+  <p align="center">
+    Super8B is a workout planning tool built primarily for the military leaders but it can also be used by anyone else.
+    <br />
+    <br />
+    <a href="https://super8b.com">View Live Site</a>
+    ·
+    <a href="https://github.com/seongbae/super8b/issues">Report Bug</a>
+    ·
+    <a href="https://github.com/seongbae/super8b/issues">Request Feature</a>
+  </p>
 </p>
 
-## About Laravel
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+<!-- TABLE OF CONTENTS -->
+## Table of Contents
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+* [About the Project](#about-the-project)
+  * [Built With](#built-with)
+* [Getting Started](#getting-started)
+  * [Prerequisites](#prerequisites)
+  * [Installation](#installation)
+* [Usage](#usage)
+* [Roadmap](#roadmap)
+* [Contributing](#contributing)
+* [License](#license)
+* [Contact](#contact)
+* [Acknowledgements](#acknowledgements)
 
-## Learning Laravel
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+<!-- ABOUT THE PROJECT -->
+## About The Project
 
-## Laravel Sponsors
+[![Product Name Screen Shot][product-screenshot]](https://super8b.com)
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+With the Army Combat Fitness Test (ACFT) replacing the old APFT, I wanted to contribute to the military community and help them pass the ACFT.  Those in charge of putting together PT plans do a great job but often times their hard work stays on their computer and is not shared with the greater community. I built this tool so that their great work can be easily replicated and shared with many others.
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[British Software Development](https://www.britishsoftware.co)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- [UserInsights](https://userinsights.com)
-- [Fragrantica](https://www.fragrantica.com)
-- [SOFTonSOFA](https://softonsofa.com/)
-- [User10](https://user10.com)
-- [Soumettre.fr](https://soumettre.fr/)
-- [CodeBrisk](https://codebrisk.com)
-- [1Forge](https://1forge.com)
-- [TECPRESSO](https://tecpresso.co.jp/)
-- [Runtime Converter](http://runtimeconverter.com/)
-- [WebL'Agence](https://weblagence.com/)
-- [Invoice Ninja](https://www.invoiceninja.com)
-- [iMi digital](https://www.imi-digital.de/)
-- [Earthlink](https://www.earthlink.ro/)
-- [Steadfast Collective](https://steadfastcollective.com/)
-- [We Are The Robots Inc.](https://watr.mx/)
-- [Understand.io](https://www.understand.io/)
-- [Abdel Elrafa](https://abdelelrafa.com)
-- [Hyper Host](https://hyper.host)
+This tool allows you to:
+* Create long-term workout plans 
+* Duplicate existing workout plans created by others and make them your own
+* Allow others to subscribe to your workout plan to see the daily workouts from the dashboard
 
+To help understand the terminology used in the tool, a workout plan consists of multiple workouts and each workout consists of a set of exercises.  Each exercise can have sets and repetitions.  
+
+### Built With
+* [Laravel](https://laravel.com)
+* [Vue](https://vuejs.org)
+* [Bootstrap](https://getbootstrap.com)
+
+
+
+<!-- GETTING STARTED -->
+## Getting Started
+
+Feel free to clone the project to set up your own workout planning tool or head over to the live site to create an account and start using it.
+
+### Installation
+
+1. Clone the repo
+```sh
+git clone https://github.com/seongbae/super8b.git
+```
+2. Install NPM packages
+```sh
+npm install
+```
+
+<!-- ROADMAP -->
+## Roadmap
+
+* Display muscle groups and track which muscle groups the workout plans impact
+* Track my muscle groups over period of time
+
+<!-- CONTRIBUTING -->
 ## Contributing
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+Contributions are welcome.
 
-## Security Vulnerabilities
+1. Fork the Project
+2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the Branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
+<!-- LICENSE -->
 ## License
 
-The Laravel framework is open-source software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Distributed under the MIT License. See `LICENSE` for more information.
+
+
+
+<!-- CONTACT -->
+## Contact
+
+Seong Bae - bae.seong@gmail.com
+
+
+
+
+<!-- MARKDOWN LINKS & IMAGES -->
+<!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
+[contributors-shield]: https://img.shields.io/github/contributors/seongbae/super8b.svg?style=flat-square
+[contributors-url]: https://github.com/seongbae/super8b/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/seongbae/super8b.svg?style=flat-square
+[forks-url]: https://github.com/seongbae/super8b/network/members
+[stars-shield]: https://img.shields.io/github/stars/seongbae/super8b.svg?style=flat-square
+[stars-url]: https://github.com/seongbae/super8b/stargazers
+[issues-shield]: https://img.shields.io/github/issues/seongbae/super8b.svg?style=flat-square
+[issues-url]: https://github.com/seongbae/super8b/issues
+[license-shield]: https://img.shields.io/github/license/seongbae/super8b.svg?style=flat-square
+[license-url]: https://github.com/seongbae/super8b/blob/master/LICENSE.txt
+[product-screenshot]: public/img/super8b-screen.png
