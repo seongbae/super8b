@@ -25,6 +25,7 @@
     },
     "dependencies": {
         "bootstrap-vue": "^2.0.4",
+        "bootswatch": "^4.5.0",
         "moment": "^2.24.0",
         "moment-timezone": "^0.5.27",
         "vue-multiselect": "^2.1.6",

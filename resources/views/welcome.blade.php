@@ -5,10 +5,10 @@
     <div class="row justify-content-center">
         <div class="col-md-6">
             <div class="card">
-                <div class="card-header">{{ __('What is Super 8B?') }}</div>
+                <div class="card-header">{{ __('What is Super8B?') }}</div>
 
                 <div class="card-body">
-                    <p>Super 8B is a simple workout planning tool built for the military leaders.  The goal is to assist workout planners with planning and publishing workouts to groups and to share effective workout plans with others.</p>
+                    <p>Super8B is a simple workout planning tool built for the military leaders.  The goal is to assist workout planners with planning and publishing workouts to groups and to share effective workout plans with others.</p>
 
                     <p>
                     <strong>For Planners:</strong>

@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace App\Http\Controllers;
 
@@ -7,7 +7,7 @@ use App\Models\Plan;
 use App\Models\Workout;
 use Auth;
 
-class PlansController extends Controller 
+class PlansController extends Controller
 {
 
   /**
@@ -17,7 +17,7 @@ class PlansController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+       // $this->middleware('auth');
     }
 
   /**
@@ -103,7 +103,7 @@ class PlansController extends Controller
    */
   public function update($id)
   {
-    
+
   }
 
   /**
@@ -118,7 +118,7 @@ class PlansController extends Controller
 
       return redirect('/plans');
   }
-  
+
 }
 
 ?>

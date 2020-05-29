@@ -7,10 +7,9 @@
 @import 'node_modules/bootstrap/scss/bootstrap';
 @import 'node_modules/bootstrap-vue/src/index.scss';
 
-
-
-// Bootstrap
+@import '~bootswatch/dist/materia/variables';
 @import '~bootstrap/scss/bootstrap';
+@import "~bootswatch/dist/materia/bootswatch";
 
 .nav-tabs .nav-link:not(.active) {
     border-color: transparent !important;
@@ -25,6 +24,21 @@ $white: #eee;
 $color-1: #00BCD4;
 $label-z: 200;
 $svg-z: 100;
+
+body {
+    font-size: 1rem;
+}
+
+
+
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 60px; /* Set the fixed height of the footer here */
+    line-height: 60px; /* Vertically center the text there */
+    background-color: #f5f5f5;
+}
 
 .muscle-groups {
   position: relative;
@@ -123,3 +137,4 @@ $svg-z: 100;
     }
   }
 }
+
