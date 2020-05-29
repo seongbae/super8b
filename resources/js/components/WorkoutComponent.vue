@@ -53,11 +53,11 @@
                         <button type="submit" class="btn btn-primary">
                             Save
                         </button>
-                         <input type="button" value="Save and Create New" class="btn btn-primary" @click="saveAndCreateNew()">
+                         <input type="button" value="Save & Create New" class="btn btn-primary" @click="saveAndCreateNew()">
                        <a class="btn btn-primary" href="#" @click="goBack()">Cancel</a>
                     </div>
                 </div>
-                
+
                 <div v-if="showExerciseAdd">
                 <hr>
                     <div class="form-group row">
@@ -200,7 +200,7 @@
             addExercise() {
                 if (this.exercise_id > 0) {
                     axios.post('/api/workout/exercise', {
-                            workout_id: this.workoutId, 
+                            workout_id: this.workoutId,
                             exercise_id: this.exercise_id,
                             repetition: this.repetition,
                             set: this.set,
@@ -228,8 +228,8 @@
             },
             saveWorkout() {
                 axios.post('/api/workout', {
-                        workout_id: this.workoutId, 
-                        name: this.workoutName, 
+                        workout_id: this.workoutId,
+                        name: this.workoutName,
                         focus: this.workoutFocus,
                         intensity: this.workoutIntensity,
                         duration: this.workoutDuration,
@@ -244,7 +244,7 @@
                 }).catch(e => {
                     console.log(e);
                 });
-                
+
             },
             saveAndCreateNew() {
                 if (!this.workoutName) {
@@ -254,7 +254,7 @@
 
                 this.saveWorkout();
                 window.location.href = "/workouts/create";
-                
+
             },
             autoComplete(){
                 this.results = [];
@@ -274,11 +274,11 @@
             },
             updateOrder() {
                 axios.post('/api/workout/exercise/update_order', {
-                            workout_id: this.workoutId, 
+                            workout_id: this.workoutId,
                             exercises: this.exerciseList
                         }).then(res => {
                         //this.fetchExerciseList();
-                        
+
                         console.log(res.data);
                     }).catch(e => {
                         console.log(e);

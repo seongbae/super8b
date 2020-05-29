@@ -1,11 +1,11 @@
-<?php 
+<?php
 
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Exercise;
 
-class ExerciseController extends Controller 
+class ExerciseController extends Controller
 {
 
   /**
@@ -17,7 +17,7 @@ class ExerciseController extends Controller
     {
         $this->middleware('auth');
     }
-    
+
   /**
    * Display a listing of the resource.
    *
@@ -25,7 +25,7 @@ class ExerciseController extends Controller
    */
   public function index()
   {
-      $exercises = Exercise::orderBy('name')->paginate(10);
+      $exercises = Exercise::orderBy('name')->paginate(50);
 
       return view('exercises.index')->with('exercises', $exercises);
   }
@@ -37,7 +37,7 @@ class ExerciseController extends Controller
    */
   public function create()
   {
-    
+
   }
 
   /**
@@ -62,7 +62,7 @@ class ExerciseController extends Controller
    */
   public function show($id)
   {
-    
+
   }
 
   /**
@@ -73,7 +73,7 @@ class ExerciseController extends Controller
    */
   public function edit($id)
   {
-    
+
   }
 
   /**
@@ -84,7 +84,7 @@ class ExerciseController extends Controller
    */
   public function update($id)
   {
-    
+
   }
 
   /**
@@ -100,7 +100,7 @@ class ExerciseController extends Controller
 
       return redirect('/exercises');
   }
-  
+
 }
 
 ?>

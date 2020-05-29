@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-8">
+        <div class="col-md-12">
           <div class="card">
                 <div class="card-header">Available Exercist List
                 </div>
@@ -52,15 +52,15 @@
   <div class="modal fade" id="myModal">
     <div class="modal-dialog">
       <div class="modal-content">
-      
+
         <!-- Modal Header -->
         <div class="modal-header">
           <h4 class="modal-title">Add Exercise</h4>
           <button type="button" class="close" data-dismiss="modal">&times;</button>
         </div>
-        
-        
-          
+
+
+
         <!-- Modal body -->
         <div class="modal-body">
           <form class="form-horizontal" method="POST" action="/exercises" id="formAddExercise">
@@ -74,14 +74,14 @@
           <input type="hidden" name="_token" value="{{ csrf_token() }}">
           </form>
         </div>
-        
+
         <!-- Modal footer -->
         <div class="modal-footer">
           <input type="submit" form="formAddExercise" class="btn btn-primary" value="Add" />
           <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
         </div>
-        
-        
+
+
       </div>
     </div>
   </div>

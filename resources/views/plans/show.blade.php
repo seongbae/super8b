@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-8">
+        <div class="col-md-12">
             <div class="card">
                 <div class="card-header">{{$plan->name}}
                     <div class="float-right">
@@ -22,14 +22,14 @@
                                 Edit
                             </a>
                             <form action="{{ route('plans.destroy', $plan)}}" method="POST" id="plan_form">
-                              <input type="hidden" name="_method" value="DELETE"> 
+                              <input type="hidden" name="_method" value="DELETE">
                               <a class="dropdown-item" href="#" onclick="var r = confirm('Are you sure?'); if (r) { document.getElementById('plan_form').submit(); return false;}">Delete</a>
                               <input type="hidden" name="_token" value="{{ csrf_token() }}">
                             </form>
                             @endif
                           </div>
                         </div>
-                        
+
                     </div>
                 </div>
                 <div class="card-body">
@@ -40,12 +40,12 @@
                     @endif
 
                     {{$plan->description}}
-                    
+
                     <hr>
                     <div class="mt-3">
                     <h3>Workouts in this plan</h3>
                     <plan-workout :workouts="{{$plan->workouts()->orderBy('start_on')->get()}}" :workoutlookups="{{json_encode($workouts)}}"></plan-workout>
-                    
+
                     </div>
                 </div>
             </div>
