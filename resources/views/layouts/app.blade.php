@@ -106,9 +106,12 @@
             @yield('content')
         </main>
 
-        <footer class="footer">
+        <footer class="text-muted footer">
             <div class="container">
-                <span class="text-muted">Super8B is an open source project and you can download it <a href="https://github.com/seongbae/super8b" target="_blank">here</span>.</span>
+                <div class="float-right">
+                    <a href="#">Back to top</a>
+                </div>
+                <div>Super8B is an open source project and you can download it <a href="https://github.com/seongbae/super8b" target="_blank">here</a>.</div>
             </div>
         </footer>
     </div>
